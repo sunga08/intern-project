@@ -3,9 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="EUC-KR">
 <title>MyBatis 테스트</title>
+
+
+
+<link href="../resources/css/styles.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="<c:url value='/libs/bootstrap-4.4.1-dist/js/bootstrap.min.js'/>"></script>
 </head>
 <body>
 	<!-- Navigation -->
@@ -40,20 +47,20 @@
 		
 		<!-- Page Content -->
 		<div class="container">
-		  <h1 class="mt-4">Logo Nav by Start Bootstrap</h1>
+		  <h1 class="mt-4">MyBatis 테스트</h1>
 
 		    <table class="table table-hover table table-striped">
 		        <tr>
 		            <th>이름</th>
 		            <th>비밀번호</th>
-		            <th>카운트</th>
+
 		        </tr>
 		
 		        <c:forEach items="${list}" var="post">
 		            <tr>
 		                <th>${post.userId} </th>
 		                <th>${post.userPw}</th>
-		                <th>${cnt}</th>
+
 		            </tr>
 		        </c:forEach>
 		       
@@ -61,8 +68,8 @@
 		</div>
 </body>
 
-<script src="<c:url value='/libs/jquery-3.4.1.slim.min.js'/>"></script>
-<script src="<c:url value='/libs/bootstrap-4.4.1-dist/js/bootstrap.min.js'/>"></script>
+
+
 
 <!-- CDN이용 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

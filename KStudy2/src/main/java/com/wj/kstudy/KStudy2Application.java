@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 
 @SpringBootApplication
 public class KStudy2Application {
@@ -27,5 +29,7 @@ public class KStudy2Application {
         
         return sessionFactory.getObject();
     }
+	
+	
 
 }

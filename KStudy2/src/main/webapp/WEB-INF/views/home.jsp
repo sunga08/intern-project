@@ -11,7 +11,7 @@
     $(document).ready(function(){
         $('#btn').on("click", function(){
             var form = {
-                    page : 12
+                    page : 1
             }
             $.ajax({
                 url: "getData",
@@ -34,7 +34,7 @@
             });
             
             var form2 = {
-                    page : 13
+                    page : 2
             }
             $.ajax({
                 url: "getData",
@@ -69,19 +69,10 @@
     <table border="1">
         <thead>
             <tr>
-                <td>3일후 오전</td>
-                <td>3일후 오후</td>
-                <td>4일후 오전</td>
-                <td>4일후 오후</td>
-                <td>5일후 오전</td>
-                <td>5일후 오후</td>
-                <td>6일후 오전</td>
-                <td>6일후 오후</td>
-                <td>7일후 오전</td>
-                <td>7일후 오후</td>
-                <td>8일후</td>
-                <td>9일후</td>
-                <td>10일후</td>
+                <td>blocks_url</td>
+                <td>course_id</td>
+                <td>enrollment_start</td>
+                <td>enrollment_end</td>
             </tr>
         </thead>
         <tbody id="tbody"></tbody>
