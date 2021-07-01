@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.wj.kstudy.mapper.StudyGroupMapper"> 
+	<resultMap type="com.wj.kstudy.dto.StudyGroup" id="studyGroup_resultMap">
+		<result column="group_id" property="groupId"/>
+		<result column="lec_id" property="lecId"/>
+		<result column="group_name" property="groupName"/>
+		<result column="school_name" property="schoolName"/>
+		<result column="short_dsc" property="shortDsc"/>
+		<result column="long_dsc" property="longDsc"/>		
+		<result column="cur_mem" property="curMem"/>
+		<result column="max_mem" property="maxMem"/>
+		<result column="reg_dtm" property="regDtm"/>
+		<result column="reg_user" property="regUser"/>
+		<result column="create_date" property="createDate"/>
+	</resultMap> 
+
+	<!-- 스터디 조회 -->
+	<select id="showStudyGroup" parameterType="java.lang.String" resultMap="studyGroup_resultMap">
+		select group_id, lec_id, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
+		from study_group
+		where lec_id=#{lecId}
+	</select>
+
+	<select id="getOneStudyGroup" resultMap="studyGroup_resultMap">
+		select group_id, lec_id, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
+		from study_group
+		where group_id=#{groupId}
+	</select>
+
+	<!-- 스터디 생성 -->
+	<insert id="addStudyGroup" parameterType="com.wj.kstudy.dto.StudyGroup" useGeneratedKeys="true" keyProperty="groupId"> 
+		insert into study_group(lec_id, group_name, school_name, short_dsc, long_dsc, max_mem, reg_dtm, reg_user, cur_mem, create_date) values(#{lecId}, #{groupName}, #{schoolName}, #{shortDsc}, #{longDsc}, #{maxMem}, curdate(), #{regUser}, 0, curdate())
+	</insert> 
+	
+	<update id="addCurMember" parameterType="java.lang.Integer">
+		update study_group
+		set cur_mem = cur_mem+1
+		where group_id=#{groupId}
+	</update>
+	
+	
+	
+</mapper>

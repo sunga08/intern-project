@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.wj.kstudy.mapper.GroupRegInfoMapper"> 
+	<resultMap type="com.wj.kstudy.dto.GroupRegInfo" id="groupRegInfo_resultMap">
+		<result column="info_id" property="infoId"/>
+		<result column="group_id" property="groupId"/>
+		<result column="user_id" property="userId"/>
+		<result column="reg_dtm" property="regDtm"/>
+		<result column="reg_user" property="regUser"/>
+	</resultMap> 
+
+
+	<!-- 가입정보 테이블 데이터 추가 -->
+	<insert id="addGroupRegInfo" parameterType="com.wj.kstudy.dto.GroupRegInfo" useGeneratedKeys="true" keyProperty="info_Id"> 
+		insert into group_reg_info(group_id, user_id, join_date, reg_dtm) values(#{groupId}, #{userId}, curdate(), curdate())
+	</insert> 
+	
+
+	<!-- 스터디 가입 멤버수 카운트 -->
+	<select id="countMember" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select count(*) from group_reg_info where group_id=#{groupId}
+	</select>
+	
+	<!-- 가입된 사용자인지 확인 -->
+	<select id="countUserId" resultType="java.lang.Integer">
+		select count(*) from group_reg_info where group_id=#{groupId} and user_id=#{userId}
+	</select>
+	
+</mapper>

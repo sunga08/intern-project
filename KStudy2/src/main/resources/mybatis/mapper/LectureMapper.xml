@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.wj.kstudy.mapper.LectureMapper"> 
+	<resultMap type="com.wj.kstudy.dto.Lecture" id="lecture_resultMap">
+		<result column="lec_id" property="lecId"/>
+		<result column="blocks_url" property="blocksUrl"/>
+		<result column="lec_url" property="lecUrl"/>
+		<result column="lec_name" property="lecName"/>
+		<result column="mid_classfy" property="midClassfy"/>
+		<result column="org_name" property="orgName"/>
+		<result column="enroll_start" property="enrollStart"/>
+		<result column="enroll_end" property="enrollEnd"/>
+		<result column="audit_yn" property="auditYn"/>
+		<result column="short_dsc" property="shortDsc"/>
+		<result column="language_name" property="languageName"/>
+	</resultMap> 
+
+	<insert id="insertLecture" parameterType="com.wj.kstudy.dto.Lecture"> 
+		insert into lecture(lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name) values(#{lecId}, #{blocksUrl}, #{lecUrl}, #{lecName}, #{classfy}, #{midClassfy}, #{teachers}, #{orgName}, #{enrollStart}, #{enrollEnd}, #{auditYn}, #{image}, #{shortDsc}, #{hidden}, #{languageName})
+	</insert> 
+	
+	<select id="getLectureByCategory" parameterType="java.lang.String" resultMap="lecture_resultMap">
+		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
+		from lecture 
+		where mid_classfy=#{category}
+		order by enroll_end desc
+	</select>
+	
+	<select id="searchLecture" parameterType="java.lang.String" resultMap="lecture_resultMap">
+		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
+		from lecture 
+		where lec_name like concat('%',#{keyword},'%')
+	</select>
+	
+	<select id="getLectureById" parameterType="java.lang.String" resultMap="lecture_resultMap">
+		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name
+		from lecture
+		where lec_id=#{lecId}
+	</select>
+	
+</mapper>
