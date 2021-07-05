@@ -10,4 +10,7 @@ public interface GroupRegInfoMapper {
 	public int addGroupRegInfo(GroupRegInfo groupRegInfo);
 	public int countMember(int groupId);
 	public int countUserId(@Param("groupId") int groupId, @Param("userId")String userId);
+	public int deleteGroupRegInfo(GroupRegInfo groupRegInfo);
+	public int deleteAllGroupRegInfo(int groupId);
+	public GroupRegInfo getGroupRegInfo(@Param("groupId") int groupId, @Param("userId")String userId);
 }

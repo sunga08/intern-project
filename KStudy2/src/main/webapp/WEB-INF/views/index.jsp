@@ -311,7 +311,7 @@
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/details?courseId='+encodeURIComponent(obj.id)+'">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(obj.id)+'">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';
@@ -367,7 +367,7 @@
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/details?courseId='+encodeURIComponent(obj.id)+'">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(obj.id)+'">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';
@@ -426,7 +426,7 @@
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/details?courseId='+encodeURIComponent(obj.lecId)+'">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(obj.lecId)+'">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';
@@ -488,7 +488,7 @@
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/details?courseId='+encodeURIComponent(obj.lecId)+'">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(obj.lecId)+'">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';

@@ -79,16 +79,18 @@
 		GetStudyData();
      });
      
-
+	 var lecName;
      function showDetail() {
 
      	$.ajax({
-            url: "detail/"+"<%=id%>",
+            url: "http://localhost:8080/detail/"+"<%=id%>",
             type: "GET",
+            async:false,
             dataType: "json",
             success: function(data){
                 console.log(data);
-
+				lecName=data.lecName;
+				
                 let html = '';
                 
                 html += '<div class="row gx-4 gx-lg-5 align-items-center my-5">';
@@ -125,7 +127,7 @@
     function GetStudyData() {
 
     	$.ajax({
-            url: "lecture/studygroup/"+"<%=id%>",
+            url: "http://localhost:8080/lecture/studygroup/"+"<%=id%>",
             type: "GET",
             dataType: "json",
             success: function(data){
@@ -147,11 +149,11 @@
                 	html += '<div class="col-md-4 mb-5">';
                     html += '<div class="card h-100">';
                     html += '<div class="card-body">';
-                    html += '<h2 class="card-title">'+obj.groupName+'</h2>';
+                    html += '<a href="http://localhost:8080/view/info/'+obj.groupId+'" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
                     html += '<p class="card-text">'+obj.shortDsc+'</p>';
                     html += '<p class="card-text"> 학교명 | '+obj.schoolName+'<br/> 인원  | '+obj.curMem+' / '+obj.maxMem+'<br/> 생성일 | '+timeString_KR.substring(0,11)+'<br/> 개설자 | '+obj.regUser+'</p>';
                     html += '</div>';
-                    html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="joinStudyAlert('+obj.groupId+')">참여하기</a></div>';
+                    html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+')">참여하기</a></div>';
                     html += '</div>';
                     html += '</div>';
                 	
@@ -169,7 +171,7 @@
     }
     
     function createStudy(){
-    	window.open('http://localhost:8080/studygroup/view?courseId='+encodeURIComponent("<%=id%>"),'스터디 생성하기','width=800, height=500');
+    	window.open('http://localhost:8080/studygroup/add/'+encodeURIComponent("<%=id%>"), '스터디 생성하기','width=800, height=500');
     	window.opener.document.getElementById('form').submit();
 
     }
@@ -177,25 +179,18 @@
     function joinStudyAlert(groupId){
 
     	$.ajax({
-            url: "studygroup/"+groupId,
+            url: "http://localhost:8080/studygroup/"+groupId,
             type: "GET",
             dataType: "json",            
             success: function(groupData){
 
                 console.log('groupData:'+groupData);
-                
-                
-                if(groupData.curMem<groupData.maxMem){
-                	var con = confirm('스터디 참여가 가능합니다. 참여하시겠습니까?');
-                	if(con==true){
-                		joinStudy(groupData);                		
-                		location.reload();
-                	}
-                }
-                else{
-                	alert('인원이 가득차 참여할 수 없습니다.');
-                }
-
+                          
+               	var con = confirm('스터디 참여가 가능합니다. 참여하시겠습니까?');
+               	if(con==true){
+               		joinStudy(groupData);                		
+               		location.reload();
+               	}
             },
             error: function(){
                 alert("가입창 오류");
@@ -216,10 +211,9 @@
 					alert('참여가 완료되었습니다.');	
 				}
 				else{
-					alert('이미 가입된 그룹입니다.');
+					alert('참여에 실패하였습니다.');
 				}
 			}, error: function(xhr, status,error){
-				alert('참여 실패!');
 				console.log(xhr.status+" error: "+error);
 			}
 		})
@@ -236,11 +230,11 @@
 				if(data==0){
 					alert('이미 가입된 그룹입니다.');	
 				}
-				else if(data==1){
+				else if(data==-1){
 					alert('인원이 가득차 참여할 수 없습니다.');
 				}
-				else{
-					joinStudy2(groupId);
+				else if(data==1){
+					joinStudyAlert(groupId);
 				}
 
 			}, error: function(xhr, status,error){

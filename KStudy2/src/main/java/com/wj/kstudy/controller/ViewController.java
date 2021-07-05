@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.wj.kstudy.dto.Lecture;
+import com.wj.kstudy.dto.Schedule;
+import com.wj.kstudy.dto.StudyGroup;
 import com.wj.kstudy.dto.UserDto;
 import com.wj.kstudy.service.KMoocListService;
+import com.wj.kstudy.service.ScheduleService;
+import com.wj.kstudy.service.StudyGroupService;
 import com.wj.kstudy.service.TestService;
 
 @Controller
@@ -27,6 +31,12 @@ public class ViewController {
 	
 	@Autowired
 	KMoocListService kmoocListService;
+	
+	@Autowired
+	StudyGroupService studyGroupService;
+	
+	@Autowired
+	ScheduleService scheduleService;
 	
 	@GetMapping("/post")
 	public String test(Model model) {
@@ -60,7 +70,7 @@ public class ViewController {
 	
 	@RequestMapping("/main") //메인화면
 	public ModelAndView main(HttpSession session) throws Exception{
-		String user_id="user3";
+		String user_id="user1";
 		
 		session.setAttribute("user_id", user_id);
 		session.setMaxInactiveInterval(30*60);
@@ -72,8 +82,9 @@ public class ViewController {
 		return mav;
 	}
 	
-	@RequestMapping("/details") //강의 상세페이지 화면
-	public ModelAndView details(HttpSession session) {
+	//강의 상세페이지 화면
+	@RequestMapping("view/detail") 
+	public ModelAndView detail(HttpSession session) {
 		String user_id = session.getAttribute("user_id").toString();
 		System.out.println(user_id);
 		
@@ -94,13 +105,101 @@ public class ViewController {
 //		return mav;
 //	}
 	
-	@RequestMapping("/studygroup/view") //스터디 그룹 생성 폼
-	public ModelAndView createStudy() {
+//	@RequestMapping("/studygroup/view/{lecId}") //스터디 그룹 생성 폼
+//	public ModelAndView createStudy() {
+//		ModelAndView mav = new ModelAndView("createStudyForm");
+//		mav.setViewName("createStudyForm");
+//		
+//		return mav;
+//	}
+	
+	//스터디 그룹 생성 폼
+	@RequestMapping("/studygroup/add/{lecId}") 
+	public ModelAndView createStudy(@PathVariable(name="lecId") String lecId) {
+		Lecture lecture = kmoocListService.getLectureById(lecId);
+		
 		ModelAndView mav = new ModelAndView("createStudyForm");
 		mav.setViewName("createStudyForm");
+		mav.addObject("lecture",lecture);
+		
+		return mav;
+	}
+	
+	//스터디 정보 화면
+	@GetMapping("view/info/{groupId}")
+	public ModelAndView infoView(HttpSession session, @PathVariable(name="groupId") int groupId) {
+		String user_id = session.getAttribute("user_id").toString();
+		
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		
+		ModelAndView mav = new ModelAndView("studyInfo");
+		mav.addObject("groupInfo", studyGroup);
+		mav.setViewName("detail_studygroup");
+		
+		return mav;
+	}
+	
+	//스터디 일정관리 화면
+	@GetMapping("view/schedule/{groupId}")
+	public ModelAndView scheduleView(HttpSession session, @PathVariable(name="groupId") int groupId) {
+		//String user_id = session.getAttribute("user_id").toString();
+		
+		ModelAndView mav = new ModelAndView("scheduleView");
+		
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		mav.addObject("groupInfo", studyGroup);
+		mav.setViewName("schedule");
+		
+		return mav;
+	}
+	
+	//스터디 자유게시판 화면
+	@GetMapping("view/studyboard/{groupId}")
+	public ModelAndView studyBoardView(HttpSession session, @PathVariable(name="groupId") int groupId) {
+		String user_id = session.getAttribute("user_id").toString();
+		ModelAndView mav = new ModelAndView("studyBoardView");
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		mav.addObject("groupInfo", studyGroup);
+		
+		mav.setViewName("studyboard");
+		
+		return mav;
+	}
+	
+	//스터디 정보 수정 폼
+	@GetMapping("/studygroup/edit/{groupId}") 
+	public ModelAndView updateStudyView(@PathVariable(name="groupId") int groupId) {
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		
+		ModelAndView mav = new ModelAndView("modifyStudyForm");
+		mav.setViewName("modifyStudyForm");
+		mav.addObject("studyGroup", studyGroup);
+		
+		return mav;
+	}
+	
+	//일정 추가 폼
+	@GetMapping("view/schedule/add/{groupId}")
+	public ModelAndView addScheduleView(HttpSession session, @PathVariable(name="groupId") int groupId) {
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		
+		ModelAndView mav = new ModelAndView("addScheduleView");
+		mav.setViewName("addScheduleForm");
+		mav.addObject("studyGroup", studyGroup);
 		
 		return mav;
 	}
 
+	//일정 수정 폼
+	@GetMapping("view/schedule/edit/{scheduleId}")
+	public ModelAndView updateScheduleView(@PathVariable(name="scheduleId") int scheduleId) {
+		Schedule schedule = scheduleService.getSchedule(scheduleId);
+		
+		ModelAndView mav = new ModelAndView("modifyScheduleFrom");
+		mav.setViewName("modifyScheduleForm");
+		mav.addObject("schedule", schedule);
+		
+		return mav;
+	}
 
 }

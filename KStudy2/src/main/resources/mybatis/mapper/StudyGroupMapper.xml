@@ -4,6 +4,7 @@
 	<resultMap type="com.wj.kstudy.dto.StudyGroup" id="studyGroup_resultMap">
 		<result column="group_id" property="groupId"/>
 		<result column="lec_id" property="lecId"/>
+		<result column="lec_name" property="lecName"/>
 		<result column="group_name" property="groupName"/>
 		<result column="school_name" property="schoolName"/>
 		<result column="short_dsc" property="shortDsc"/>
@@ -13,32 +14,50 @@
 		<result column="reg_dtm" property="regDtm"/>
 		<result column="reg_user" property="regUser"/>
 		<result column="create_date" property="createDate"/>
-	</resultMap> 
+	</resultMap>
+
 
 	<!-- 스터디 조회 -->
 	<select id="showStudyGroup" parameterType="java.lang.String" resultMap="studyGroup_resultMap">
-		select group_id, lec_id, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
+		select group_id, lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
 		from study_group
 		where lec_id=#{lecId}
 	</select>
 
 	<select id="getOneStudyGroup" resultMap="studyGroup_resultMap">
-		select group_id, lec_id, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
+		select group_id, lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
 		from study_group
 		where group_id=#{groupId}
 	</select>
 
 	<!-- 스터디 생성 -->
 	<insert id="addStudyGroup" parameterType="com.wj.kstudy.dto.StudyGroup" useGeneratedKeys="true" keyProperty="groupId"> 
-		insert into study_group(lec_id, group_name, school_name, short_dsc, long_dsc, max_mem, reg_dtm, reg_user, cur_mem, create_date) values(#{lecId}, #{groupName}, #{schoolName}, #{shortDsc}, #{longDsc}, #{maxMem}, curdate(), #{regUser}, 0, curdate())
+		insert into study_group(lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, reg_dtm, reg_user, cur_mem, create_date) values(#{lecId}, #{lecName}, #{groupName}, #{schoolName}, #{shortDsc}, #{longDsc}, #{maxMem}, curdate(), #{regUser}, 0, curdate())
 	</insert> 
 	
+	<!-- 현재 멤버 증가 -->
 	<update id="addCurMember" parameterType="java.lang.Integer">
 		update study_group
 		set cur_mem = cur_mem+1
 		where group_id=#{groupId}
 	</update>
 	
+	<!-- 현재 멤버 감소 -->
+	<update id="minusCurMember" parameterType="java.lang.Integer">
+		update study_group
+		set cur_mem = cur_mem-1
+		where group_id=#{groupId}
+	</update>
 	
+	<!-- 스터디 정보 수정 -->
+	<update id="updateStudyGroup" parameterType="com.wj.kstudy.dto.StudyGroup">
+		update study_group 
+		set group_name=#{groupName}, school_name=#{schoolName}, max_mem=#{maxMem}, short_dsc=#{shortDsc}, long_dsc=#{longDsc}
+		where group_id=#{groupId}
+	</update>
+	
+	<delete id="deleteStudyGroup" parameterType="java.lang.Integer">
+		delete from study_group where group_id=#{groupId}
+	</delete>
 	
 </mapper>

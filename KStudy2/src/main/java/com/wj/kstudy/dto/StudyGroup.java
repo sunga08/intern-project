@@ -10,6 +10,7 @@ public class StudyGroup {
 
 	int groupId;
 	String lecId;
+	String lecName;
 	String groupName;
 	String schoolName;
 	String shortDsc;
@@ -35,6 +36,14 @@ public class StudyGroup {
 		return lecId;
 	}
 
+	public String getLecName() {
+		return lecName;
+	}
+	
+	
+	public void setLecName(String lecName) {
+		this.lecName = lecName;
+	}
 
 	public void setLecId(String lecId) {
 		this.lecId = lecId;
@@ -135,7 +144,7 @@ public class StudyGroup {
 
 	@Override
 	public String toString() {
-		return "StudyGroup [groupId=" + groupId + ", lecId=" + lecId + ", schoolName=" + schoolName + ", shortDsc="
+		return "StudyGroup [groupId=" + groupId + ", lecId=" + lecId + ",lecName=" + lecName + ", schoolName=" + schoolName + ", shortDsc="
 				+ shortDsc + ", longDsc=" + longDsc + ", curMem=" + curMem + ", maxMem=" + maxMem + ", createDate="
 				+ createDate + "]";
 	}

@@ -7,8 +7,16 @@ public class GroupRegInfo {
 	int groupId;
 	String userId;
 	Date regDtm;
+	String regUser;
 	
 	
+
+	public String getRegUser() {
+		return regUser;
+	}
+	public void setRegUser(String regUser) {
+		this.regUser = regUser;
+	}
 	public int getInfoId() {
 		return infoId;
 	}

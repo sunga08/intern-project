@@ -16,11 +16,11 @@
     
     
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="../resources/js/jquery.serialize-object.min.js"></script>
+    <script src="/js/jquery.serialize-object.min.js"></script>
     
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../resources/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
 	
 	<style>
       .bd-placeholder-img {
@@ -40,14 +40,15 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="../resources/css/signin.css" rel="stylesheet">
+    <link href="/css/signin.css" rel="stylesheet">
 	
 
 </head>
 <body class="text-center">
 <%       	
-	request.setCharacterEncoding("UTF-8"); 
-	String courseId = request.getParameter("courseId");
+	//request.setCharacterEncoding("UTF-8"); 
+	//String courseId = request.getParameter("courseId");
+    //String courseName = request.getParameter("lecName");
 %>
 <main class="form-signin">
   <form id="form">
@@ -88,25 +89,27 @@
 </main>
 
 <script>
-
+	console.log('${lecture.lecName}');
 	//스터디 생성 폼 처리
 	function sendForm(){
 		var form = $('#form').serializeObject();
 		console.dir(form);
 		console.log(form.schoolName);
 		
+		
 		if(form.groupName!=""&&form.shortDsc!=""&&form.maxMem!=""){
 			//alert('학교명을 제외한 정보를 모두 입력해주세요.');
 		
 			var schoolname = form.schoolName=="" ? "없음" : form.schoolName; 
-
+			
 
 			var formData = {
-					lecId : '<%=courseId%>',
+					lecId : '${lecture.lecId}',
 	                groupName : form.groupName,
 	                schoolName : schoolname,
 	                maxMem : form.maxMem,
-	                shortDsc : form.shortDsc
+	                shortDsc : form.shortDsc,
+	                lecName : '${lecture.lecName}'
 	        }
 			
 			 
