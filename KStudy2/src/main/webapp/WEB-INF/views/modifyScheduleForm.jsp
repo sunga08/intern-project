@@ -135,7 +135,7 @@
 	   	}
 									 	
 		$.ajax({
-			url: 'http://localhost:8080/schedule',
+			url: '/schedule',
 			type: 'PUT',
 			async: false,
 			contentType: 'application/json',
@@ -160,7 +160,7 @@
 	function deleteSchedule(){
 		var scheduleId = "${schedule.scheduleId}";
 		$.ajax({
-			url: 'http://localhost:8080/schedule/'+scheduleId,
+			url: '/schedule/'+scheduleId,
 			type: 'DELETE',
 			async: false,
 			success: function(data){

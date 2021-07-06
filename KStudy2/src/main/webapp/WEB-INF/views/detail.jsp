@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,12 +28,11 @@
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
-            <a class="navbar-brand" href="http://localhost:8080/main">K-STUDY</a>
+            <a class="navbar-brand" href="<c:url value='/main'/>">K-STUDY</a>
        
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-	<li class="nav-item"><a class="nav-link active"
-		aria-current="page" href="http://localhost:8080/main">Home</a></li>
+	<li class="nav-item"><a class="nav-link active" aria-current="page" href="<c:url value='/main'/>">Home</a></li>
 	<li class="nav-item"><a class="nav-link" href="#!">My Page</a></li>
 
 </ul>
@@ -55,8 +55,19 @@
     	<!-- <div><a class="btn btn-primary" href="#" onclick="createStudy()">스터디 생성하기</a></div>-->
 
         
-        <!-- Content Row-->
+        <!-- 스터디 Content -->
         <div id="studygroup" class="row gx-4 gx-lg-5">
+
+        </div>
+        
+        <div style="margin-bottom:100px">
+	   		<div style="float:left"><h3>관련 도서</h3></div>
+	   	</div>
+    	<!-- <div><a class="btn btn-primary" href="#" onclick="createStudy()">스터디 생성하기</a></div>-->
+
+        
+        <!-- 도서 Content-->
+        <div id="bookData" class="row gx-4 gx-lg-5">
 
         </div>
         
@@ -77,13 +88,14 @@
      	console.log("<%=id%>");
      	showDetail();        
 		GetStudyData();
+		GetBookData();
      });
      
 	 var lecName;
      function showDetail() {
 
      	$.ajax({
-            url: "http://localhost:8080/detail/"+"<%=id%>",
+            url: "/detail/"+"<%=id%>",
             type: "GET",
             async:false,
             dataType: "json",
@@ -127,7 +139,7 @@
     function GetStudyData() {
 
     	$.ajax({
-            url: "http://localhost:8080/lecture/studygroup/"+"<%=id%>",
+            url: "/lecture/studygroup/"+"<%=id%>",
             type: "GET",
             dataType: "json",
             success: function(data){
@@ -149,7 +161,7 @@
                 	html += '<div class="col-md-4 mb-5">';
                     html += '<div class="card h-100">';
                     html += '<div class="card-body">';
-                    html += '<a href="http://localhost:8080/view/info/'+obj.groupId+'" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
+                    html += '<a href="<c:url value="/view/info/'+obj.groupId+'"/>" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
                     html += '<p class="card-text">'+obj.shortDsc+'</p>';
                     html += '<p class="card-text"> 학교명 | '+obj.schoolName+'<br/> 인원  | '+obj.curMem+' / '+obj.maxMem+'<br/> 생성일 | '+timeString_KR.substring(0,11)+'<br/> 개설자 | '+obj.regUser+'</p>';
                     html += '</div>';
@@ -170,8 +182,35 @@
 
     }
     
+    
+    function GetBookData() {
+
+    	$.ajax({
+            url: "/lecture/studygroup/"+"<%=id%>",
+            type: "GET",
+            dataType: "json",
+            success: function(data){
+
+                console.log(data);
+
+                let html = '';
+                
+                html += '<div style="margin-top:50px;margin-bottom:50px;text-align:center;"><h5>관련 도서가 없습니다.</h3></div>';	
+                
+
+                $("#bookData").append(html)
+
+            },
+            error: function(){
+                alert("err");
+            }
+        });
+
+    }
+    
+    
     function createStudy(){
-    	window.open('http://localhost:8080/studygroup/add/'+encodeURIComponent("<%=id%>"), '스터디 생성하기','width=800, height=500');
+    	window.open('/studygroup/add/'+encodeURIComponent("<%=id%>"), '스터디 생성하기','width=800, height=500');
     	window.opener.document.getElementById('form').submit();
 
     }
@@ -179,7 +218,7 @@
     function joinStudyAlert(groupId){
 
     	$.ajax({
-            url: "http://localhost:8080/studygroup/"+groupId,
+            url: "/studygroup/"+groupId,
             type: "GET",
             dataType: "json",            
             success: function(groupData){

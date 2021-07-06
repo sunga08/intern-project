@@ -25,4 +25,8 @@ public class KMoocListService {
 	public Lecture getLectureById(String lecId) {
 		return lectureMapper.getLectureById(lecId);
 	}
+	
+	public int countStuduGroup(String lecId) {
+		return lectureMapper.countStudyGroup(lecId);
+	}
 }

@@ -12,4 +12,5 @@ public interface LectureMapper {
 	public List<Lecture> getLectureByCategory(String category);
 	public List<Lecture> searchLecture(String keyword);
 	public Lecture getLectureById(String lecId);
+	public int countStudyGroup(String lecId);
 }

@@ -37,4 +37,9 @@ public class KMoocListController {
 	}
 	
 
+	@GetMapping("lecture/groupcount/{lecId}")
+	public int countStudyGroup(@PathVariable(name="lecId") String id) {
+		return kmoocListService.countStuduGroup(id);
+	}
+	
 }

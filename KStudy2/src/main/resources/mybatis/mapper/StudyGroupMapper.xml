@@ -60,4 +60,6 @@
 		delete from study_group where group_id=#{groupId}
 	</delete>
 	
+	
+	
 </mapper>

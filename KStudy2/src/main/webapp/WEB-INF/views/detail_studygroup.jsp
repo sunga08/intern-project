@@ -22,7 +22,7 @@
     %>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="http://localhost:8080/main">K-STDUY</a>
+            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STDUY</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
@@ -33,15 +33,14 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href='http://localhost:8080/view/info/${groupInfo.groupId}'>
-
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
                                 <font size=5>스터디 정보</font>
                             </a>
                             <!-- <a class="nav-link"  href='javascript:void(0);' onclick="goSchedulePage();">-->
-                            <a class="nav-link"  href='javascript:void(0);' onclick="checkMember();">
+                            <a class="nav-link"  href='javascript:void(0);' onclick="checkMember(1);">
                                 <font size=5>일정 관리</font>
                             </a>
-                            <a class="nav-link" href='javascript:void(0);' onclick="goBoardPage();">
+                            <a class="nav-link" href='javascript:void(0);' onclick="checkMember(2);">
                                 <font size=5>자유 게시판</font>
                             </a>
                             
@@ -79,7 +78,9 @@
                             <div class="col-xl-6" style="width:80%">
                                 <div class="card mb-4" style="width:1000px">
                                     <div class="card-body">
-                                    	${groupInfo.longDsc}
+                                    	<pre><c:out value="${groupInfo.longDsc}" /></pre>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +156,7 @@
         function goLecturePage(){
         	var lecId = "${groupInfo.lecId}";
         	let html='';
-        	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(lecId)+'" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>'
+        	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="<c:url value="/view/detail?courseId='+encodeURIComponent(lecId)+'"/>" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>'
         	$("#lectureName").append(html);
         }
         
@@ -163,7 +164,7 @@
         	var groupId = "${groupInfo.groupId}";
         	
         	$.ajax({
-                url: "http://localhost:8080/studygroup/users/"+groupId,
+                url: "/studygroup/users/"+groupId,
                 type: "GET",
                 dataType: "json",            
                 success: function(data){
@@ -196,14 +197,14 @@
         	var groupId = "${groupInfo.groupId}";
         	
         	$.ajax({
-    			url: 'http://localhost:8080/studygroup/check/register/'+groupId,
+    			url: '/studygroup/check/register/'+groupId,
     			type: 'GET',
     			async: false,
     			contentType: 'application/json',
     			success: function(data){
     				console.log(data);
     				if(data==1){
-    					window.open('http://localhost:8080/studygroup/edit/${groupInfo.groupId}', '스터디 정보 수정','width=800, height=500');
+    					window.open('/studygroup/edit/${groupInfo.groupId}', '스터디 정보 수정','width=800, height=500');
     		        	window.opener.document.getElementById('form').submit();
     				}
     				else if(data==0){
@@ -223,7 +224,7 @@
         	var groupId = "${groupInfo.groupId}";
         	
         	$.ajax({
-    			url: 'http://localhost:8080/studygroup/check/register/'+groupId,
+    			url: '/studygroup/check/register/'+groupId,
     			type: 'GET',
     			async: false,
     			contentType: 'application/json',
@@ -254,7 +255,7 @@
         	var con = confirm('탈퇴하시겠습니까?');
            	if(con==true){
            		$.ajax({
-        			url: 'http://localhost:8080/studygroup/member/'+groupId,
+        			url: '/studygroup/member/'+groupId,
         			type: 'DELETE',
         			async: false,
         			contentType: 'application/json',
@@ -283,7 +284,7 @@
         	var groupId = "${groupInfo.groupId}";
         	var lecId = "${groupInfo.lecId}"
         	$.ajax({
-    			url: 'http://localhost:8080/studygroup/'+groupId,
+    			url: '/studygroup/'+groupId,
     			type: 'DELETE',
     			async: false,
     			contentType: 'application/json',
@@ -291,7 +292,7 @@
     				console.log(data);
 					if(data==1){
 						alert('스터디 그룹이 삭제되었습니다.');
-						window.location.href = 'http://localhost:8080/view/detail?courseId='+encodeURIComponent(lecId);
+						window.location.href = '/view/detail?courseId='+encodeURIComponent(lecId);
 					}
 					else if(data==0){
 						alert('삭제 실패!');
@@ -304,19 +305,22 @@
     		})       
         }
         
-        function checkMember(){
+        function checkMember(num){
         	var groupId = "${groupInfo.groupId}";
         	
         	$.ajax({
-    			url: 'http://localhost:8080/studygroup/check/member/'+groupId,
+    			url: '/studygroup/check/member/'+groupId,
     			type: 'GET',
     			async: false,
     			contentType: 'application/json',
     			success: function(data){
     				console.log(data);
-					if(data==1){
+					if(data==1 && num==1){
 						
-						window.location.href = 'http://localhost:8080/view/schedule/'+${groupInfo.groupId};
+						window.location.href = "/view/schedule/"+${groupInfo.groupId};
+					}
+					else if(data==1 && num==2){
+						window.location.href = "/view/studyboard/"+${groupInfo.groupId};
 					}
 					else if(data==0){
 						alert('그룹 가입자만 볼 수 있습니다.');

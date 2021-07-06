@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,6 +19,9 @@
 		<script src='/js/main.js'></script>
 		
 		<style>
+			#container{
+				width: 600px;
+			}
             #my_modal {
                 display: none;
                 width: 500px;
@@ -148,7 +152,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="http://localhost:8080/main">K-STDUY</a>
+            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STDUY</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
@@ -159,14 +163,14 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="http://localhost:8080/view/info/${groupInfo.groupId}">
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
                                 <!-- <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>-->
                                 <font size=5>스터디 정보</font>
                             </a>
-                            <a class="nav-link" href="http://localhost:8080/view/schedule/${groupInfo.groupId}">
+                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}'/>">
                                 <font size=5>일정 관리</font>
                             </a>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}'/>">
                                 <font size=5>자유 게시판</font>
                             </a>
                             
@@ -193,10 +197,8 @@
                         <hr>
                         
                         
-                        <div id="calendar" style="position: relative;">
-                        	<div>
-                        		<button class="add-button" type="button">일정 추가</button>
-                        	</div>
+                        <div id="calendar" style="position: relative; height:850px; width: 90%">
+                        	
                         </div>
                         
                         <div id="my_modal">
@@ -292,14 +294,14 @@
         function goLecturePage(){
         	var lecId = "${groupInfo.lecId}";
         	let html='';
-        	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(lecId)+'" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>'
+        	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="<c:url value="/view/detail?courseId='+encodeURIComponent(lecId)+'"/>" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>'
         	$("#lectureName").append(html);
         }
         
 	      function cal(){
 	    	  var groupId = "${groupInfo.groupId}";
 	    	  $.ajax({
-	      		url: 'http://localhost:8080/schedule/'+groupId,
+	      		url: '/schedule/'+groupId,
 	      		type: 'GET',
 	      		success: function(res){
 	      			var list = res;
@@ -382,7 +384,7 @@
 	  				        //var endd = new Date(info.event.end);
 		      				//endd.setDate(endd.getDate());
 		      				//var endStr = endd.toISOString().substr(0,10);
-	  				      	window.open('http://localhost:8080/view/schedule/edit/'+info.event.id, '일정 수정','width=800, height=500');
+	  				      	window.open('/view/schedule/edit/'+info.event.id, '일정 수정','width=800, height=500');
 	  				   },
 					    
 					  
@@ -392,7 +394,7 @@
 		      				end.setDate(end.getDate()-1);
 		      				var endStr = end.toISOString().substr(0,10);
 		      				console.log(end.toISOString().substr(0,10));
-	  						window.open('http://localhost:8080/view/schedule/add/'+${groupInfo.groupId}+'?startStr='+info.startStr+'&endStr='+endStr, '일정 추가','width=800, height=500');
+	  						window.open('/view/schedule/add/'+${groupInfo.groupId}+'?startStr='+info.startStr+'&endStr='+endStr, '일정 추가','width=800, height=500');
 	  				   }
 	  				   
 	  				   

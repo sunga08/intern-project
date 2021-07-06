@@ -38,4 +38,8 @@
 		where lec_id=#{lecId}
 	</select>
 	
+	
+	<select id="countStudyGroup" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from study_group where lec_id=#{lecId}
+	</select>
 </mapper>

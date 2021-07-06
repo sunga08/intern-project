@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,8 +58,8 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="http://localhost:8080/main">Home</a></li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="<c:url value='/main'/>">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="#!">My Page</a></li>
 					<!--<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
@@ -311,7 +312,7 @@
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(obj.id)+'">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="<c:url value="/view/detail?courseId='+encodeURIComponent(obj.id)+'"/>">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';
@@ -367,7 +368,7 @@
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(obj.id)+'">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="<c:url value="/view/detail?courseId='+encodeURIComponent(obj.id)+'"/>">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';
@@ -422,11 +423,14 @@
                 	html += '<p class="text-style-1">등록기간<br/>';
                 	html += obj.enrollStart.substring(0,10)+'~'+obj.enrollEnd.substring(0,10);
                 	html += '</p>';
+                	html += '<p class="text-style-1">진행중인 스터디:'+countGroup(encodeURIComponent(obj.lecId))+'개';
+                	
+                	html += '</p>';
                 	html += '</div>';
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(obj.lecId)+'">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="<c:url value="/view/detail?courseId='+encodeURIComponent(obj.lecId)+'"/>">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';
@@ -443,6 +447,30 @@
             }
         });    		
     	
+    }
+    
+    function countGroup(lecId){
+    	var cnt;
+    	
+    	$.ajax({
+            url: "/lecture/groupcount/"+lecId,
+            type: "GET",       
+            async: false,
+            dataType: "json",
+            success: function(response){
+
+                //console.log(response);
+				cnt = response;
+
+            },
+            error: function(){
+                alert("err");
+            }
+        });
+    	
+    	
+    	console.log(cnt);
+    	return cnt;
     }
     
     function SearchData() {
@@ -488,7 +516,7 @@
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="http://localhost:8080/view/detail?courseId='+encodeURIComponent(obj.lecId)+'">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="<c:url value="/view/detail?courseId='+encodeURIComponent(obj.lecId)+'"/>">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';

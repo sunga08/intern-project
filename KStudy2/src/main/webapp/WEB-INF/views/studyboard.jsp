@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,7 +26,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="http://localhost:8080/main">K-STDUY</a>
+            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STDUY</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
@@ -36,14 +37,14 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="http://localhost:8080/view/info/${groupInfo.groupId}">
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
                                 <!-- <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>-->
                                 <font size=5>스터디 정보</font>
                             </a>
-                            <a class="nav-link" href="http://localhost:8080/view/schedule/${groupInfo.groupId}">
+                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}'/>">
                                 <font size=5>일정 관리</font>
                             </a>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}'/>">
                                 <font size=5>자유 게시판</font>
                             </a>
                             
@@ -69,17 +70,43 @@
                         </ol>
                         <hr>
                         
+                        <div id="board">
+                        	<table class="table table-hover table-striped text-center" style="border: 1px solid;">
+                        		<thead>
+                        			<tr>
+	                        			<th>번호</th>
+	                        			<th>제목</th>
+	                        			<th>글쓴이</th>
+	                        			<th>작성일</th>
+	                        			<th>조회수</th>
+	                        		</tr>
+                        		</thead>
+                        		<tbody>
+                        			<tr>
+                        				<td>1</td>
+                        				<td>Title1</td>
+                        				<td>User1</td>
+                        				<td>2021-07-18</td>
+                        				<td>10</td>
+                        			</tr>
+                        		</tbody>
+                        	
+                        	</table>
+                        	<hr/>
+                        	<div style="float:right;" class="mt-4"><button class="btn btn-primary">글쓰기</button></div>
                         
-                        <div id="calendar" style="position: relative;">
-                        	<div>
-                        		<button class="add-button" type="button">일정 추가</button>
-                        	</div>
+	                        <div class="text-center">
+	                        	<ul class="pagination">
+	                        		<li><a href="#">1</a></li>
+	                        		<li><a href="#">2</a></li>
+	                        		<li><a href="#">3</a></li>
+	                        		<li><a href="#">4</a></li>
+	                        		<li><a href="#">5</a></li>
+	                        	</ul>
+	                        </div>
+                        
                         </div>
                         
-                        <div id="my_modal">
-            				일정 상세 확인 창
-            				<a class="modal_close_btn" id="modalButton" href='javascript:void(0);' style="text-decoration: none; color: #fb8836;">닫기</a>
-        				</div>
                         
                     </div>
                 </main>
@@ -112,10 +139,16 @@
 
 
         $(document).ready(function(){
-        	goLecturePage();
-
+			goLecturePage();
          });
         
+        
+        function goLecturePage(){
+        	var lecId = "${groupInfo.lecId}";
+        	let html='';
+        	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="<c:url value="/view/detail?courseId='+encodeURIComponent(lecId)+'"/>" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>'
+        	$("#lectureName").append(html);
+        }
 
 
 		</script>
