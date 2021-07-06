@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.wj.kstudy.mapper.BoardMapper"> 
+	<resultMap type="com.wj.kstudy.dto.Board" id="board_resultMap">
+		<result column="board_id" property="boardId"/>
+		<result column="group_id" property="groupId"/>
+		<result column="user_id" property="userId"/>
+		<result column="view_cnt" property="viewCnt"/>
+		<result column="reg_dtm" property="regDtm"/>
+	</resultMap>
+	
+	<!-- 스터디 그룹별 일정 목록 가져오기 -->
+	<select id="getPostList" parameterType="java.lang.Integer" resultMap="board_resultMap">
+		select board_id, group_id, user_id, title, contents, view_cnt
+		from board where group_id=#{groupId}
+	</select>
+	
+	<!-- 게시글 하나 가져오기 -->
+	<select id="getPost" parameterType="java.lang.Integer" resultMap="board_resultMap">
+		select board_id, group_id, user_id, title, contents, view_cnt
+		from board where board_id=#{boardId}
+	</select>
+	
+	<!-- 게시글 추가 -->
+	<insert id="insertPost" parameterType="com.wj.kstudy.dto.Board">
+		insert into board(group_id, user_id, title, contents, view_cnt, reg_dtm) values(#{groupId}, #{userId}, #{title}, #{contents}, 1, now())
+	</insert>
+	
+	<!-- 게시글 삭제 -->
+	<delete id="deletePost" parameterType="java.lang.Integer">
+		delete from board where board_id=#{boardId}	
+	</delete>
+	
+	<!-- 게시글 수정 -->
+	<update id="updatePost" parameterType="com.wj.kstudy.dto.Board">
+		update board
+		set title=#{title}, content=#{content}
+		where board_id=#{boardId}
+	</update>
+	
+	
+	 
+</mapper>
