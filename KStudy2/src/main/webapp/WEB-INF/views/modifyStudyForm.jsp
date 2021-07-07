@@ -37,6 +37,18 @@
           font-size: 3.5rem;
         }
       }
+      
+      .form-signin{
+      	max-width: 800px;
+      }
+      
+      .form-inline .form-control{
+      	width: 700px;
+      }
+      
+      .form-inline{
+      	width: 800px;
+      }
     </style>
 
     
@@ -51,21 +63,27 @@
 	//String courseId = request.getParameter("courseId");
     //String courseName = request.getParameter("lecName");
 %>
-<main class="form-signin">
-  <form id="form">
+<main class="form-signin" style="max-width:900px;">
  
     <h1 class="h3 mb-3 fw-normal">스터디 정보 수정</h1>	
-	    <div style="margin: 10px auto;" class="form-floating">
-	      <input type="text" class="form-control" id="floatingName" placeholder="스터디명" name="groupName" value="${studyGroup.groupName}" required>
+  	<form id="form" class="form-inline" style="width:800px;">
+  	
+    
+    
+	    <div style="margin: 10px auto;" class="form-group">
+	    <label for="groupName"> 스터디명 &nbsp; &nbsp; &nbsp; &nbsp;</label>
+	      	<input type="text" class="form-control" id="groupName" placeholder="스터디명" name="groupName" value="${studyGroup.groupName}" required>
 	    </div>
 	
-	    <div style="margin: 10px auto;" class="form-floating">
-	      <input type="text" class="form-control" id="floatingSchool" placeholder="학교명" name="schoolName" value="${studyGroup.schoolName}">
+	    <div style="margin: 10px auto;" class="form-group">
+	    <label for="schoolName"> 학교명 &nbsp; &nbsp; &nbsp; &nbsp;</label>
+	      	<input type="text" class="form-control" id="schoolName" placeholder="학교명" name="schoolName" value="${studyGroup.schoolName}">
 	    </div>
 	    
-	    <div id="options" style="margin: 10px auto;" class="form-floating">
+	    <div id="options" style="margin: 10px auto;" class="form-group">
+	    <label for="endDate"> 최대인원 &nbsp; &nbsp; &nbsp; &nbsp;</label>
 	      <!--<input type="text" class="form-control" id="floatingPeople" placeholder="최대인원" name="maxMem">-->
-	    	<select class="form-control" id="floatingPeople" name="maxMem" required>
+	    	<select class="form-control" id="maxMem" name="maxMem" required>
 	      	  <option value="">최대인원 선택</option>
 			  <option <c:if test="${studyGroup.maxMem==1}">selected</c:if>>1</option>
 			  <option <c:if test="${studyGroup.maxMem==2}">selected</c:if>>2</option>
@@ -80,15 +98,18 @@
 			</select>
 	    </div>
 	    
-	    <div style="margin-bottom: 30px;" class="form-floating">
-	      <textarea class="form-control" id="floatingDiscript" placeholder="간단한 스터디 소개를 입력해주세요." style="height:130px" name="shortDsc" required>${studyGroup.shortDsc}</textarea>
+	    <div style="margin-bottom: 30px;" class="form-group">
+	    <label for="shortDsc"> 소개 &nbsp; &nbsp; &nbsp; &nbsp;</label>
+	      <textarea class="form-control" id="shortDsc" placeholder="간단한 스터디 소개를 입력해주세요." style="height:130px" name="shortDsc" required>${studyGroup.shortDsc}</textarea>
 	    </div>
 	    
-	    <div style="margin-bottom: 30px;" class="form-floating">
-	      <textarea class="form-control" id="floatingDiscript" placeholder="스터디 운영 방식, 규칙 등 상세 설명을 입력해주세요." style="height:230px" name="longDsc">${studyGroup.longDsc}</textarea>
+	    <div style="margin-bottom: 30px;" class="form-group">
+	    <label for="longDsc"> 상세설명 &nbsp; &nbsp; &nbsp; &nbsp;</label>
+	      <textarea class="form-control" id="longDsc" placeholder="스터디 운영 방식, 규칙 등 상세 설명을 입력해주세요." style="height:230px" name="longDsc">${studyGroup.longDsc}</textarea>
 	    </div>
 
 	  <input class="w-100 btn btn-lg btn-primary" type="submit" onclick="check()" value="등록하기">
+	  
   </form>
   <p class="mt-5 mb-3 text-muted">&copy; 웅진 씽크빅 IT개발실</p>
 </main>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,6 +20,14 @@
 		<script src='/js/main.js'></script>
 		
 		<style>
+		
+            .mt-4-1{
+            	margin-bottom: 1rem;
+            }
+            
+            .pagination, .dataTable-pagination ul{
+            	padding-left: 730px;
+            }
             
    		</style>
 		
@@ -69,9 +78,9 @@
 
                         </ol>
                         <hr>
-                        
+                        <div style="float:right;" class="mt-4-1"><button class="btn btn-primary">글쓰기</button></div>
                         <div id="board">
-                        	<table class="table table-hover table-striped text-center" style="border: 1px solid;">
+                        	<!-- <table class="table table-hover table-striped text-center" style="border: 1px solid;">
                         		<thead>
                         			<tr>
 	                        			<th>번호</th>
@@ -89,21 +98,44 @@
                         				<td>2021-07-18</td>
                         				<td>10</td>
                         			</tr>
+                        			<tr>
+                        				<td>2</td>
+                        				<td>Title2</td>
+                        				<td>User2</td>
+                        				<td>2021-07-18</td>
+                        				<td>20</td>
+                        			</tr>
                         		</tbody>
                         	
                         	</table>
                         	<hr/>
-                        	<div style="float:right;" class="mt-4"><button class="btn btn-primary">글쓰기</button></div>
+                        	
                         
-	                        <div class="text-center">
-	                        	<ul class="pagination">
-	                        		<li><a href="#">1</a></li>
-	                        		<li><a href="#">2</a></li>
-	                        		<li><a href="#">3</a></li>
-	                        		<li><a href="#">4</a></li>
-	                        		<li><a href="#">5</a></li>
-	                        	</ul>
-	                        </div>
+	                        <div class="pagination-div">
+							  	<ul class="pagination">
+								    <li class="page-item disabled">
+								      <a class="page-link" href="#">&laquo;</a>
+								    </li>
+								    <li class="page-item active">
+								      <a class="page-link" href="#">1</a>
+								    </li>
+								    <li class="page-item">
+								      <a class="page-link" href="#">2</a>
+								    </li>
+								    <li class="page-item">
+								      <a class="page-link" href="#">3</a>
+								    </li>
+								    <li class="page-item">
+								      <a class="page-link" href="#">4</a>
+								    </li>
+								    <li class="page-item">
+								      <a class="page-link" href="#">5</a>
+								    </li>
+								    <li class="page-item">
+								      <a class="page-link" href="#">&raquo;</a>
+								    </li>
+							  	</ul>
+							</div>-->
                         
                         </div>
                         
@@ -140,6 +172,7 @@
 
         $(document).ready(function(){
 			goLecturePage();
+			getBoardData();
          });
         
         
@@ -148,6 +181,81 @@
         	let html='';
         	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="<c:url value="/view/detail?courseId='+encodeURIComponent(lecId)+'"/>" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>'
         	$("#lectureName").append(html);
+        }
+        
+        function getBoardData(){
+        	var groupId = "${groupInfo.groupId}";
+        	$.ajax({
+                url: "/studyboard/"+groupId,
+                type: "GET",
+                contentType: "application/json; charset=utf-8;",
+                dataType: "json",
+                success: function(response){
+
+                    console.log(response);
+
+                    
+                    let html = '';
+                    
+                    html += '<table class="table table-hover table-striped text-center" style="border: 1px solid;">';
+            		html += '<thead>';
+            		html += '<tr>';
+                	html += '<th>번호</th>';
+                	html += '<th>제목</th>';
+                	html += '<th>글쓴이</th>';
+                	html += '<th>작성일</th>';
+                	html += '<th>조회수</th>';
+                	html += '</tr>';
+            		html += '</thead>';
+            		html += '<tbody>';
+            		
+            		var i = 1;
+                    $.each(response, function(index, obj){
+                    	console.log(obj)
+                    	
+                    	let dateObj = new Date(obj.regDtm);
+                    	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
+                    	
+                    	html += '<tr>';
+        				html += '<td>'+i+'</td>';
+        				html += '<td>'+obj.title+'</td>';
+        				html += '<td>'+obj.userId+'</td>';
+        				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
+        				html += '<td>'+obj.viewCnt+'</td>';
+        				html += '</tr>';
+        				i=i+1;
+                    })
+                    
+                    html += '</tbody>';
+                        	
+                    html += '</table>';
+                    html += '<hr/> <div class="pagination-div">';
+					html += '<ul class="pagination">';
+					html += '<li class="page-item disabled">';
+					html += '<a class="page-link" href="#">&laquo;</a>';
+					html += '</li> <li class="page-item active">';
+					html += '<a class="page-link" href="#">1</a>';
+					html += '</li> <li class="page-item">';
+					html += '<a class="page-link" href="#">2</a>';
+					html += '</li> <li class="page-item">';
+					html += '<a class="page-link" href="#">3</a>';
+					html += '</li> <li class="page-item">';
+					html += '<a class="page-link" href="#">4</a>';
+					html += '</li> <li class="page-item">';
+					html += '<a class="page-link" href="#">5</a>';
+					html += '</li> <li class="page-item">';
+					html += '<a class="page-link" href="#">&raquo;</a>';
+					html += '</li> </ul> </div>';
+					
+                    console.log("html")
+                    console.log(html)
+                    $("#board").append(html)
+
+                },
+                error: function(){
+                    alert("err");
+                }
+            });    	
         }
 
 

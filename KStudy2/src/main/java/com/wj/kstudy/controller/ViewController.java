@@ -70,7 +70,7 @@ public class ViewController {
 	
 	@RequestMapping("/main") //메인화면
 	public ModelAndView main(HttpSession session) throws Exception{
-		String user_id="user1";
+		String user_id="user3";
 		
 		session.setAttribute("user_id", user_id);
 		session.setMaxInactiveInterval(30*60);

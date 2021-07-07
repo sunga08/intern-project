@@ -11,19 +11,20 @@
 	
 	<!-- 스터디 그룹별 일정 목록 가져오기 -->
 	<select id="getPostList" parameterType="java.lang.Integer" resultMap="board_resultMap">
-		select board_id, group_id, user_id, title, contents, view_cnt
+		select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
 		from board where group_id=#{groupId}
+		order by reg_dtm desc;
 	</select>
 	
 	<!-- 게시글 하나 가져오기 -->
 	<select id="getPost" parameterType="java.lang.Integer" resultMap="board_resultMap">
-		select board_id, group_id, user_id, title, contents, view_cnt
+		select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
 		from board where board_id=#{boardId}
 	</select>
 	
 	<!-- 게시글 추가 -->
 	<insert id="insertPost" parameterType="com.wj.kstudy.dto.Board">
-		insert into board(group_id, user_id, title, contents, view_cnt, reg_dtm) values(#{groupId}, #{userId}, #{title}, #{contents}, 1, now())
+		insert into board(group_id, user_id, title, content, view_cnt, reg_dtm) values(#{groupId}, #{userId}, #{title}, #{content}, 1, now())
 	</insert>
 	
 	<!-- 게시글 삭제 -->

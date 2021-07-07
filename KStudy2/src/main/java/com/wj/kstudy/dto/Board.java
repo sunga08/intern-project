@@ -1,13 +1,13 @@
 package com.wj.kstudy.dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Board {
 	int boardId;
 	int groupId;
 	String userId;
 	String title;
-	String contents;
+	String content;
 	int viewCnt;
 	Date regDtm;
 	
@@ -36,11 +36,11 @@ public class Board {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContents() {
-		return contents;
+	public String getContent() {
+		return content;
 	}
-	public void setContents(String contents) {
-		this.contents = contents;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public int getViewCnt() {
 		return viewCnt;
@@ -58,7 +58,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [boardId=" + boardId + ", groupId=" + groupId + ", userId=" + userId + ", title=" + title
-				+ ", contents=" + contents + ", viewCnt=" + viewCnt + "]";
+				+ ", content=" + content + ", viewCnt=" + viewCnt + "]";
 	}
 	
 	

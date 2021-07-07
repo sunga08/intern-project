@@ -17,6 +17,16 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../resources/css/styles.css" rel="stylesheet" />
     
+    <style>
+      .btn-red {
+		  color: #fff;
+		  background-color: #fe4c39;
+		  border-color: #fe4c39;
+	  }
+		
+
+    </style>
+    
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
@@ -165,7 +175,12 @@
                     html += '<p class="card-text">'+obj.shortDsc+'</p>';
                     html += '<p class="card-text"> 학교명 | '+obj.schoolName+'<br/> 인원  | '+obj.curMem+' / '+obj.maxMem+'<br/> 생성일 | '+timeString_KR.substring(0,11)+'<br/> 개설자 | '+obj.regUser+'</p>';
                     html += '</div>';
-                    html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+')">참여하기</a></div>';
+                    if(checkJoin(obj.groupId,0)==0){
+                    	html += '<div class="card-footer"><a class="btn btn-red btn-sm">가입된 그룹</a></div>';
+                    }
+                    else if(checkJoin(obj.groupId,0)==1){
+                    	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+',1)">참여하기</a></div>';
+                    }
                     html += '</div>';
                     html += '</div>';
                 	
@@ -258,7 +273,9 @@
 		})
     }
     
-    function checkJoin(groupId){
+    function checkJoin(groupId, tmp){
+    	var check=1;
+
     	$.ajax({
 			url: '/studygroup/check/'+groupId,
 			type: 'GET',
@@ -266,21 +283,26 @@
 			contentType: 'application/json',
 			success: function(data){
 				console.log(data);
+				
 				if(data==0){
-					alert('이미 가입된 그룹입니다.');	
+					//alert('이미 가입된 그룹입니다.');	
+					check=data;
 				}
-				else if(data==-1){
+				else if(data==-1 && tmp==1){
 					alert('인원이 가득차 참여할 수 없습니다.');
 				}
-				else if(data==1){
+				else if(data==1 && tmp==1){
 					joinStudyAlert(groupId);
 				}
+
 
 			}, error: function(xhr, status,error){
 
 				console.log(xhr.status+" error: "+error);
 			}
 		})
+		
+		return check;
     }
 
     

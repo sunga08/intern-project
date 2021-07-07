@@ -75,8 +75,8 @@
                         </div>
                         
                         <div class="row">
-                            <div class="col-xl-6" style="width:80%">
-                                <div class="card mb-4" style="width:1000px">
+                            <div class="col-xl-6" style="width:100%">
+                                <div class="card mb-4" style="width:800px">
                                     <div class="card-body">
                                     	<pre><c:out value="${groupInfo.longDsc}" /></pre>
 
@@ -204,7 +204,7 @@
     			success: function(data){
     				console.log(data);
     				if(data==1){
-    					window.open('/studygroup/edit/${groupInfo.groupId}', '스터디 정보 수정','width=800, height=500');
+    					window.open('/studygroup/edit/${groupInfo.groupId}', '스터디 정보 수정','width=1200, height=700');
     		        	window.opener.document.getElementById('form').submit();
     				}
     				else if(data==0){
