@@ -2,6 +2,7 @@ package com.wj.kstudy.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,24 @@ public class StudyGroupService {
 	
 	@Autowired
 	UserMapper userMapper;
+
+	
+	public int login(HttpSession httpSession, String userId) {
+		if(userMapper.checkMember(userId)==1) { //가입된 회원
+			httpSession.setAttribute("user_id", userId);
+			System.out.println("로그인:"+httpSession.getAttribute("user_id").toString());
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	
 	
 	public List<StudyGroup> showStudyGroup(String lecId) {
 		return studyGroupMapper.showStudyGroup(lecId);
 	}
+
 	
 	//스터디 생성
 	@Transactional
@@ -119,15 +134,18 @@ public class StudyGroupService {
 		return studyGroupMapper.updateStudyGroup(studyGroup);
 	}
 	
-	//스터디 정보 수정시 사용자 체크
-	public int updateMemberCheck(String user, int groupId) {
+	//스터디 정보 수정시 개설자인지 체크
+	public int updateMemberCheck(String userId, int groupId) {
 		StudyGroup studyGroup = studyGroupMapper.getOneStudyGroup(groupId);
 
-		if(studyGroup.getRegUser().equals(user)) {
-			return 1;
+		if(studyGroup.getRegUser().equals(userId)) {
+			return 1; //개설자
+		}
+		else if(groupRegInfoMapper.countUserId(groupId, userId)==0) {
+			return -1; //가입된 사용자가 아님
 		}
 		else {
-			return 0;
+			return 0; //
 		}
 	}
 	
@@ -179,7 +197,7 @@ public class StudyGroupService {
 		return result;
 	}
 	
-	
+	//스터디 멤버인지 체크
 	public int checkRegMember(int groupId, String userId) {
 		if(groupRegInfoMapper.countUserId(groupId, userId)==1) {
 			return 1;

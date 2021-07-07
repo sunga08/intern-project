@@ -5,8 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.wj.kstudy.dto.StudyGroup;
 import com.wj.kstudy.dto.User;
@@ -25,6 +23,12 @@ public class StudyGroupController {
 
 	@Autowired
 	StudyGroupService studyGroupService;
+	
+	@GetMapping("/login/{userId}")
+	public int login(HttpSession session, @PathVariable(name="userId") String userId) {
+		//session.setAttribute("user_id", userId);
+		return studyGroupService.login(session, userId);			
+	}
 	
 	//강의id로 스터디 그룹 목록 조회
 	@GetMapping("lecture/studygroup/{lecId}")
@@ -78,7 +82,7 @@ public class StudyGroupController {
 		return studyGroupService.updateStudyGroup(studyGroup);
 	}
 	
-	//스터디 정보 수정 가능한 사용자인지 체크
+	//개설자인지 체크
 	@GetMapping("/studygroup/check/register/{groupId}")
 	public int updateMemberCheck(HttpSession session, @PathVariable(name="groupId")int groupId) {
 		String userId = session.getAttribute("user_id").toString();

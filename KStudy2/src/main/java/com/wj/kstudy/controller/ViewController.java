@@ -70,12 +70,12 @@ public class ViewController {
 	
 	@RequestMapping("/main") //메인화면
 	public ModelAndView main(HttpSession session) throws Exception{
-		String user_id="sunga";
+		//String user_id="user3";
 		
-		session.setAttribute("user_id", user_id);
-		session.setMaxInactiveInterval(30*60);
+		//session.setAttribute("user_id", user_id);
+		//session.setMaxInactiveInterval(30*60);
 		
-		System.out.println(session.getAttribute("user_id").toString());
+		//System.out.println(session.getAttribute("user_id").toString());
 		
 		ModelAndView mav = new ModelAndView("index");
 		mav.setViewName("index");
@@ -83,10 +83,13 @@ public class ViewController {
 	}
 	
 	//강의 상세페이지 화면
-	@RequestMapping("view/detail") 
+	@RequestMapping("/view/detail") 
 	public ModelAndView detail(HttpSession session) {
-		String user_id = session.getAttribute("user_id").toString();
-		System.out.println(user_id);
+		
+		if(session.getAttribute("user_id")!=null) {
+			String user_id = session.getAttribute("user_id").toString();
+			System.out.println(user_id);
+		}
 		
 		ModelAndView mav = new ModelAndView("detail");
 		mav.setViewName("detail");

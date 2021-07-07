@@ -71,13 +71,13 @@
 							<li><a class="dropdown-item" href="#!">New Arrivals</a></li>
 						</ul></li>-->
 				</ul>
-				<!-- 
+				
 				<form class="d-flex">
-					<button class="btn btn-outline-dark" type="submit">
-						<i class="bi-cart-fill me-1"></i> Cart <span
-							class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-					</button>
-				</form>-->
+	   				 <div style="margin-left: 10px auto; margin-bottom: 10px; height: 20px;" class="form-floating">
+	      				<input type="text" id="userId" placeholder="ID" name="userId" required>
+	    			</div>	
+				</form>
+					<button class="btn btn-primary btn-sm" onclick="login()">로그인</button>
 			</div>
 		</div>
 	</nav>
@@ -600,6 +600,39 @@
     	    }
     	  });
     	}
+    
+    function login(){
+    	const name = document.getElementById('userId').value;
+		
+    	$.ajax({
+    	    url: "/login/"+name,
+    	    type: "GET",
+    	    async: false,
+    	    contentType: "application/json; charset=utf-8;",
+    	    success : function(response){
+    	    	
+    	    	if(response==1){
+    	    		
+	    	      alert("로그인 성공");
+	    	      window.location="/main";
+    	    	}
+	    	    else{
+	    	    	
+	    	    	alert("가입된 회원이 아닙니다.");
+	    	    	window.location="/main";
+
+	    	    }
+	    	    	
+    	    },
+    	    error : function(){
+    	      alert("에러")		
+    	    }
+    	  });
+    	
+    	
+    }
+    
+
 </script>
 </body>
 </html>

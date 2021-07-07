@@ -32,6 +32,7 @@
 		from lecture 
 		where mid_classfy=#{category}
 		order by enroll_end desc
+		limit 20
 	</select>
 	
 	<select id="searchLecture" parameterType="java.lang.String" resultMap="lecture_resultMap">

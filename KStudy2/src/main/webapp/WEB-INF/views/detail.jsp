@@ -70,10 +70,11 @@
 
         </div>
         
-        <div style="margin-bottom:100px">
+        
+        <!-- 도서 영역 -->
+        <!-- <div style="margin-bottom:100px">
 	   		<div style="float:left"><h3>관련 도서</h3></div>
-	   	</div>
-    	<!-- <div><a class="btn btn-primary" href="#" onclick="createStudy()">스터디 생성하기</a></div>-->
+	   	</div>-->
 
         
         <!-- 도서 Content-->
@@ -98,7 +99,7 @@
      	console.log("<%=id%>");
      	showDetail();        
 		GetStudyData();
-		GetBookData();
+		//GetBookData();
      });
      
 	 var lecName;
@@ -128,7 +129,7 @@
              	html += '<a class="btn btn-primary" href="'+data.lecUrl+'" target="_blank">강의 바로가기</a>';
                 html += '</div>';
                 html += '</div>';
-                html += '<div class="card text-white bg-secondary my-5 py-4 text-center">';
+                html += '<div class="card text-white bg-secondary my-5 py-4">';
 	            html += '<div class="card-body">';
 	            html += '<p class="text-white m-0">'+data.shortDsc+'</p>';
 	            html += '</div>';
@@ -176,7 +177,7 @@
                     html += '<p class="card-text"> 학교명 | '+obj.schoolName+'<br/> 인원  | '+obj.curMem+' / '+obj.maxMem+'<br/> 생성일 | '+timeString_KR.substring(0,11)+'<br/> 개설자 | '+obj.regUser+'</p>';
                     html += '</div>';
                     if(checkJoin(obj.groupId,0)==0){
-                    	html += '<div class="card-footer"><a class="btn btn-red btn-sm">가입된 그룹</a></div>';
+                    	html += '<div class="card-footer"><a class="btn btn-red btn-sm" style="cursor: default;">가입된 그룹</a></div>';
                     }
                     else if(checkJoin(obj.groupId,0)==1){
                     	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+',1)">참여하기</a></div>';

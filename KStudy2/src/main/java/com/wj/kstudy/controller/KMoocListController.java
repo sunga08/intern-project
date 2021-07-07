@@ -2,6 +2,8 @@ package com.wj.kstudy.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import com.wj.kstudy.service.KMoocListService;
 public class KMoocListController {
 	@Autowired
 	KMoocListService kmoocListService;
+	
 	
 	@GetMapping("lecture")
 	public List<Lecture> getLectureList(){

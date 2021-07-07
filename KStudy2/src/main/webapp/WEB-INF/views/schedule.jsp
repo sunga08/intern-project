@@ -152,7 +152,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STDUY</a>
+            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STUDY</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
@@ -328,16 +328,16 @@
 	      			});
 	      			
 	  				var calendar = new FullCalendar.Calendar(calendarEl, {
-	  					customButtons: {
+	  					/*customButtons: {
 	  					    myCustomButton: {
 	  					      text: '일정 추가',
 	  					      click: function() {
 	  					        alert('clicked the custom button!');
 	  					      }
 	  					    }
-	  					  },
+	  					  },*/
 	  					  headerToolbar: {	  						 	  					    
-	  					  	left: 'myCustomButton',
+	  					  	//left: 'myCustomButton',
 	  					    center: 'title',
 	  					  	right: 'today prev,next'
 	  					  },
@@ -350,7 +350,7 @@
 		  		        eventDidMount: function(info) {
 		  		          tippy(info.el, {
 		  		        	  title: info.event.extendedProps.title,
-		  		              content:  "상세설명: "+info.event.extendedProps.description//이벤트 디스크립션을 툴팁으로 가져옵니다. 
+		  		              content:  info.event.extendedProps.description//이벤트 디스크립션을 툴팁으로
 		  		          });
 		  		          
 		  		        },

@@ -29,4 +29,9 @@
 		);
 	</select>
 	
+	<select id="checkMember" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from user
+		where user_id=#{userId}
+	</select>
+	
 </mapper>

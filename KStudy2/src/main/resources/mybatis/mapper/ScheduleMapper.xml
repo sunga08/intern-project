@@ -16,12 +16,12 @@
 	
 	<!-- 스터디 그룹별 일정 목록 가져오기 -->
 	<select id="getScheduleList" parameterType="java.lang.Integer" resultMap="schedule_resultMap">
-		select schedule_id, group_id, start_date, end_date, start_time, end_time, plan_title, plan_content, all_day, reg_user
+		select schedule_id, group_id, start_date, end_date, plan_title, plan_content, all_day, reg_user
 		from schedule where group_id=#{groupId}
 	</select>
 	
 	<select id="getSchedule" parameterType="java.lang.Integer" resultMap="schedule_resultMap">
-		select schedule_id, group_id, start_date, end_date, start_time, end_time, plan_title, plan_content, all_day, reg_user
+		select schedule_id, group_id, start_date, end_date, plan_title, plan_content, all_day, reg_user
 		from schedule where schedule_id=#{scheduleId}
 	</select>
 	

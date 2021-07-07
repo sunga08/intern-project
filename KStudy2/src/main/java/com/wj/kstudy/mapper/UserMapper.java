@@ -9,4 +9,5 @@ import com.wj.kstudy.dto.User;
 @Mapper
 public interface UserMapper {
 	public List<User> getStudyMembers(int groupId);
+	public int checkMember(String userId);
 }

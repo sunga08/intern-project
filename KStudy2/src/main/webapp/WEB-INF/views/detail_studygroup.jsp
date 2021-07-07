@@ -22,7 +22,7 @@
     %>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STDUY</a>
+            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STUDY</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
@@ -68,7 +68,7 @@
                         </ol>
                         <hr>
                         <div style="margin-bottom: 30px; height: 50px" class="form-floating">
-                        	<div style="float:left;"><h3 class="mt-4">스터디 상세 소개</h3></div>
+                        	<div style="float:left;"><h3 class="mt-4">스터디 상세 설명</h3></div>
                         	<div class="mt-4" style="float:left; padding-left:30px;">
                         		<button type="button" class="btn btn-primary" onclick="viewModifyForm()">스터디 정보 수정</button>
                         	</div>
@@ -78,9 +78,7 @@
                             <div class="col-xl-6" style="width:100%">
                                 <div class="card mb-4" style="width:800px">
                                     <div class="card-body">
-                                    	<pre><c:out value="${groupInfo.longDsc}" /></pre>
-
-
+                                    	<pre><c:if test="${not empty groupInfo.longDsc}"><c:out value="${groupInfo.longDsc}" /></c:if><c:if test="${empty groupInfo.longDsc}"><c:out value="스터디 운영방식, 규칙 등 상세 설명을 입력해주세요." /></c:if></pre>
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +205,7 @@
     					window.open('/studygroup/edit/${groupInfo.groupId}', '스터디 정보 수정','width=1200, height=700');
     		        	window.opener.document.getElementById('form').submit();
     				}
-    				else if(data==0){
+    				else if(data==0 || data==-1){
     					alert('그룹 개설자만 수정이 가능합니다.');
     				}
 
@@ -235,6 +233,9 @@
     					if(con==true){
     						deleteStudyGroup();
     					}
+    				}
+    				else if(data==-1){
+    					alert('가입된 멤버가 아닙니다.');
     				}
     				else if(data==0){
     					deleteMember();

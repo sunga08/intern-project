@@ -35,7 +35,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STDUY</a>
+            <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STUDY</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 
@@ -229,7 +229,8 @@
                     html += '</tbody>';
                         	
                     html += '</table>';
-                    html += '<hr/> <div class="pagination-div">';
+                    html += '<hr/> ';
+                    /*html += '<div class="pagination-div">';
 					html += '<ul class="pagination">';
 					html += '<li class="page-item disabled">';
 					html += '<a class="page-link" href="#">&laquo;</a>';
@@ -245,7 +246,7 @@
 					html += '<a class="page-link" href="#">5</a>';
 					html += '</li> <li class="page-item">';
 					html += '<a class="page-link" href="#">&raquo;</a>';
-					html += '</li> </ul> </div>';
+					html += '</li> </ul> </div>';*/
 					
                     console.log("html")
                     console.log(html)

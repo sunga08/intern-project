@@ -71,7 +71,7 @@
     
     
 	    <div style="margin: 10px auto;" class="form-group">
-	    <label for="groupName"> 스터디명 &nbsp; &nbsp; &nbsp; &nbsp;</label>
+	    <label for="groupName"> 스터디명 &nbsp; &nbsp; &nbsp; </label>
 	      	<input type="text" class="form-control" id="groupName" placeholder="스터디명" name="groupName" value="${studyGroup.groupName}" required>
 	    </div>
 	
@@ -81,7 +81,7 @@
 	    </div>
 	    
 	    <div id="options" style="margin: 10px auto;" class="form-group">
-	    <label for="endDate"> 최대인원 &nbsp; &nbsp; &nbsp; &nbsp;</label>
+	    <label for="endDate"> 최대인원 &nbsp; &nbsp; &nbsp;</label>
 	      <!--<input type="text" class="form-control" id="floatingPeople" placeholder="최대인원" name="maxMem">-->
 	    	<select class="form-control" id="maxMem" name="maxMem" required>
 	      	  <option value="">최대인원 선택</option>
@@ -99,18 +99,17 @@
 	    </div>
 	    
 	    <div style="margin-bottom: 30px;" class="form-group">
-	    <label for="shortDsc"> 소개 &nbsp; &nbsp; &nbsp; &nbsp;</label>
+	    <label for="shortDsc"> 소개 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</label>
 	      <textarea class="form-control" id="shortDsc" placeholder="간단한 스터디 소개를 입력해주세요." style="height:130px" name="shortDsc" required>${studyGroup.shortDsc}</textarea>
 	    </div>
 	    
 	    <div style="margin-bottom: 30px;" class="form-group">
-	    <label for="longDsc"> 상세설명 &nbsp; &nbsp; &nbsp; &nbsp;</label>
+	    <label for="longDsc"> 상세설명 &nbsp; &nbsp; &nbsp;</label>
 	      <textarea class="form-control" id="longDsc" placeholder="스터디 운영 방식, 규칙 등 상세 설명을 입력해주세요." style="height:230px" name="longDsc">${studyGroup.longDsc}</textarea>
 	    </div>
-
-	  <input class="w-100 btn btn-lg btn-primary" type="submit" onclick="check()" value="등록하기">
 	  
   </form>
+  <input class="w-100 btn btn-lg btn-primary" type="submit" onclick="check()" value="등록하기">
   <p class="mt-5 mb-3 text-muted">&copy; 웅진 씽크빅 IT개발실</p>
 </main>
 
@@ -121,7 +120,7 @@
 	
 		var form = $('#form').serializeObject();
 
-		if(form.maxMem<${studyGroup.maxMem}){
+		if(form.maxMem<${studyGroup.curMem}){
 			alert('현재인원보다 최대인원을 작게 설정할 수 없습니다.');
 		}
 		

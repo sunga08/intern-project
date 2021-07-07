@@ -109,34 +109,36 @@
 		//var sday = new Date(document.querySelector("#startDate").value);
 		//var eday = new Date(document.querySelector("#endDate").value);
 
-		var formData = {
-					groupId : '${studyGroup.groupId}',
-	                startDate : form.startDate,
-	                endDate : form.endDate,
-	                planTitle : form.planTitle,
-	                planContent : form.planContent	                       
-	   	}
-									 	
-		$.ajax({
-			url: '/schedule',
-			type: 'POST',
-			async: false,
-			contentType: 'application/json',
-			data: JSON.stringify(formData),
-			success: function(data){
-				console.log(data);
-				if(data==1){
-					alert('일정이 등록되었습니다.');
+		if(form.planTitle!=""){
+			var formData = {
+						groupId : '${studyGroup.groupId}',
+		                startDate : form.startDate,
+		                endDate : form.endDate,
+		                planTitle : form.planTitle,
+		                planContent : form.planContent	                       
+		   	}
+										 	
+			$.ajax({
+				url: '/schedule',
+				type: 'POST',
+				async: false,
+				contentType: 'application/json',
+				data: JSON.stringify(formData),
+				success: function(data){
+					console.log(data);
+					if(data==1){
+						alert('일정이 등록되었습니다.');
+					}
+					else{
+						alert('등록 실패')
+					}
+					window.opener.parent.location.reload(); // 부모창 새로고침 
+					window.self.close(); //현재창 닫기
+				}, error: function(xhr, status,error){
+					console.log(xhr.status+" error: "+error);
 				}
-				else{
-					alert('등록 실패')
-				}
-				window.opener.parent.location.reload(); // 부모창 새로고침 
-				window.self.close(); //현재창 닫기
-			}, error: function(xhr, status,error){
-				console.log(xhr.status+" error: "+error);
-			}
-		})
+			})
+		}
 	}
 
 	
