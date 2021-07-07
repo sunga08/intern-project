@@ -423,7 +423,7 @@
                 	html += '<p class="text-style-1">등록기간<br/>';
                 	html += obj.enrollStart.substring(0,10)+'~'+obj.enrollEnd.substring(0,10);
                 	html += '</p>';
-                	html += '<p class="text-style-1">진행중인 스터디:'+countGroup(encodeURIComponent(obj.lecId))+'개';
+                	html += '<p class="text-style-1">진행중인 스터디: &nbsp;'+countGroup(encodeURIComponent(obj.lecId))+'개';
                 	
                 	html += '</p>';
                 	html += '</div>';
