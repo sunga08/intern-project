@@ -14,6 +14,10 @@ public class KMoocListService {
 	@Autowired
 	private LectureMapper lectureMapper;
 	
+	public List<Lecture> getLectureList(){
+		return lectureMapper.getLectureList();
+	}
+	
 	public List<Lecture> getLectureByCategory(String category) {
 		return lectureMapper.getLectureByCategory(category);
 	}

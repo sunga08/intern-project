@@ -20,6 +20,11 @@ public class KMoocListController {
 	@Autowired
 	KMoocListService kmoocListService;
 	
+	@GetMapping("lecture")
+	public List<Lecture> getLectureList(){
+		return kmoocListService.getLectureList();
+	}
+	
 	@GetMapping("lecture/{category}")
 	public List<Lecture> getLectureByCategory(@PathVariable String category) {
 		return kmoocListService.getLectureByCategory(category);

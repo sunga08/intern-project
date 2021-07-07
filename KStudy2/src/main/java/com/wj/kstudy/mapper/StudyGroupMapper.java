@@ -16,4 +16,5 @@ public interface StudyGroupMapper {
 	public StudyGroup getOneStudyGroup(int groupId);
 	public int updateStudyGroup(StudyGroup studyGroup);
 	public int deleteStudyGroup(int groupId);
+	public int updateUseYn(int groupId);
 }

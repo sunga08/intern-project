@@ -285,7 +285,7 @@
         	var lecId = "${groupInfo.lecId}"
         	$.ajax({
     			url: '/studygroup/'+groupId,
-    			type: 'DELETE',
+    			type: 'PUT',
     			async: false,
     			contentType: 'application/json',
     			success: function(data){

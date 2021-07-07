@@ -152,12 +152,25 @@ public class StudyGroupService {
 	}
 	
 	// 스터디 삭제
+//	public int deleteStudyGroup(int groupId) {
+//		int result=0;
+//		
+//		try {
+//			groupRegInfoMapper.deleteAllGroupRegInfo(groupId);
+//			result=studyGroupMapper.deleteStudyGroup(groupId);
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			result = 0;
+//		}
+//		
+//		return result;
+//	}
+	
 	public int deleteStudyGroup(int groupId) {
 		int result=0;
 		
 		try {
-			groupRegInfoMapper.deleteAllGroupRegInfo(groupId);
-			result=studyGroupMapper.deleteStudyGroup(groupId);
+			result=studyGroupMapper.updateUseYn(groupId);
 		} catch(Exception e) {
 			e.printStackTrace();
 			result = 0;

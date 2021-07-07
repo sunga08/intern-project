@@ -251,9 +251,9 @@
 	<script src="../resources/js/scripts.js"></script>
 	<script type="text/javascript">
     $(document).ready(function(){
-    	test();
-    	
-    	$("#dropdown-item-design").text();
+    	//test();
+    	getLecture();
+    	//$("#dropdown-item-design").text();
     	
     });
     
@@ -268,7 +268,59 @@
     console.log(elem.item(0));
     
     
-    
+    function getLecture () {
+
+    	$.ajax({
+            url: "/lecture",
+            type: "GET",
+            contentType: "application/json; charset=utf-8;",
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                
+                let html = '';
+                $.each(data, function(index, obj){
+                	console.log(obj)
+                	
+                	
+                	html += '<div class="col mb-5">';
+                	html += '<div class="card h-100">';
+                	html += '<img class="card-img-top" src="'+obj.image+'" alt="..." />';
+                	html += '<div class="card-body p-4">';
+                	html += '<div class="text-center">';
+                	html += '<h5 class="fw-bolder">';
+                	html += obj.lecName;
+                	html += '</h5>';
+                	html += '['+obj.orgName+']';
+                	html += '</div>';
+                	html += '<p></p>';
+                	html += '<p class="text-style-1">';
+                	html += obj.teachers;
+                	html += '</p>'
+                	html += '<p class="text-style-1">등록기간<br/>';
+                	html += obj.enrollStart.substring(0,10)+'~'+obj.enrollEnd.substring(0,10);
+                	html += '</p>';
+                	html += '<p class="text-style-1">진행중인 스터디: &nbsp;'+countGroup(encodeURIComponent(obj.lecId))+'개';
+                	html += '</div>';
+						
+                	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                	html += '<div class="text-center">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="<c:url value="/view/detail?courseId='+encodeURIComponent(obj.lecId)+'"/>">';
+                	html += '자세히 보기</a>';
+                	html += '</div>';
+                	html += '</div>';
+                	html += '</div>';	
+                	html += '</div>';
+                })
+                console.log("html")
+                console.log(html)
+                $("#list").append(html)
+            },
+            error: function(){
+                alert("err");
+            }
+        });
+    }
 	
     function test () {
 

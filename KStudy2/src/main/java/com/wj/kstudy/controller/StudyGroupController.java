@@ -99,7 +99,7 @@ public class StudyGroupController {
 	}
 	
 	//스터디 그룹 삭제
-	@DeleteMapping("/studygroup/{groupId}")
+	@PutMapping("/studygroup/{groupId}")
 	public int deleteStudyGroup(@PathVariable(name="groupId")int groupId) {
 		return studyGroupService.deleteStudyGroup(groupId);
 	}

@@ -19,6 +19,14 @@
 		insert into lecture(lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name) values(#{lecId}, #{blocksUrl}, #{lecUrl}, #{lecName}, #{classfy}, #{midClassfy}, #{teachers}, #{orgName}, #{enrollStart}, #{enrollEnd}, #{auditYn}, #{image}, #{shortDsc}, #{hidden}, #{languageName})
 	</insert> 
 	
+	<select id="getLectureList" parameterType="java.lang.String" resultMap="lecture_resultMap">
+		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
+		from lecture 
+		order by enroll_end desc
+		limit 20	
+		
+	</select>
+	
 	<select id="getLectureByCategory" parameterType="java.lang.String" resultMap="lecture_resultMap">
 		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
 		from lecture 
@@ -40,6 +48,6 @@
 	
 	
 	<select id="countStudyGroup" parameterType="java.lang.String" resultType="java.lang.Integer">
-		select count(*) from study_group where lec_id=#{lecId}
+		select count(*) from study_group where lec_id=#{lecId} and use_yn='y'
 	</select>
 </mapper>

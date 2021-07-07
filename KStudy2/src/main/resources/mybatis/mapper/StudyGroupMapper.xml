@@ -21,7 +21,7 @@
 	<select id="showStudyGroup" parameterType="java.lang.String" resultMap="studyGroup_resultMap">
 		select group_id, lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
 		from study_group
-		where lec_id=#{lecId}
+		where lec_id=#{lecId} and use_yn='y'
 	</select>
 
 	<select id="getOneStudyGroup" resultMap="studyGroup_resultMap">
@@ -32,7 +32,7 @@
 
 	<!-- 스터디 생성 -->
 	<insert id="addStudyGroup" parameterType="com.wj.kstudy.dto.StudyGroup" useGeneratedKeys="true" keyProperty="groupId"> 
-		insert into study_group(lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, reg_dtm, reg_user, cur_mem, create_date) values(#{lecId}, #{lecName}, #{groupName}, #{schoolName}, #{shortDsc}, #{longDsc}, #{maxMem}, curdate(), #{regUser}, 0, curdate())
+		insert into study_group(lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, reg_dtm, reg_user, cur_mem, create_date, use_yn) values(#{lecId}, #{lecName}, #{groupName}, #{schoolName}, #{shortDsc}, #{longDsc}, #{maxMem}, curdate(), #{regUser}, 0, curdate(), 'y')
 	</insert> 
 	
 	<!-- 현재 멤버 증가 -->
@@ -60,6 +60,10 @@
 		delete from study_group where group_id=#{groupId}
 	</delete>
 	
-	
+	<update id="updateUseYn" parameterType="java.lang.Integer">
+		update study_group
+		set use_yn='n' 
+		where group_id=#{groupId}
+	</update>
 	
 </mapper>
