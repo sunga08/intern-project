@@ -18,7 +18,7 @@ public class BookController {
 	KMoocAPIService kMoocAPIService;
 	
 	@GetMapping("/book/{keyword}")
-    public Object goBookPage(@PathVariable("keyword") String keyword) throws JsonProcessingException, UnsupportedEncodingException{
+    public Book goBookPage(@PathVariable("keyword") String keyword) throws JsonProcessingException, UnsupportedEncodingException{
         return kMoocAPIService.getNaverOpenApi(keyword);
     }
 }
