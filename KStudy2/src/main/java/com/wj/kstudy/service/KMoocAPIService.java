@@ -80,9 +80,9 @@ public class KMoocAPIService {
         headers.set("X-Naver-Client-Secret", CLIENT_SECRET);
         //String encodeKeyword = URLEncoder.encode(keyword,"UTF-8");
         
-        //UriComponents builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("query", keyword).queryParam("display",10).build(false);
+        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("query", keyword).queryParam("display",10).build(false);
         
-        //System.out.println(builder.toString());
+        System.out.println(builder.toString());
         
         final HttpEntity<String> entity = new HttpEntity<>(headers);
         
