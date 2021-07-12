@@ -69,13 +69,13 @@ public class KMoocAPIService {
 	
 	private final String url = "https://openapi.naver.com/v1/search/book";
 	
-	public Book getNaverOpenApi(String keyword) throws JsonProcessingException, UnsupportedEncodingException{
+	public Object getNaverOpenApi(String keyword) throws JsonProcessingException, UnsupportedEncodingException{
 
 		RestTemplate restTemplate = new RestTemplate();
 
 		
 		final HttpHeaders headers = new HttpHeaders();
-		//headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		headers.setContentType(new MediaType("plain", "text", Charset.forName("UTF-8")));
         headers.set("X-Naver-Client-Id", CLIENT_ID);
         headers.set("X-Naver-Client-Secret", CLIENT_SECRET);
         //String encodeKeyword = URLEncoder.encode(keyword,"UTF-8");
@@ -86,8 +86,9 @@ public class KMoocAPIService {
         
         final HttpEntity<String> entity = new HttpEntity<>(headers);
         
-
-        Book response = restTemplate.exchange(url, HttpMethod.GET, entity, Book.class, keyword).getBody();
+        System.out.println(entity.getHeaders());
+        
+        Object response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, String.class).getBody();
 
         System.out.println(response.toString());
 		
