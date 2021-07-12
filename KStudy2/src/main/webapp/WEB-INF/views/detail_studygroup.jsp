@@ -93,6 +93,13 @@
                     		</div>
                         </div>
                         
+                        <h3 class="mt-4">»çÀü</h3>
+                        <div id="members" class="row">
+							<div class="col-xl-3-1 col-md-6">
+                        		<iframe src="https://web-public-service-smartall-dev.wjthinkbig.com/dictionary/engdicDetail?contractNumber=M100006092" width="800px" height="600px"></iframe>
+                    		</div>
+                        </div>
+                        
                       </div>   
                      </div>
                     

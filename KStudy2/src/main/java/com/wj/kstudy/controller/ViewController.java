@@ -3,21 +3,29 @@ package com.wj.kstudy.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wj.kstudy.dto.Board;
+import com.wj.kstudy.dto.Criteria;
 import com.wj.kstudy.dto.Lecture;
 import com.wj.kstudy.dto.Schedule;
 import com.wj.kstudy.dto.StudyGroup;
 import com.wj.kstudy.dto.UserDto;
+import com.wj.kstudy.service.BoardService;
 import com.wj.kstudy.service.KMoocListService;
 import com.wj.kstudy.service.ScheduleService;
 import com.wj.kstudy.service.StudyGroupService;
@@ -37,6 +45,9 @@ public class ViewController {
 	
 	@Autowired
 	ScheduleService scheduleService;
+	
+	@Autowired
+	BoardService boardService;
 	
 	@GetMapping("/post")
 	public String test(Model model) {
@@ -69,13 +80,10 @@ public class ViewController {
 	}
 	
 	@RequestMapping("/main") //메인화면
-	public ModelAndView main(HttpSession session) throws Exception{
-		//String user_id="user3";
-		
-		//session.setAttribute("user_id", user_id);
-		//session.setMaxInactiveInterval(30*60);
-		
-		//System.out.println(session.getAttribute("user_id").toString());
+	public ModelAndView main() throws Exception{
+//		Cookie cookie = new Cookie("view",null);
+//		cookie.setComment("게시글 조회수");
+//		cookie.setMaxAge(60*60*24*365);
 		
 		ModelAndView mav = new ModelAndView("index");
 		mav.setViewName("index");
@@ -134,7 +142,7 @@ public class ViewController {
 		String user_id = session.getAttribute("user_id").toString();
 		
 		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
-		
+		//체크하는 Service
 		ModelAndView mav = new ModelAndView("studyInfo");
 		mav.addObject("groupInfo", studyGroup);
 		mav.setViewName("detail_studygroup");
@@ -156,28 +164,19 @@ public class ViewController {
 		return mav;
 	}
 	
-	//스터디 자유게시판 화면
-	@GetMapping("view/studyboard/{groupId}")
-	public ModelAndView studyBoardView(HttpSession session, @PathVariable(name="groupId") int groupId) {
-		String user_id = session.getAttribute("user_id").toString();
-		ModelAndView mav = new ModelAndView("studyBoardView");
-		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
-		mav.addObject("groupInfo", studyGroup);
-		
-		mav.setViewName("studyboard");
-		
-		return mav;
-	}
 	
 	//스터디 정보 수정 폼
 	@GetMapping("/studygroup/edit/{groupId}") 
-	public ModelAndView updateStudyView(@PathVariable(name="groupId") int groupId) {
-		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+	public ModelAndView updateStudyView(@PathVariable(name="groupId") int groupId) {		
+		return test(groupId, "modifyStudyForm", "studyGroup");
+	}
+
+	private ModelAndView test(int param, String viewName, String objectName) {
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(param);
 		
-		ModelAndView mav = new ModelAndView("modifyStudyForm");
-		mav.setViewName("modifyStudyForm");
-		mav.addObject("studyGroup", studyGroup);
-		
+		ModelAndView mav = new ModelAndView(viewName);
+		mav.setViewName(viewName);
+		mav.addObject(objectName, studyGroup);
 		return mav;
 	}
 	
@@ -201,6 +200,62 @@ public class ViewController {
 		ModelAndView mav = new ModelAndView("modifyScheduleFrom");
 		mav.setViewName("modifyScheduleForm");
 		mav.addObject("schedule", schedule);
+		
+		return mav;
+	}
+	
+	//스터디 자유게시판 화면
+	@GetMapping("view/studyboard/{groupId}")
+	public ModelAndView studyBoardView(HttpSession session, @PathVariable(name="groupId") int groupId) {
+		String user_id = session.getAttribute("user_id").toString();
+		ModelAndView mav = new ModelAndView("studyBoardView");
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		Criteria criteria = new Criteria();
+		mav.addObject("groupInfo", studyGroup);		
+		mav.addObject("criteria", criteria);
+		mav.setViewName("studyboard");
+		
+		
+		return mav;
+	}
+
+	//게시글 상세
+	@GetMapping("/view/studyboard/detail/{groupId}/{boardId}")
+	public ModelAndView boardDetailView(HttpServletRequest request, HttpServletResponse response, HttpSession session, @PathVariable(name="groupId") int groupId, @PathVariable(name="boardId") int boardId) {
+		Board board = boardService.getPostAndPlusView(request, response, session, boardId);
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		
+		ModelAndView mav = new ModelAndView("boardDetailView");
+				
+		mav.addObject("post",board);
+		mav.setViewName("viewPost");
+		mav.addObject("user",session.getAttribute("user_id"));
+		mav.addObject("groupInfo",studyGroup);
+		
+		return mav;
+	}
+	
+	//글스기 화면
+	@GetMapping("/view/studyboard/write/{groupId}")
+	public ModelAndView writePostView(@PathVariable(name="groupId") int groupId) {
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		
+		ModelAndView mav = new ModelAndView("writePostView");
+		mav.setViewName("writePost");
+		mav.addObject("groupInfo",studyGroup);
+		
+		return mav;
+	}
+	
+	@GetMapping("/view/studyboard/update/{groupId}/{boardId}")
+	public ModelAndView updatePostView(@PathVariable(name="groupId") int groupId, @PathVariable(name="boardId") int boardId) {
+		Board board = boardService.getPost(boardId);
+		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		
+		ModelAndView mav = new ModelAndView("updatePostView");
+		mav.setViewName("modifyPost");
+		mav.addObject("post",board);
+		mav.addObject("groupInfo",studyGroup);
 		
 		return mav;
 	}

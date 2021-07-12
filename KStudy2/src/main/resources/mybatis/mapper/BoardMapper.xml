@@ -9,11 +9,19 @@
 		<result column="reg_dtm" property="regDtm"/>
 	</resultMap>
 	
-	<!-- 스터디 그룹별 일정 목록 가져오기 -->
+	<!-- 스터디 그룹별 게시글 목록 가져오기 -->
 	<select id="getPostList" parameterType="java.lang.Integer" resultMap="board_resultMap">
 		select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
 		from board where group_id=#{groupId}
 		order by reg_dtm desc;
+	</select>
+	
+	<select id="getPostListPaging" resultMap="board_resultMap">
+		SELECT r1.* FROM (
+			select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
+			from board where group_id=#{groupId}
+			order by reg_dtm desc) r1
+		limit #{startPage}, #{recordsPerPage}
 	</select>
 	
 	<!-- 게시글 하나 가져오기 -->
@@ -24,7 +32,7 @@
 	
 	<!-- 게시글 추가 -->
 	<insert id="insertPost" parameterType="com.wj.kstudy.dto.Board">
-		insert into board(group_id, user_id, title, content, view_cnt, reg_dtm) values(#{groupId}, #{userId}, #{title}, #{content}, 1, now())
+		insert into board(group_id, user_id, title, content, view_cnt, reg_dtm) values(#{groupId}, #{userId}, #{title}, #{content}, 0, now())
 	</insert>
 	
 	<!-- 게시글 삭제 -->
@@ -39,6 +47,12 @@
 		where board_id=#{boardId}
 	</update>
 	
+	<!-- 조회수 증가 -->
+	<update id="plusViewCnt" parameterType="java.lang.Integer">
+		update board
+		set view_cnt=view_cnt+1
+		where board_id=#{boardId}
+	</update>
 	
 	 
 </mapper>

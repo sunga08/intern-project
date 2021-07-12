@@ -19,14 +19,25 @@
 		insert into lecture(lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name) values(#{lecId}, #{blocksUrl}, #{lecUrl}, #{lecName}, #{classfy}, #{midClassfy}, #{teachers}, #{orgName}, #{enrollStart}, #{enrollEnd}, #{auditYn}, #{image}, #{shortDsc}, #{hidden}, #{languageName})
 	</insert> 
 	
+	<!-- 전체 강좌 리스트 -->
 	<select id="getLectureList" parameterType="java.lang.String" resultMap="lecture_resultMap">
 		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
 		from lecture 
 		order by enroll_end desc
-		limit 20	
-		
+		limit 20			
+	</select>
+			
+	<!-- 전체 강좌 리스트 페이징 처리 -->
+	<select id="getLectureListPaging" resultMap="lecture_resultMap">
+		SELECT lec.* FROM (
+			select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
+			from lecture 
+			order by enroll_end desc) lec
+		limit #{start}, #{recordsPerPage}
+					
 	</select>
 	
+	<!-- 카테고리 선택시 강좌 리스트 -->
 	<select id="getLectureByCategory" parameterType="java.lang.String" resultMap="lecture_resultMap">
 		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
 		from lecture 
@@ -35,20 +46,59 @@
 		limit 20
 	</select>
 	
+	<!-- 카테고리 선택시 강좌 리스트 페이징 처리 -->
+	<select id="getLectureByCategoryPaging" resultMap="lecture_resultMap">
+		SELECT lec.* FROM (
+			select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
+			from lecture 
+			where mid_classfy=#{category}
+			order by enroll_end desc) lec
+		limit #{start}, #{recordsPerPage}
+	</select>
+	
+	<!-- 강좌 검색 결과 -->
 	<select id="searchLecture" parameterType="java.lang.String" resultMap="lecture_resultMap">
 		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
 		from lecture 
 		where lec_name like concat('%',#{keyword},'%')
 	</select>
 	
+	<!-- 강좌 검색 결과 페이징 처리-->
+	<select id="searchLecturePaging" resultMap="lecture_resultMap">
+		SELECT lec.* FROM (
+			select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
+			from lecture 
+			where lec_name like concat('%',#{keyword},'%')) lec
+		limit #{start}, #{recordsPerPage}
+	</select>
+	
+	<!-- 강좌 하나 정보 -->
 	<select id="getLectureById" parameterType="java.lang.String" resultMap="lecture_resultMap">
 		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name
 		from lecture
 		where lec_id=#{lecId}
 	</select>
 	
-	
+	<!-- 진행중인 스터디 개수 -->
 	<select id="countStudyGroup" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select count(*) from study_group where lec_id=#{lecId} and use_yn='y'
 	</select>
+	
+	<!-- 전체 강좌 개수 -->
+	<select id="countAllLecture" resultType="java.lang.Integer">
+		select count(*) from lecture
+	</select>
+	
+	<!-- 카테고리별 강좌 개수 -->
+	<select id="countCategoryLecture" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from lecture
+		where mid_classfy=#{category}
+	</select>
+	
+	<!-- 검색 결과 강좌 개수 -->
+	<select id="countSearchLecture" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select count(*) from lecture
+		where lec_name like concat('%',#{keyword},'%')
+	</select>
+	
 </mapper>

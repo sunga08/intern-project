@@ -20,6 +20,7 @@ public class StudyGroup {
 	//Date regDtm;
 	Date createDate;
 	String regUser;
+	int postCnt;
 	
 
 	public int getGroupId() {
@@ -139,6 +140,16 @@ public class StudyGroup {
 
 	public void setRegUser(String regUser) {
 		this.regUser = regUser;
+	}	
+
+
+	public int getPostCnt() {
+		return postCnt;
+	}
+
+
+	public void setPostCnt(int postCnt) {
+		this.postCnt = postCnt;
 	}
 
 

@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wj.kstudy.dto.College;
+import com.wj.kstudy.dto.Criteria;
 import com.wj.kstudy.dto.StudyGroup;
 import com.wj.kstudy.dto.User;
 import com.wj.kstudy.service.StudyGroupService;
@@ -34,6 +37,12 @@ public class StudyGroupController {
 	@GetMapping("lecture/studygroup/{lecId}")
 	public List<StudyGroup> showStudyGroup(@PathVariable(name="lecId") String lecId) {
 		return studyGroupService.showStudyGroup(lecId);
+	}
+	
+	@GetMapping("lecture/studygroup/{lecId}/{page}")
+	public List<StudyGroup> getStudyGroupPaging(@PathVariable(name="lecId") String lecId, @PathVariable(name="page") int page, @ModelAttribute("criteria") Criteria criteria) {
+		criteria.setCurrentPageNo(page);
+		return studyGroupService.getStudyGroupPaging(lecId, criteria);
 	}
 	
 	//스터디 그룹 생성하기
@@ -107,4 +116,18 @@ public class StudyGroupController {
 	public int deleteStudyGroup(@PathVariable(name="groupId")int groupId) {
 		return studyGroupService.deleteStudyGroup(groupId);
 	}
+	
+	
+	
+	@GetMapping("/college")
+	public List<College> getAllCollege(){
+		return studyGroupService.getAllCollege();
+	}
+	
+	@GetMapping("/college/{keyword}")
+	public List<College> searchCollege(@PathVariable(name="keyword") String keyword){
+		return studyGroupService.searchCollege(keyword);
+	}
+	
+	
 }

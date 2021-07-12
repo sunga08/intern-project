@@ -26,13 +26,14 @@
             }
             
             .pagination, .dataTable-pagination ul{
-            	padding-left: 730px;
+            	padding-left: 550px;
             }
             
    		</style>
 		
     </head>
     <body class="sb-nav-fixed">
+    
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STUDY</a>
@@ -78,7 +79,7 @@
 
                         </ol>
                         <hr>
-                        <div style="float:right;" class="mt-4-1"><button class="btn btn-primary">글쓰기</button></div>
+                        <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/write/${groupInfo.groupId}'">글쓰기</button></div>
                         <div id="board">
                         	<!-- <table class="table table-hover table-striped text-center" style="border: 1px solid;">
                         		<thead>
@@ -108,11 +109,11 @@
                         		</tbody>
                         	
                         	</table>
-                        	<hr/>
+                        	<hr/> -->
                         	
-                        
-	                        <div class="pagination-div">
-							  	<ul class="pagination">
+                        </div>
+	                        <div id="pagination" class="pagination-div">
+							  	<!-- <ul class="pagination">
 								    <li class="page-item disabled">
 								      <a class="page-link" href="#">&laquo;</a>
 								    </li>
@@ -134,10 +135,10 @@
 								    <li class="page-item">
 								      <a class="page-link" href="#">&raquo;</a>
 								    </li>
-							  	</ul>
-							</div>-->
+							  	</ul>-->
+							</div>
                         
-                        </div>
+                        
                         
                         
                     </div>
@@ -169,12 +170,19 @@
 		
         <script type="text/javascript">
 
-
+        let totalData; //총 데이터 수
+        let dataPerPage = 3; //한 페이지에 나타낼 글 수
+        let pageCount = 5; //페이징에 나타낼 페이지 수
+        let globalCurrentPage=1; //현재 페이지
+        
+        
         $(document).ready(function(){
 			goLecturePage();
 			getBoardData();
+			
          });
         
+       
         
         function goLecturePage(){
         	var lecId = "${groupInfo.lecId}";
@@ -185,6 +193,9 @@
         
         function getBoardData(){
         	var groupId = "${groupInfo.groupId}";
+        	var lecId = "${groupInfo.lecId}";
+        	pagination(${groupInfo.postCnt}, dataPerPage, pageCount, 1);
+        	
         	$.ajax({
                 url: "/studyboard/"+groupId,
                 type: "GET",
@@ -209,7 +220,7 @@
             		html += '</thead>';
             		html += '<tbody>';
             		
-            		var i = 1;
+            		var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수
                     $.each(response, function(index, obj){
                     	console.log(obj)
                     	
@@ -217,36 +228,219 @@
                     	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
                     	
                     	html += '<tr>';
-        				html += '<td>'+i+'</td>';
-        				html += '<td>'+obj.title+'</td>';
+        				html += '<td>'+postCnt+'</td>';
+        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+        				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
         				html += '<td>'+obj.userId+'</td>';
         				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
         				html += '<td>'+obj.viewCnt+'</td>';
         				html += '</tr>';
-        				i=i+1;
+        				postCnt=postCnt-1; //감소시키기
                     })
                     
                     html += '</tbody>';
                         	
                     html += '</table>';
                     html += '<hr/> ';
-                    /*html += '<div class="pagination-div">';
-					html += '<ul class="pagination">';
-					html += '<li class="page-item disabled">';
-					html += '<a class="page-link" href="#">&laquo;</a>';
-					html += '</li> <li class="page-item active">';
-					html += '<a class="page-link" href="#">1</a>';
-					html += '</li> <li class="page-item">';
-					html += '<a class="page-link" href="#">2</a>';
-					html += '</li> <li class="page-item">';
-					html += '<a class="page-link" href="#">3</a>';
-					html += '</li> <li class="page-item">';
-					html += '<a class="page-link" href="#">4</a>';
-					html += '</li> <li class="page-item">';
-					html += '<a class="page-link" href="#">5</a>';
-					html += '</li> <li class="page-item">';
-					html += '<a class="page-link" href="#">&raquo;</a>';
-					html += '</li> </ul> </div>';*/
+                    
+					
+                    console.log("html")
+                    console.log(html)
+                    $("#board").append(html)
+
+                },
+                error: function(){
+                    alert("err");
+                }
+            });    	
+        }
+        
+        function pagination(totalData, dataPerPage, pageCount, currentPage){
+        	let html='';
+        	
+        	var postCnt ="${groupInfo.postCnt}"; 
+        	        	       	
+        	totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
+        	  
+       	  if(totalPage<pageCount){ //전체페이지 수<페이징에 나타낼 페이지 수
+       	    pageCount=totalPage; //페이징에 나타낼 페이지 수 = 전체페이지 수
+       	  }
+       	  
+       	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹 (현재페이지/페이징에 나타낼 페이지 수) = 1(1~5), 2(6~10)...
+       	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+       	  
+       	  
+       	  if (last > totalPage) {
+       	    last = totalPage;
+       	  }
+
+       	  let first = (pageGroup-1)*pageCount+1; //화면에 보여질 첫번째 페이지 번호
+       	  let next = last + 1;
+       	  let prev = first - 1;
+
+       	  let pageHtml = "";
+       	  
+       	  pageHtml += '<ul class="pagination">';
+
+       	  if (prev > 0) {
+       	    pageHtml += "<li class='page-item'><a class='page-link' id='prev' href='#'>&laquo;</a></li>";
+       	  }
+
+       	 //페이징 번호 표시 
+       	  for (var i = first; i <= last; i++) {
+       	    if (currentPage == i) {
+       	      pageHtml +=
+       	        "<li class='page-item active'><a class='page-link' href='#' id='" + i + "'>" + i + "</a></li>";
+       	    } else {
+       	      pageHtml += "<li class='page-item'><a class='page-link' href='#' id='" + i + "'>" + i + "</a></li>";
+       	    }
+       	  }
+
+       	  if (last < totalPage) {
+       	    pageHtml += "<li class='page-item'><a class='page-link' href='#' id='next'>&raquo;</a></li>";
+       	  }
+       	  
+       	  pageHtml += '</ul>';
+
+       	  $("#pagination").html(pageHtml);
+        	
+	       	$("#pagination li a").click(function () {
+	       	    let $id = $(this).attr("id");
+	       	    selectedPage = $(this).text();
+	
+	       	    if ($id == "next") selectedPage = next;
+	       	    if ($id == "prev") selectedPage = prev;
+	       	    
+	       	    //전역변수에 선택한 페이지 번호를 담는다...
+	       	    globalCurrentPage = selectedPage;
+	       	    console.log("selectedPage "+selectedPage);
+	       	    //페이징 표시 재호출
+	       	    pagination(totalData, dataPerPage, pageCount, selectedPage);
+	       	    //글 목록 표시 재호출
+	       	    //displayData(selectedPage, dataPerPage);
+	       	    getBoardData2(selectedPage);
+	       	  });
+	       	
+			/*html += '<ul class="pagination">';
+			html += '<li class="page-item disabled">';
+			html += '<a class="page-link" href="#">&laquo;</a>';
+			html += '</li> <li class="page-item active">';
+			html += '<a class="page-link" href="#">1</a>';
+			html += '</li> <li class="page-item">';
+			html += '<a class="page-link" href="#">2</a>';
+			html += '</li> <li class="page-item">';
+			html += '<a class="page-link" href="#">3</a>';
+			html += '</li> <li class="page-item">';
+			html += '<a class="page-link" href="#">4</a>';
+			html += '</li> <li class="page-item">';
+			html += '<a class="page-link" href="#">5</a>';
+			html += '</li> <li class="page-item">';
+			html += '<a class="page-link" href="#">&raquo;</a>';
+			html += '</li> </ul>';
+			$("#pagination").append(html)*/
+        }
+        
+        function getBoardData2(page){
+        	var groupId = "${groupInfo.groupId}";
+        	var lecId = "${groupInfo.lecId}";
+        	
+        	$("#board").empty()
+        	
+        	$.ajax({
+                url: "/studyboard/"+groupId+"/"+page,
+                type: "GET",
+                contentType: "application/json; charset=utf-8;",
+                dataType: "json",
+                success: function(response){
+
+                    console.log(response);
+                    
+                    let html = '';
+                    
+                    html += '<table class="table table-hover table-striped text-center" style="border: 1px solid;">';
+            		html += '<thead>';
+            		html += '<tr>';
+                	html += '<th>번호</th>';
+                	html += '<th>제목</th>';
+                	html += '<th>글쓴이</th>';
+                	html += '<th>작성일</th>';
+                	html += '<th>조회수</th>';
+                	html += '</tr>';
+            		html += '</thead>';
+            		html += '<tbody>';
+            		
+            		var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수
+            		var num = postCnt-dataPerPage*(page-1);
+                    $.each(response, function(index, obj){
+                    	console.log(obj)
+                    	
+                    	let dateObj = new Date(obj.regDtm);
+                    	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
+                    	
+                    	html += '<tr>';
+        				html += '<td>'+num+'</td>';
+        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+        				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+        				html += '<td>'+obj.userId+'</td>';
+        				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
+        				html += '<td>'+obj.viewCnt+'</td>';
+        				html += '</tr>';
+        				num=num-1; //감소시키기
+                    })
+                    
+                    html += '</tbody>';
+                        	
+                    html += '</table>';
+                    html += '<hr/> ';
+                    
+					
+                    console.log("html")
+                    console.log(html)
+                    $("#board").append(html)
+
+                },
+                error: function(){
+                    alert("err");
+                }
+            });    	
+        }
+        
+        function getBoardDetail(boardId){
+        	
+        	$("#board").empty()
+        	$.ajax({
+                url: "/studyboard/detail/"+boardId,
+                type: "GET",
+                contentType: "application/json; charset=utf-8;",
+                dataType: "json",
+                success: function(response){
+
+                    console.log(response);
+
+                    
+                    let html = '';
+                    
+                    html += '<table id="datatable-scroller" class="table table-bordered tbl_Form">';
+
+					html += '<tbody>';
+					html += '<tr><th class="tg-yj5y" width=250px>제목</th>';
+					html += '<td class="tg-0pky"></td>';
+					html += '<th class="tg-uqo3" width=250px>작성일</th>';
+					html += '<td class="tg-0lax"></td></tr>';
+					
+					
+					html += '<tr><th class="tg-yj5y">작성자</th>';
+					html += '<td class="tg-0pky"></td>';
+					html += '<th class="tg-uqo3">조회수</th>';
+					html += '<td class="tg-0lax"></td> </tr>';
+					html += '<tr><th class="tg-yj5y">내용</th>';
+					html += '<td class="tg-0pky" colspan="3"></td> </tr>';
+					html += '</tbody></table></div>';
+                
+                
+					html += '<div style="float:right;" class="mt-4-1"><button class="btn btn-green">수정</button></div>';
+					html += '<div style="float:right;" class="mt-4-1"><button class="btn btn-red">삭제</button></div>';
+
 					
                     console.log("html")
                     console.log(html)

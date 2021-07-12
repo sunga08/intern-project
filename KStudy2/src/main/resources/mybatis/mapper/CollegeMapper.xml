@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.wj.kstudy.mapper.CollegeMapper"> 
+	<resultMap type="com.wj.kstudy.dto.College" id="college_resultMap">
+		<result column="college_seq" property="collegeSeq"/>
+		<result column="college_gbn" property="collegeGbn"/>
+		<result column="college_sido" property="collegeSido"/>
+		<result column="college_name" property="collegeName"/>
+	</resultMap>
+	
+	<select id="getAllCollege" resultMap="college_resultMap">
+		select college_seq, college_gbn, college_sido, college_name from college	
+	</select>
+	
+	<select id="searchCollege" parameterType="java.lang.String" resultMap="college_resultMap">
+		select college_seq, college_gbn, college_sido, 
+			case
+				when(college_name IN (select college_name from college group by college_name HAVING COUNT(*)>1)) 
+				then concat(college_name, '(',college_gbn,')')
+			else
+			college_name
+			end as college_name 
+		from college
+		WHERE college_name like CONCAT('%',#{keyword},'%');
+	</select>
+			
+</mapper>

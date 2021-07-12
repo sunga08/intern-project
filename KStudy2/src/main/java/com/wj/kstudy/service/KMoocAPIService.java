@@ -2,6 +2,7 @@ package com.wj.kstudy.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +28,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wj.kstudy.dto.Book;
 import com.wj.kstudy.dto.Lecture;
 import com.wj.kstudy.dto.LectureDto;
 import com.wj.kstudy.mapper.LectureMapper;
@@ -56,6 +58,38 @@ public class KMoocAPIService {
 		System.out.println(builder.toString());      
         //Object response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, new HttpEntity<String>(headers), String.class);
         return response;
+	}
+	
+	
+	private final String CLIENT_ID = "GOVPZceHHvHKv7Raru8F";
+	private final String CLIENT_SECRET = "DBeRtQGo_H";
+	
+	private final String url = "https://openapi.naver.com/v1/search/book";
+	
+	public Object getNaverOpenApi(String keyword) throws JsonProcessingException, UnsupportedEncodingException{
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        headers.set("X-Naver-Client-Id", CLIENT_ID);
+        headers.set("X-Naver-Client-Secret", CLIENT_SECRET);
+        String encodeKeyword = URLEncoder.encode(keyword,"UTF-8");
+        
+        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("query", encodeKeyword).build(false);
+        
+        System.out.println(builder.toString());
+        
+        final HttpEntity<String> entity = new HttpEntity<>(headers);
+        
+
+        Object response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, String.class).getBody();
+
+        System.out.println(response.toString());
+		
+        return response;
+    
 	}
 	
 	public String getItemsFromOpenApi2(int Page) throws UnsupportedEncodingException, JsonProcessingException {

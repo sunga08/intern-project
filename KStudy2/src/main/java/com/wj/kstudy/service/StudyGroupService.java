@@ -1,17 +1,23 @@
 package com.wj.kstudy.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.wj.kstudy.dto.College;
+import com.wj.kstudy.dto.Criteria;
 import com.wj.kstudy.dto.GroupRegInfo;
+import com.wj.kstudy.dto.Lecture;
 import com.wj.kstudy.dto.StudyGroup;
 import com.wj.kstudy.dto.User;
+import com.wj.kstudy.mapper.CollegeMapper;
 import com.wj.kstudy.mapper.GroupRegInfoMapper;
 import com.wj.kstudy.mapper.StudyGroupMapper;
 import com.wj.kstudy.mapper.UserMapper;
@@ -26,7 +32,12 @@ public class StudyGroupService {
 	
 	@Autowired
 	UserMapper userMapper;
+	
+	@Autowired
+	CollegeMapper collegeMapper;
 
+	@Value("6")
+	private int PAGE_SIZE;
 	
 	public int login(HttpSession httpSession, String userId) {
 		if(userMapper.checkMember(userId)==1) { //가입된 회원
@@ -41,9 +52,23 @@ public class StudyGroupService {
 	
 	
 	public List<StudyGroup> showStudyGroup(String lecId) {
-		return studyGroupMapper.showStudyGroup(lecId);
+		return studyGroupMapper.getStudyGroup(lecId);
 	}
 
+	public List<StudyGroup> getStudyGroupPaging(String lecId, Criteria criteria) {
+		int totalCount = studyGroupMapper.countStudyGroup(lecId);
+		criteria.setRecordsPerPage(6);
+		criteria.setTotalData(totalCount);
+		
+		List<StudyGroup> groupList = Collections.emptyList();
+		int start = criteria.getStartPage(); //offset
+		
+		if(totalCount>0) {
+			groupList = studyGroupMapper.getStudyGroupPaging(lecId, start, PAGE_SIZE);
+		}
+				
+		return groupList;
+	}
 	
 	//스터디 생성
 	@Transactional
@@ -57,7 +82,7 @@ public class StudyGroupService {
 			groupRegInfo.setUserId(studyGroup.getRegUser());
 			groupRegInfo.setGroupId(studyGroup.getGroupId());
 			groupRegInfo.setRegDtm(studyGroup.getCreateDate());
-			if(addResult==1 && groupRegInfoMapper.addGroupRegInfo(groupRegInfo)==1) {				
+			if(addResult==1 && groupRegInfoMapper.addGroupRegInfo(groupRegInfo)==1) {
 				result = studyGroupMapper.addCurMember(studyGroup.getGroupId());
 			}
 			else {
@@ -204,6 +229,19 @@ public class StudyGroupService {
 		}else {
 			return 0;
 		}
+	}
+	
+	public List<College> getAllCollege(){
+		return collegeMapper.getAllCollege();
+	}
+	
+	//검색한 학교 조회
+	public List<College> searchCollege(String keyword){
+		return collegeMapper.searchCollege(keyword);
+	}
+	
+	public int countStudyGroup(String lecId) {
+		return studyGroupMapper.countStudyGroup(lecId);
 	}
 
 }

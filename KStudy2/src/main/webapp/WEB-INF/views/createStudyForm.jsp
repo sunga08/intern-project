@@ -1,3 +1,4 @@
+  
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,7 +17,12 @@
     
     
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.0.min.js"></script> <!-- 얘 순서 바꾸니까 되네; -->
     <script src="/js/jquery.serialize-object.min.js"></script>
+    
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js"></script>
+    <link rel="Stylesheet" type="text/css" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/themes/blitzer/jquery-ui.css" />
+    
     
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -30,7 +36,6 @@
         -moz-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -90,6 +95,48 @@
 
 <script>
 	console.log('${lecture.lecName}');
+	
+
+	
+	$("#floatingSchool").autocomplete({
+	    source : function(request, response) {
+	        $.ajax({
+	              url : "/college/"+$("#floatingSchool").val(),
+	              type : "GET",
+	              data : {keyWord : $("#floatingSchool").val()}, // 검색 키워드
+	              success : function(data){ // 성공
+	              response(
+	            		//console.log(data);
+	                    $.map(data, function(item) {
+	                    	console.log(item);
+	                    	
+	                        return {
+	                              label : item.collegeName,   //목록에 표시되는 값
+	                              value : item.collegeName    //선택 시 input창에 표시되는 값
+	                        };
+	                    })
+	                );    //response
+	            }
+	            ,
+	            error : function(){ //실패
+	                alert("통신에 실패했습니다.");
+	            }
+	        });
+	    }
+	    , minLength : 1    
+	    , autoFocus : false    
+	    , select : function(evt, ui) {
+	        console.log("전체 data: " + JSON.stringify(ui));
+	        console.log("검색 데이터 : " + ui.item.value);
+	    }
+	    , focus : function(evt, ui) {
+	        return false;
+	    }
+	    , close : function(evt) {
+	    }
+	});
+	
+	
 	//스터디 생성 폼 처리
 	function sendForm(){
 		var form = $('#form').serializeObject();
@@ -102,7 +149,6 @@
 		
 			var schoolname = form.schoolName=="" ? "없음" : form.schoolName; 
 			
-
 			var formData = {
 					lecId : '${lecture.lecId}',
 	                groupName : form.groupName,
@@ -130,8 +176,6 @@
 				}
 			})
 		}
-
-
 	}
 	
 </script>
