@@ -11,7 +11,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wj.kstudy.dto.Book;
 import com.wj.kstudy.service.KMoocAPIService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
+@RequiredArgsConstructor
 public class BookController {
 	
 	@Autowired

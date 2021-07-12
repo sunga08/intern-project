@@ -33,7 +33,10 @@ import com.wj.kstudy.dto.Lecture;
 import com.wj.kstudy.dto.LectureDto;
 import com.wj.kstudy.mapper.LectureMapper;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class KMoocAPIService {
 	
 	@Autowired
@@ -72,19 +75,19 @@ public class KMoocAPIService {
 
 		
 		final HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+		//headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         headers.set("X-Naver-Client-Id", CLIENT_ID);
         headers.set("X-Naver-Client-Secret", CLIENT_SECRET);
-        String encodeKeyword = URLEncoder.encode(keyword,"UTF-8");
+        //String encodeKeyword = URLEncoder.encode(keyword,"UTF-8");
         
-        UriComponents builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("query", encodeKeyword).build(false);
+        //UriComponents builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("query", keyword).queryParam("display",10).build(false);
         
-        System.out.println(builder.toString());
+        //System.out.println(builder.toString());
         
         final HttpEntity<String> entity = new HttpEntity<>(headers);
         
 
-        Book response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, Book.class, encodeKeyword).getBody();
+        Book response = restTemplate.exchange(url, HttpMethod.GET, entity, Book.class, keyword).getBody();
 
         System.out.println(response.toString());
 		
