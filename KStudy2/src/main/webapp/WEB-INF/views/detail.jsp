@@ -258,8 +258,8 @@
                  	console.log("title: "+obj.title)
                  	
                  	html += '<div class="col mb-5">';
-                	html += '<div class="card h-100">';
-                	html += '<img class="card-img-top" src="'+obj.image+'" alt="..." />';
+                	html += '<div class="card h-100" style="min-width:200px;">';
+                	html += '<img class="card-img-top" src="'+obj.image+'" alt="..." width="100" height="150"/>';
                 	html += '<div class="card-body p-4">';
                 	html += '<div class="text-center">';
                 	html += '<h5 class="fw-bolder">';
