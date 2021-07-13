@@ -257,6 +257,8 @@
 		pagination(totalData, dataPerPage, pageCount, 1, "main");
     });
     
+    
+    
     function countAllLecture(){
 		var cnt;
     	

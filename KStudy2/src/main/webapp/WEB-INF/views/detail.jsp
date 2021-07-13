@@ -230,6 +230,8 @@
     let pageCount = 5; //페이징에 나타낼 페이지 수
     let globalCurrentPage=1; //현재 페이지
      
+    var lecName;
+    
      $(document).ready(function(){
      	console.log("<%=id%>");
      	showDetail();        
@@ -237,8 +239,27 @@
 		totalData = countStudyGroup();
 		pagination(totalData, dataPerPage, pageCount, 1, "study");
 		//GetBookData();
+		test(lecName);
      });
 
+    
+     function test (keyword) {
+     	
+     	$.ajax({
+             url: "/book/"+keyword,
+             type: "GET",
+             contentType: "application/json; charset=utf-8;",
+             async: false,
+             dataType: "json",
+             success: function(data){
+                 console.log(data.results);
+                 
+             },
+             error: function(){
+                 alert("err");
+             }
+         });
+     }
     
      /*$(function(){ 
 
@@ -331,7 +352,7 @@
          return this;
      };*/
      
-	 var lecName;
+	 
      function showDetail() {
 
      	$.ajax({
