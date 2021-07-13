@@ -253,7 +253,7 @@
              dataType: "json",
              success: function(data){
                  
-                 $.each(data.results, function(index, obj){
+                 $.each(data.items, function(index, obj){
                  	console.log("obj: "+obj)
                  	console.log("title: "+obj.title)
                  })
