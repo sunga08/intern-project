@@ -268,13 +268,18 @@
                 	html += '['+obj.publisher+']';
                 	html += '</div>';
                 	html += '<p></p>';
-                	               	
+                	html += '<p class="text-style-1">';
+                	html += '저자 '+obj.author;
+                	html += '</p>' 
+                	html += '<p class="text-style-1">';
+                	html += obj.price+'원';
+                	html += '</p>'               	
                 	
                 	html += '</div>';
 						
                 	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="#">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
                 	html += '</div>';
