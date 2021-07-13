@@ -194,13 +194,14 @@
         
         
         <!-- 도서 영역 -->
-        <!-- <div style="margin-bottom:100px">
+        <div style="margin-bottom:100px">
 	   		<div style="float:left"><h3>관련 도서</h3></div>
-	   	</div>-->
+	   	</div>
 
         
         <!-- 도서 Content-->
-        <div id="bookData" class="row gx-4 gx-lg-5">
+        <!-- <div id="bookData" class="row gx-4 gx-lg-5"> -->
+        <div id="bookData" class="row">
 
         </div>
         
@@ -252,11 +253,36 @@
              async: false,
              dataType: "json",
              success: function(data){
-                 
+            	 let html = '';
                  $.each(data.items, function(index, obj){
-                 	console.log("obj: "+obj)
                  	console.log("title: "+obj.title)
+                 	
+                 	html += '<div class="col mb-5">';
+                	html += '<div class="card h-100">';
+                	html += '<img class="card-img-top" src="'+obj.image+'" alt="..." />';
+                	html += '<div class="card-body p-4">';
+                	html += '<div class="text-center">';
+                	html += '<h5 class="fw-bolder">';
+                	html += obj.title;
+                	html += '</h5>';
+                	html += '['+obj.publisher+']';
+                	html += '</div>';
+                	html += '<p></p>';
+                	               	
+                	
+                	html += '</div>';
+						
+                	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                	html += '<div class="text-center">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="#">';
+                	html += '자세히 보기</a>';
+                	html += '</div>';
+                	html += '</div>';
+                	html += '</div>';	
+                	html += '</div>';
+                	
                  })
+               	 $("#bookData").append(html)
              },
              error: function(){
                  alert("err");
