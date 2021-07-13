@@ -254,7 +254,8 @@
              success: function(data){
                  
                  $.each(data.results, function(index, obj){
-                 	console.log(obj)
+                 	console.log("obj: "+obj)
+                 	console.log("title: "+obj.title)
                  })
              },
              error: function(){
