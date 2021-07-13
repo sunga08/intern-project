@@ -259,7 +259,7 @@
                  	
                  	html += '<div class="col mb-5">';
                 	html += '<div class="card h-100" style="min-width:200px;">';
-                	html += '<img class="card-img-top" src="'+obj.image+'" alt="..." width="100" height="150"/>';
+                	html += '<img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
                 	html += '<div class="card-body p-4">';
                 	html += '<div class="text-center">';
                 	html += '<h5 class="fw-bolder">';
@@ -268,10 +268,10 @@
                 	html += '['+obj.publisher+']';
                 	html += '</div>';
                 	html += '<p></p>';
-                	html += '<p class="text-style-1">';
-                	html += '저자 '+obj.author;
+                	html += '<p class="text-style-1">저자<br/>';
+                	html += obj.author;
                 	html += '</p>' 
-                	html += '<p class="text-style-1">';
+                	html += '<p class="text-style-1">가격<br/>';
                 	html += obj.price+'원';
                 	html += '</p>'               	
                 	
