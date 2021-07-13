@@ -252,8 +252,10 @@
              async: false,
              dataType: "json",
              success: function(data){
-                 console.log(data.results);
                  
+                 $.each(data.results, function(index, obj){
+                 	console.log(obj)
+                 })
              },
              error: function(){
                  alert("err");
