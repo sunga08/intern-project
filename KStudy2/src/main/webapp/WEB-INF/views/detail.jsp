@@ -188,7 +188,7 @@
 		    이미지여도 좋고 글이어도 좋습니다.
 		  </div>
 		</div>-->
-
+		
 	   	<div style="margin-bottom:100px">
 	   		<div style="float:left"><h3>이 강의로 진행중인 스터디</h3></div>
 
@@ -232,7 +232,7 @@
 			</div>
 		</div>
         
-        
+        <hr>
         <!-- 도서 영역 -->
         <div style="margin-bottom:100px">
 	   		<div style="float:left"><h3>강좌 연관 도서</h3></div>

@@ -41,9 +41,13 @@ public class BoardService {
 	
 	public List<Board> getPostListPaging(int groupId, Criteria criteria){
 		int totalCount = studyGroupMapper.getOneStudyGroup(groupId).getPostCnt();
+		criteria.setRecordsPerPage(5);
+		criteria.setTotalData(totalCount);
+		
+		
 		List<Board> postList = Collections.emptyList();
 		int startPage = criteria.getStartPage(); //offset
-		int recordsPerPage = criteria.getRecordsPerPage();
+
 		
 		if(totalCount>0) {
 			postList = boardMapper.getPostListPaging(groupId, startPage, PAGE_SIZE);
