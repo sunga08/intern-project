@@ -37,23 +37,27 @@ public class BoardController {
 //		return boardService.getPostList(groupId);
 //	}
 	
+	//게시글 목록 조회
 	@GetMapping("/studyboard/{groupId}")
 	public List<Board> getBoardList(@PathVariable(name="groupId")int groupId){
 		return boardService.getPostList(groupId);
 	}
 	
+	//게시글 목록 조회 페이징
 	@GetMapping("/studyboard/{groupId}/{page}")
 	public List<Board> getBoardListPaging(@PathVariable(name="groupId")int groupId, @PathVariable(name="page")int page, @ModelAttribute("criteria") Criteria criteria){
 		criteria.setCurrentPageNo(page);
 		return boardService.getPostListPaging(groupId, criteria);
 	}
 	
+	//게시글 작성
 	@PostMapping("/studyboard")
 	public int addPost(HttpSession session, @RequestBody Board board) {
 		board.setUserId(session.getAttribute("user_id").toString());
 		return boardService.addPost(board);
 	}
 	
+	//게시글 삭제
 	@DeleteMapping("/studyboard/{boardId}")
 	public ResponseEntity<Map<String,String>> deletePost(@PathVariable(name="boardId") int boardId) throws JsonProcessingException {
 		Map<String, String> map = new HashMap<>();
@@ -74,12 +78,13 @@ public class BoardController {
 			
 	}
 	
+	//게시글 수정
 	@PutMapping("/studyboard")
 	public int updatePost(@RequestBody Board board) {		
 		return boardService.updateBoard(board);
 	}
 	
-	
+	//게시글 상세 조회
 	@GetMapping("/studyboard/detail/{boardId}")
 	public Board getPost(@PathVariable(name="boardId") int boardId) {
 		return boardService.getPost(boardId);

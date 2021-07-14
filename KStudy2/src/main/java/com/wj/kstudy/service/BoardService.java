@@ -30,7 +30,7 @@ public class BoardService {
 	StudyGroupMapper studyGroupMapper;
 	
 	
-	@Value("3")
+	@Value("5")
 	private int PAGE_SIZE;
 	
 	

@@ -171,15 +171,15 @@
         <script type="text/javascript">
 
         let totalData; //총 데이터 수
-        let dataPerPage = 3; //한 페이지에 나타낼 글 수
+        let dataPerPage = 5; //한 페이지에 나타낼 글 수
         let pageCount = 5; //페이징에 나타낼 페이지 수
         let globalCurrentPage=1; //현재 페이지
         
         
         $(document).ready(function(){
 			goLecturePage();
-			getBoardData();
-			
+			getBoardData2(1);
+			pagination(${groupInfo.postCnt}, dataPerPage, pageCount, 1);
          });
         
        
@@ -194,7 +194,7 @@
         function getBoardData(){
         	var groupId = "${groupInfo.groupId}";
         	var lecId = "${groupInfo.lecId}";
-        	pagination(${groupInfo.postCnt}, dataPerPage, pageCount, 1);
+        	//pagination(${groupInfo.postCnt}, dataPerPage, pageCount, 1);
         	
         	$.ajax({
                 url: "/studyboard/"+groupId,

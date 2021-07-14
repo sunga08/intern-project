@@ -64,7 +64,31 @@
 	        z-index: 2;
 	    }
 	    
+	    .modal_wrap2{
+	        display: none;
+	        width: 800px;
+	        height: 600px;
+	        position: absolute;
+	        top:30%;
+	        left: 40%;
+	        margin: -250px 0 0 -250px;
+	        background:#FFFFFF;
+	        z-index: 2;
+	    }
+	    
 	    .black_bg{
+	        display: none;
+	        position: absolute;
+	        content: "";
+	        width: 100%;
+	        height: 120%;
+	        background-color:rgba(0, 0,0, 0.3);
+	        top:0;
+	        left: 0;
+	        z-index: 1;
+	    }
+	    
+	    .black_bg2{
 	        display: none;
 	        position: absolute;
 	        content: "";
@@ -84,7 +108,23 @@
 	        right: 0;
 	    }
 	    
+	    .modal_close2{
+	        width: 26px;
+	        height: 26px;
+	        position: absolute;
+	        top: -30px;
+	        right: 0;
+	    }
+	    
 	    .modal_close> a{
+	        display: block;
+	        width: 100%;
+	        height: 100%;
+	        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+	        text-indent: -9999px;
+	    }
+	    
+	    .modal_close2> a{
 	        display: block;
 	        width: 100%;
 	        height: 100%;
@@ -138,7 +178,7 @@
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->
         <div id=lecDetail></div>
-        
+        &nbsp;
         <!-- 
 		
 	
@@ -195,7 +235,7 @@
         
         <!-- 도서 영역 -->
         <div style="margin-bottom:100px">
-	   		<div style="float:left"><h3>관련 도서</h3></div>
+	   		<div style="float:left"><h3>강좌 연관 도서</h3></div>
 	   	</div>
 
         
@@ -309,17 +349,39 @@
      
      $(function(){     	 
     	 
-    	 function onClick() {
+    	 	function onClick() {
     	        document.querySelector('.modal_wrap').style.display ='block';
     	        document.querySelector('.black_bg').style.display ='block';
+    	        //document.getElementById("eng").style.display="block";
     	    }   
+
+    	 	
     	    function offClick() {
     	        document.querySelector('.modal_wrap').style.display ='none';
     	        document.querySelector('.black_bg').style.display ='none';
+    	        //document.getElementById("eng").style.display="none";
     	    }
+    	    
+    	    function onClick2() {
+    	        document.querySelector('.modal_wrap2').style.display ='block';
+    	        document.querySelector('.black_bg').style.display ='block';
+    	        //document.getElementById("kor").style.display="block";
+    	    }   
+
+    	 	
+    	    function offClick2() {
+    	        document.querySelector('.modal_wrap2').style.display ='none';
+    	        document.querySelector('.black_bg').style.display ='none';
+    	        //document.getElementById("kor").style.display="none";
+    	    }
+
     	 
     	    document.getElementById('modal_btn').addEventListener('click', onClick);
+    	    document.getElementById('modal_btn2').addEventListener('click', onClick2);
     	    document.querySelector('.modal_close').addEventListener('click', offClick);
+    	    document.querySelector('.modal_close2').addEventListener('click', offClick2);
+    	    
+
 
 
    	  /*$("#modal_btn").click(function(){
@@ -412,8 +474,8 @@
              	html += '등록기간 | '+data.enrollStart.substring(0,10)+'~'+data.enrollEnd.substring(0,10)+'</p>';
              	html += '<li><a class="btn btn-primary" href="'+data.lecUrl+'" target="_blank">강의 바로가기</a>';
              	
-             	html += '<button type="button" class="btn btn-primary" id="modal_btn">영어사전 보기</button>';
-             	html += '<button type="button" class="btn btn-primary" id="modal_btn2">국어사전 보기</button></li>';
+             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn">영어사전 보기</button>';
+             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn2">국어사전 보기</button></li>';
 
                 html += '</div>';
                 html += '</div>';
@@ -423,10 +485,16 @@
 	            html += '</div>';
 	        	html += '</div>';
              
-             	html += '<div class="black_bg"></div>';
+             	html += '<div class="black_bg"></div>';     	
              	html += '<div class="modal_wrap">';
              	html += '<div class="modal_close"><a href="#">close</a></div>';
-             	html += '<div><iframe src="https://web-public-service-smartall-dev.wjthinkbig.com/dictionary/engdicDetail?contractNumber=M100006092" width="100%" height="600px"></iframe></div> <div>';
+             	html += '<div><iframe src="https://web-public-service-smartall-dev.wjthinkbig.com/dictionary/engdicDetail?contractNumber=M100006092" width="100%" height="600px"></iframe></div></div>';
+             	
+             	
+             	html += '<div class="modal_wrap2">';
+             	html += '<div class="modal_close2"><a href="#">close</a></div>';
+             	html += '<div><iframe class="kor" src="https://web-public-service-smartall-dev.wjthinkbig.com/dictionary/kordicList?contractNumber=M100006092" width="100%" height="600px"></iframe></div></div>';
+             	
              	
                 console.log("html")
                 console.log(html)
