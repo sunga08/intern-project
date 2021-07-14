@@ -338,8 +338,9 @@
 	  					  },*/
 	  					  headerToolbar: {	  						 	  					    
 	  					  	//left: 'myCustomButton',
+	  					  	left: 'today',
 	  					    center: 'title',
-	  					  	right: 'today prev,next'
+	  					  	right: 'prev,next'
 	  					  },
 	  					editable: true,
 	  		          	selectable: true,

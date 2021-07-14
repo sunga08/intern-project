@@ -57,7 +57,7 @@
 	        width: 800px;
 	        height: 600px;
 	        position: absolute;
-	        top:30%;
+	        top:auto;
 	        left: 40%;
 	        margin: -250px 0 0 -250px;
 	        background:#FFFFFF;
@@ -69,7 +69,7 @@
 	        width: 800px;
 	        height: 600px;
 	        position: absolute;
-	        top:30%;
+	        top:auto;
 	        left: 40%;
 	        margin: -250px 0 0 -250px;
 	        background:#FFFFFF;
@@ -472,7 +472,7 @@
              	html += '<p>제공기관 | '+data.orgName+'<br>';
              	html += '강사명  | '+data.teachers+'<br>'; 
              	html += '등록기간 | '+data.enrollStart.substring(0,10)+'~'+data.enrollEnd.substring(0,10)+'</p>';
-             	html += '<li><a class="btn btn-primary" href="'+data.lecUrl+'" target="_blank">강의 바로가기</a>';
+             	html += '<li style="list-style: none;"><a class="btn btn-primary" href="'+data.lecUrl+'" target="_blank">강의 바로가기</a>';
              	
              	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn">영어사전 보기</button>';
              	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn2">국어사전 보기</button></li>';
