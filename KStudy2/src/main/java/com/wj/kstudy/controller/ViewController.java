@@ -210,7 +210,9 @@ public class ViewController {
 		String user_id = session.getAttribute("user_id").toString();
 		ModelAndView mav = new ModelAndView("studyBoardView");
 		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		
 		Criteria criteria = new Criteria();
+		
 		mav.addObject("groupInfo", studyGroup);		
 		mav.addObject("criteria", criteria);
 		mav.setViewName("studyboard");

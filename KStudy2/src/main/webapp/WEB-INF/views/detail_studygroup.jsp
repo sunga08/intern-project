@@ -14,6 +14,7 @@
         <link href="/css/styles2.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
     </head>
     <body class="sb-nav-fixed">
     <%       	
@@ -68,7 +69,7 @@
                         </ol>
                         <hr>
                         <div style="margin-bottom: 30px; height: 50px" class="form-floating">
-                        	<div style="float:left;"><h3 class="mt-4">스터디 상세 설명</h3></div>
+                        	<div style="float:left;"><h3 class="mt-4"><i class="far fa-file-alt"></i> 스터디 상세 설명</h3></div>
                         	<div class="mt-4" style="float:left; padding-left:30px;">
                         		<button type="button" class="btn btn-primary" onclick="viewModifyForm()">스터디 정보 수정</button>
                         	</div>
@@ -84,7 +85,7 @@
                             </div>
                                                     
                         </div>
-                        <h3 class="mt-4">스터디 참여 멤버</h3>
+                        <h3 class="mt-4"><i class="fas fa-users"></i> 스터디 참여 멤버</h3>
                         <div id="members" class="row">
 							<div class="col-xl-3-1 col-md-6">
                         		<div class="card bg-primary text-white mb-4">
@@ -323,14 +324,13 @@
     			contentType: 'application/json',
     			success: function(data){
     				console.log(data);
-					if(data==1 && num==1){
-						
+					if(data.result=="member" && num==1){						
 						window.location.href = "/view/schedule/"+${groupInfo.groupId};
 					}
-					else if(data==1 && num==2){
+					else if(data.result=="member" && num==2){
 						window.location.href = "/view/studyboard/"+${groupInfo.groupId};
 					}
-					else if(data==0){
+					else if(data.result=="not member"){
 						alert('그룹 가입자만 볼 수 있습니다.');
 					}
 

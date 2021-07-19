@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.wj.kstudy.mapper.CommentMapper"> 
+	<resultMap type="com.wj.kstudy.dto.Comment" id="comment_resultMap">
+		<result column="comment_id" property="commentId"/>
+		<result column="board_id" property="boardId"/>
+		<result column="group_id" property="groupId"/>
+		<result column="bundle_id" property="bundleId"/>
+		<result column="bundle_order" property="bundleOrder"/>
+		<result column="reg_user" property="regUser"/>
+		<result column="reg_dtm" property="regDtm"/>
+		<result column="mod_dtm" property="modDtm"/>
+		<result column="use_yn" property="useYn"/>
+	</resultMap>
+	
+	<!-- 댓글 목록 -->
+	<select id="getComments" parameterType="java.lang.Integer" resultMap="comment_resultMap">
+		select comment_id, board_id, group_id, content, depth, bundle_id, bundle_order, reg_user, reg_dtm, mod_dtm, use_yn from comments 
+		where group_id=#{groupId} and board_id=#{boardId}
+		order by bundle_id, bundle_order;
+	</select>
+	
+	<select id="getOneComment" parameterType="java.lang.Integer" resultMap="comment_resultMap">
+		select comment_id, board_id, group_id, content, depth, bundle_id, bundle_order, reg_user, reg_dtm, mod_dtm, use_yn from comments 
+		where comment_id=#{commentId}
+	</select>
+	
+	<!-- 댓글 추가 -->
+	<insert id="insertComment" parameterType="com.wj.kstudy.dto.Comment" useGeneratedKeys="true" keyProperty="commentId">
+		insert into comments (board_id, group_id, content, depth, bundle_id, bundle_order, reg_user, reg_dtm, use_yn) values(#{boardId}, #{groupId}, #{content}, #{depth}, #{bundleId}, #{bundleOrder}, #{regUser}, now(),'y')
+	</insert>
+	
+	<!-- 원댓에 달린 대댓 개수 -->
+	<select id="countBundleComment" resultType="java.lang.Integer">
+		select count(*) from comments where group_id=#{groupId} and bundle_id=#{bundleId}
+	</select>
+	
+	<!-- 원댓 개수 -->
+	<select id="countBundle" resultType="java.lang.Integer">
+		select count(*) from comments where group_id=#{groupId} and depth=0;
+	</select>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="java.lang.Integer">
+		delete from comments where comment_id=#{commentId}
+	</delete>
+	
+	
+	<!-- 삭제된 댓글로 업데이트 -->
+	<update id="updateDeleteComment" parameterType="java.lang.Integer">
+		update comments
+		set content='삭제된 댓글입니다.', use_yn='n'
+		where comment_id=#{commentId}
+	</update>
+	
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="com.wj.kstudy.dto.Comment">
+		update comments
+		set content=#{content}, mod_dtm=now()
+		where comment_id=#{commentId}
+	</update>
+	
+	 
+</mapper>

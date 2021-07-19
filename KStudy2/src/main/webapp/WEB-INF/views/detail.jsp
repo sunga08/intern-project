@@ -57,7 +57,7 @@
 	        width: 800px;
 	        height: 600px;
 	        position: absolute;
-	        top:auto;
+	        top: 30%;
 	        left: 40%;
 	        margin: -250px 0 0 -250px;
 	        background:#FFFFFF;
@@ -69,7 +69,7 @@
 	        width: 800px;
 	        height: 600px;
 	        position: absolute;
-	        top:auto;
+	        top:30%;
 	        left: 40%;
 	        margin: -250px 0 0 -250px;
 	        background:#FFFFFF;
@@ -179,16 +179,7 @@
         <!-- Heading Row-->
         <div id=lecDetail></div>
         &nbsp;
-        <!-- 
-		
-	
-		  <div class="modal_content" 
-		       title="클릭하면 창이 닫힙니다.">
-		    여기에 모달창 내용을 적어줍니다.<br>
-		    이미지여도 좋고 글이어도 좋습니다.
-		  </div>
-		</div>-->
-		
+
 	   	<div style="margin-bottom:100px">
 	   		<div style="float:left"><h3>이 강의로 진행중인 스터디</h3></div>
 
@@ -275,16 +266,16 @@
     
      $(document).ready(function(){
      	console.log("<%=id%>");
-     	showDetail();        
-		getStudyData(1);
+     	showDetail(); //강좌 상세정보 조회   
+		getStudyData(1); //스터디 그룹 목록 1페이지
 		totalData = countStudyGroup();
 		pagination(totalData, dataPerPage, pageCount, 1, "study");
-		//GetBookData();
-		test(lecName);
+		getBookData(lecName); //관련 도서 조회
      });
 
     
-     function test (keyword) {
+     //관련 도서
+     function getBookData (keyword) {
      	
      	$.ajax({
              url: "/book/"+keyword,
@@ -334,45 +325,30 @@
              }
          });
      }
-    
-     /*$(function(){ 
 
-    	  $("#modal_btn").click(function(){
-    	    $(".modal").fadeIn();
-    	  });
-    	  
-    	  $(".modal_content").click(function(){
-    	    $(".modal").fadeOut();
-    	  });
-    	  
-    });*/
-     
+     //사전 보기 버튼 이벤트
      $(function(){     	 
     	 
     	 	function onClick() {
     	        document.querySelector('.modal_wrap').style.display ='block';
     	        document.querySelector('.black_bg').style.display ='block';
-    	        //document.getElementById("eng").style.display="block";
     	    }   
 
     	 	
     	    function offClick() {
     	        document.querySelector('.modal_wrap').style.display ='none';
     	        document.querySelector('.black_bg').style.display ='none';
-    	        //document.getElementById("eng").style.display="none";
     	    }
     	    
     	    function onClick2() {
     	        document.querySelector('.modal_wrap2').style.display ='block';
     	        document.querySelector('.black_bg').style.display ='block';
-    	        //document.getElementById("kor").style.display="block";
     	    }   
 
     	 	
     	    function offClick2() {
     	        document.querySelector('.modal_wrap2').style.display ='none';
     	        document.querySelector('.black_bg').style.display ='none';
-    	        //document.getElementById("kor").style.display="none";
     	    }
 
     	 
@@ -380,75 +356,10 @@
     	    document.getElementById('modal_btn2').addEventListener('click', onClick2);
     	    document.querySelector('.modal_close').addEventListener('click', offClick);
     	    document.querySelector('.modal_close2').addEventListener('click', offClick2);
-    	    
-
-
-
-   	  /*$("#modal_btn").click(function(){
-   		document.querySelector('.modal_wrap').style.display ='block';
-        document.querySelector('.black_bg').style.display ='block';
-
-   	  });
    	  
-   	  $("#close_btn").click(function(){
-   		document.querySelector('.modal_wrap').style.display ='none';
-        document.querySelector('.black_bg').style.display ='none';
-
-   	  });*/
-   	  
-   });
-
-     
-     
-     /*function modal(id) {
-         var zIndex = 9999;
-         var modal = document.getElementById(id);
-
-         // 모달 div 뒤에 희끄무레한 레이어
-         var bg = document.createElement('div');
-         bg.setStyle({
-             position: 'fixed',
-             zIndex: zIndex,
-             left: '0px',
-             top: '0px',
-             width: '100%',
-             height: '100%',
-             overflow: 'auto',
-             // 레이어 색갈은 여기서 바꾸면 됨
-             backgroundColor: 'rgba(0,0,0,0.4)'
-         });
-         document.body.append(bg);
-
-         // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
-         modal.querySelector('.modal_close_btn').addEventListener('click', function() {
-             bg.remove();
-             modal.style.display = 'none';
-         });
-
-         modal.setStyle({
-             position: 'fixed',
-             display: 'block',
-             boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-
-             // 시꺼먼 레이어 보다 한칸 위에 보이기
-             zIndex: zIndex + 1,
-
-             // div center 정렬
-             top: '50%',
-             left: '55%',
-             transform: 'translate(-50%, -50%)',
-             msTransform: 'translate(-50%, -50%)',
-             webkitTransform: 'translate(-50%, -50%)'
-         });
-     }
-
-     // Element 에 style 한번에 오브젝트로 설정하는 함수 추가
-     Element.prototype.setStyle = function(styles) {
-         for (var k in styles) this.style[k] = styles[k];
-         return this;
-     };*/
-     
+   });     
 	 
+     //강좌 상세정보 조회
      function showDetail() {
 
      	$.ajax({
@@ -508,6 +419,7 @@
     
     }
     
+    //스터디 그룹 목록 조회
     function getStudyData(page) {
     	$("#studygroup").empty()
     	
@@ -539,7 +451,8 @@
                     html += '<p class="card-text">'+obj.shortDsc+'</p>';
                     html += '<p class="card-text"> 학교명 | '+obj.schoolName+'<br/> 인원  | '+obj.curMem+' / '+obj.maxMem+'<br/> 생성일 | '+timeString_KR.substring(0,11)+'<br/> 개설자 | '+obj.regUser+'</p>';
                     html += '</div>';
-                    if(checkJoin(obj.groupId,0)==0){
+                    //가입여부 체크
+                    if(checkJoin(obj.groupId,0)==0){ 
                     	html += '<div class="card-footer"><a class="btn btn-red btn-sm" style="cursor: default;">가입된 그룹</a></div>';
                     }
                     else if(checkJoin(obj.groupId,0)==1){
@@ -560,21 +473,7 @@
         });
 
     }
-    
-    /*window.onload=function(){
-	    function onClick() {
-		        document.querySelector('.modal_wrap').style.display ='block';
-		        document.querySelector('.black_bg').style.display ='block';
-		    }   
-		    function offClick() {
-		        document.querySelector('.modal_wrap').style.display ='none';
-		        document.querySelector('.black_bg').style.display ='none';
-		    }
-		 
-		    document.getElementById('modal_btn').addEventListener('click', onClick);
-		    document.querySelector('.modal_close').addEventListener('click', offClick);
-    }*/
-    
+
     function countStudyGroup(){
 		var cnt;
     	
@@ -622,13 +521,47 @@
     }
     
     
+    //스터디 생성하기 창 띄우기
     function createStudy(){
     	window.open('/studygroup/add/'+encodeURIComponent("<%=id%>"), '스터디 생성하기','width=800, height=500');
     	window.opener.document.getElementById('form').submit();
 
     }
     
-    function joinStudyAlert(groupId){
+    //가입여부, 인원초과 여부 판단
+    function checkJoin(groupId, tmp){
+    	var check=1;
+
+    	$.ajax({
+			url: '/studygroup/check/'+groupId, //반환값 수정하기
+			type: 'GET',
+			async: false,
+			contentType: 'application/json',
+			success: function(data){
+				console.log(data);
+				
+				if(data==0){
+					check=data;
+				}
+				else if(data==-1 && tmp==1){
+					alert('인원이 가득차 참여할 수 없습니다.');
+				}
+				else if(data==1 && tmp==1){
+					confirmJoin(groupId);
+				}
+
+
+			}, error: function(xhr, status,error){
+
+				console.log(xhr.status+" error: "+error);
+			}
+		})
+		
+		return check;
+    }
+
+    
+    function confirmJoin(groupId){
 
     	$.ajax({
             url: "/studygroup/"+groupId,
@@ -671,38 +604,8 @@
 		})
     }
     
-    function checkJoin(groupId, tmp){
-    	var check=1;
-
-    	$.ajax({
-			url: '/studygroup/check/'+groupId,
-			type: 'GET',
-			async: false,
-			contentType: 'application/json',
-			success: function(data){
-				console.log(data);
-				
-				if(data==0){
-					//alert('이미 가입된 그룹입니다.');	
-					check=data;
-				}
-				else if(data==-1 && tmp==1){
-					alert('인원이 가득차 참여할 수 없습니다.');
-				}
-				else if(data==1 && tmp==1){
-					joinStudyAlert(groupId);
-				}
-
-
-			}, error: function(xhr, status,error){
-
-				console.log(xhr.status+" error: "+error);
-			}
-		})
-		
-		return check;
-    }
-
+    
+    
     
     function pagination(totalData, dataPerPage, pageCount, currentPage, option){
 	  	let html='';
@@ -759,9 +662,9 @@
 	       	    if ($id == "next") selectedPage = next;
 	       	    if ($id == "prev") selectedPage = prev;
 	       	    
-	       	    //전역변수에 선택한 페이지 번호를 담는다...
-	       	    globalCurrentPage = selectedPage;
-	       	    console.log("selectedPage "+selectedPage);
+	       	    
+	       	    globalCurrentPage = selectedPage; //선택된 페이지 번호
+
 
        	    	//페이징 표시 재호출
 	       	    if(option=="study"){

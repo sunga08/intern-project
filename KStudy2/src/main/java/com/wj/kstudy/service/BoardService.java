@@ -35,7 +35,6 @@ public class BoardService {
 	
 	
 	public List<Board> getPostList(int groupId){
-
 		return boardMapper.getPostList(groupId);
 	}
 	
@@ -55,16 +54,32 @@ public class BoardService {
 		return postList;
 	}
 	
+	public List<Board> getPostListPaging2(Criteria criteria){
+		int totalCount = studyGroupMapper.getOneStudyGroup(criteria.getGroupId()).getPostCnt();
+		criteria.setRecordsPerPage(PAGE_SIZE);
+		criteria.setTotalData(totalCount);
+
+		return boardMapper.getPostListPaging2(criteria);
+	}
+	
 	public int addPost(Board board) {
 		boardMapper.insertPost(board);
 		return studyGroupMapper.plusPostCnt(board.getGroupId());
 	}
 	
+	@Transactional
 	public int deletePost(int boardId) {
+		int result=0;
+		
 		Board board = boardMapper.getPost(boardId);
 		int groupId = board.getGroupId();
-		boardMapper.deletePost(boardId);
-		return studyGroupMapper.minusPostCnt(groupId);
+		try {
+			studyGroupMapper.minusPostCnt(groupId);
+			result = boardMapper.deletePost(boardId);
+		}catch(Exception e) {
+			
+		}
+		return result;
 	}
 	
 	public int updateBoard(Board board) {
@@ -124,4 +139,60 @@ public class BoardService {
 		
 		return board;
 	}
+	
+	//제목+내용 검색 결과
+	public List<Board> getSearchListPaging(Criteria criteria, int groupId, int option, String keyword, int page){
+		int totalCount;
+		List<Board> boardList = null;
+		criteria.setRecordsPerPage(PAGE_SIZE);
+		criteria.setGroupId(groupId);
+		criteria.setCurrentPageNo(page);
+		criteria.setKeyword(keyword);
+		
+		if(option==1) {
+			totalCount = boardMapper.getTotalTC(criteria);
+			criteria.setTotalData(totalCount);
+			boardList = boardMapper.getPostListTCPaging(criteria);
+		}
+		
+		else if(option==2) {
+			totalCount = boardMapper.getTotalW(criteria);
+			criteria.setTotalData(totalCount);
+			boardList = boardMapper.getPostListWPaging(criteria);
+		}
+		
+		return boardList;
+		
+	}
+	
+	//제목+내용 게시글 카운트
+	public int getTotalTC(Criteria criteria, int groupId, String keyword) {
+		criteria.setGroupId(groupId);
+		criteria.setKeyword(keyword);
+		
+		return boardMapper.getTotalTC(criteria);
+	}
+	
+	
+	//제목+내용 검색 결과
+	public List<Board> getPostListWPaging(Criteria criteria, int groupId, String keyword, int page){
+		int totalCount = boardMapper.getTotalW(criteria);
+		criteria.setRecordsPerPage(PAGE_SIZE);
+		criteria.setTotalData(totalCount);
+		criteria.setGroupId(groupId);
+		criteria.setCurrentPageNo(page);
+		criteria.setKeyword(keyword);
+		
+		return boardMapper.getPostListWPaging(criteria);
+	}
+	
+	//제목+내용 게시글 카운트
+	public int getTotalW(Criteria criteria, int groupId, String keyword) {
+		criteria.setGroupId(groupId);
+		criteria.setKeyword(keyword);
+		
+		return boardMapper.getTotalW(criteria);
+	}
+	
+	
 }

@@ -24,6 +24,35 @@
 		limit #{startPage}, #{recordsPerPage}
 	</select>
 	
+	<select id="getPostListPaging2" resultMap="board_resultMap">
+		SELECT r1.* FROM (
+			select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
+			from board where group_id=#{groupId}
+			<if test="keyword != null">
+				and title like concat('%',#{keyword},'%')
+			</if>
+			order by reg_dtm desc) r1
+		limit #{skip}, #{recordsPerPage}
+	</select>
+	
+	<!-- 제목+내용 검색 결과 -->
+	<select id="getPostListTCPaging" resultMap="board_resultMap">
+		SELECT r1.* FROM (
+			select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
+			from board where group_id=#{groupId} and (title like concat('%',#{keyword},'%') or content like concat('%',#{keyword},'%'))
+			order by reg_dtm desc) r1
+		limit #{skip}, #{recordsPerPage}
+	</select>
+	
+	<!-- 작성자 검색 결과 -->
+	<select id="getPostListWPaging" resultMap="board_resultMap">
+		SELECT r1.* FROM (
+			select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
+			from board where group_id=#{groupId} and user_id like concat('%',#{keyword},'%')
+			order by reg_dtm desc) r1
+		limit #{skip}, #{recordsPerPage}
+	</select>
+	
 	<!-- 게시글 하나 가져오기 -->
 	<select id="getPost" parameterType="java.lang.Integer" resultMap="board_resultMap">
 		select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
@@ -53,6 +82,17 @@
 		set view_cnt=view_cnt+1
 		where board_id=#{boardId}
 	</update>
+		
+	<!-- 제목+내용 검색 결과 개수 -->
+	<select id="getTotalTC" resultType="java.lang.Integer">
+		select count(*) from board 
+		where group_id=#{groupId} and (title like concat('%',#{keyword},'%') or content like concat('%',#{keyword},'%'))
+	</select>
 	
+	<!-- 작성자 검색 결과 개수 -->
+	<select id="getTotalW" resultType="java.lang.Integer">
+		select count(*) from board 
+		where group_id=#{groupId} and user_id like concat('%',#{keyword},'%') 
+	</select>
 	 
 </mapper>

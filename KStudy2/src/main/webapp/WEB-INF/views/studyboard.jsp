@@ -75,13 +75,23 @@
                         <div style="padding-bottom:80px;">           
 	                        <div style="float:left;"><h1 class="mt-4">${groupInfo.groupName}</h1></div>
 	                    </div>
+	                    
                         <ol id="lectureName" class="breadcrumb mb-4">
-
                         </ol>
+                        
                         <hr>
+                        
+                        <div style="float:left;" class="mt-4-1">	                        
+                        	<select name="searchType" id="searchType">
+                        		<option value="제목+내용">제목+내용</option>
+                        		<option value="작성자">작성자</option>
+                        	</select>
+                        	<input type="text" id="searchKeyword"><button type="button" id="searchBtn" onclick="search();">검색</button>
+                        </div>
+	                    
                         <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/write/${groupInfo.groupId}'">글쓰기</button></div>
-                        <div id="board">
-                        	<!-- <table class="table table-hover table-striped text-center" style="border: 1px solid;">
+                        <div id="board" style="height:350px;">
+                        	<!--<table class="table table-hover table-striped text-center" style="border: 1px solid;">
                         		<thead>
                         			<tr>
 	                        			<th>번호</th>
@@ -90,53 +100,15 @@
 	                        			<th>작성일</th>
 	                        			<th>조회수</th>
 	                        		</tr>
-                        		</thead>
-                        		<tbody>
-                        			<tr>
-                        				<td>1</td>
-                        				<td>Title1</td>
-                        				<td>User1</td>
-                        				<td>2021-07-18</td>
-                        				<td>10</td>
-                        			</tr>
-                        			<tr>
-                        				<td>2</td>
-                        				<td>Title2</td>
-                        				<td>User2</td>
-                        				<td>2021-07-18</td>
-                        				<td>20</td>
-                        			</tr>
-                        		</tbody>
+                        		</thead>                                              		
                         	
-                        	</table>
-                        	<hr/> -->
+                        	</table>-->                        	
                         	
                         </div>
-	                        <div id="pagination" class="pagination-div">
-							  	<!-- <ul class="pagination">
-								    <li class="page-item disabled">
-								      <a class="page-link" href="#">&laquo;</a>
-								    </li>
-								    <li class="page-item active">
-								      <a class="page-link" href="#">1</a>
-								    </li>
-								    <li class="page-item">
-								      <a class="page-link" href="#">2</a>
-								    </li>
-								    <li class="page-item">
-								      <a class="page-link" href="#">3</a>
-								    </li>
-								    <li class="page-item">
-								      <a class="page-link" href="#">4</a>
-								    </li>
-								    <li class="page-item">
-								      <a class="page-link" href="#">5</a>
-								    </li>
-								    <li class="page-item">
-								      <a class="page-link" href="#">&raquo;</a>
-								    </li>
-							  	</ul>-->
-							</div>
+                        
+	                     <div id="pagination" class="pagination-div">
+							  	
+						</div>
                         
                         
                         
@@ -174,21 +146,113 @@
         let dataPerPage = 5; //한 페이지에 나타낼 글 수
         let pageCount = 5; //페이징에 나타낼 페이지 수
         let globalCurrentPage=1; //현재 페이지
-        
+        var groupId = "${groupInfo.groupId}";
+        var keyword;
         
         $(document).ready(function(){
 			goLecturePage();
+			totalData = ${groupInfo.postCnt};
 			getBoardData2(1);
-			pagination(${groupInfo.postCnt}, dataPerPage, pageCount, 1);
+			pagination(totalData, dataPerPage, pageCount, 1, "default");
          });
         
-       
+      
+        
+        function search(){
+        	var option = $("select[name=searchType]").val();
+        	keyword = document.getElementById('searchKeyword').value;
+        	
+        	if(keyword==""){
+        		alert('검색어를 입력해주세요.');
+        	}
+        	else{
+	        	if(option=="제목+내용"){
+	        		totalTCData = countSearchTC(keyword);
+	        		getSearchData(keyword, 1, totalTCData, 1);
+	        		pagination(totalTCData, dataPerPage, pageCount, 1, "TC");
+	        	}
+	        	
+	        	else if(option=="작성자"){
+	        		console.log("직성자 검색");
+	        		totalWData = countSearchW(keyword);
+	        		getSearchData(keyword, 1, totalWData, 2);
+	        		pagination(totalWData, dataPerPage, pageCount, 1, "W");
+	        	}
+        	}
+        	
+        }
+
         
         function goLecturePage(){
         	var lecId = "${groupInfo.lecId}";
         	let html='';
         	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="<c:url value="/view/detail?courseId='+encodeURIComponent(lecId)+'"/>" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>'
         	$("#lectureName").append(html);
+        }
+        
+
+        
+        function getSearchData(keyword, page, searchCnt, option){        	
+        	$("#board").empty();
+        	
+        	$.ajax({
+                url: "/studyboard/"+groupId+"/search/"+option+"/"+keyword+"/"+page,
+                type: "GET",
+                contentType: "application/json; charset=utf-8;",
+                dataType: "json",
+                success: function(response){
+
+                    console.log(response);
+
+                    
+                    let html = '';
+                    
+                    html += '<table class="table table-hover table-striped text-center" style="border: 1px solid;">';
+            		html += '<thead>';
+            		html += '<tr>';
+                	html += '<th>번호</th>';
+                	html += '<th>제목</th>';
+                	html += '<th>글쓴이</th>';
+                	html += '<th>작성일</th>';
+                	html += '<th>조회수</th>';
+                	html += '</tr>';
+            		html += '</thead>';
+            		
+            		var postCnt = searchCnt; //게시글 번호 => 그룹별 총 게시글 수
+            		var num = postCnt-dataPerPage*(page-1);
+                    $.each(response, function(index, obj){
+                    	console.log(obj)
+                    	
+                    	let dateObj = new Date(obj.regDtm);
+                    	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
+                    	
+            			html += '<tbody>';
+                    	html += '<tr>';
+        				html += '<td>'+num+'</td>';
+        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+        				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+        				html += '<td>'+obj.userId+'</td>';
+        				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
+        				html += '<td>'+obj.viewCnt+'</td>';
+        				html += '</tr>';
+        				num=num-1; //감소시키기
+                    })
+                    
+                    html += '</tbody>';
+                        	
+                    html += '</table>';
+                    html += '<hr/> ';
+                    
+					
+                    console.log("html")
+                    console.log(html)
+                    $("#board").append(html)
+
+                },
+                error: function(){
+                    alert("err");
+                }
+            });
         }
         
         function getBoardData(){
@@ -218,7 +282,6 @@
                 	html += '<th>조회수</th>';
                 	html += '</tr>';
             		html += '</thead>';
-            		html += '<tbody>';
             		
             		var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수
                     $.each(response, function(index, obj){
@@ -227,6 +290,7 @@
                     	let dateObj = new Date(obj.regDtm);
                     	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
                     	
+            			html += '<tbody>';
                     	html += '<tr>';
         				html += '<td>'+postCnt+'</td>';
         				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
@@ -255,7 +319,7 @@
             });    	
         }
         
-        function pagination(totalData, dataPerPage, pageCount, currentPage){
+        function pagination(totalData, dataPerPage, pageCount, currentPage, option){
         	let html='';
         	
         	var postCnt ="${groupInfo.postCnt}"; 
@@ -315,29 +379,20 @@
 	       	    globalCurrentPage = selectedPage;
 	       	    console.log("selectedPage "+selectedPage);
 	       	    //페이징 표시 재호출
-	       	    pagination(totalData, dataPerPage, pageCount, selectedPage);
-	       	    //글 목록 표시 재호출
-	       	    //displayData(selectedPage, dataPerPage);
-	       	    getBoardData2(selectedPage);
+	       	    if(option=="default"){
+		       	    pagination(totalData, dataPerPage, pageCount, selectedPage, "default");
+		       	    getBoardData2(selectedPage);
+	       	    }
+	       	    else if(option=="TC"){
+		       	    pagination(totalData, dataPerPage, pageCount, selectedPage, "TC");
+		       		getSearchData(keyword, selectedPage, totalData, 1);	       	    	
+	       	    }
+	       	 	else if(option=="W"){
+		       	    pagination(totalData, dataPerPage, pageCount, selectedPage, "W");
+		       		getSearchData(keyword, selectedPage, totalData, 2);	       	    	
+	       	    }
 	       	  });
-	       	
-			/*html += '<ul class="pagination">';
-			html += '<li class="page-item disabled">';
-			html += '<a class="page-link" href="#">&laquo;</a>';
-			html += '</li> <li class="page-item active">';
-			html += '<a class="page-link" href="#">1</a>';
-			html += '</li> <li class="page-item">';
-			html += '<a class="page-link" href="#">2</a>';
-			html += '</li> <li class="page-item">';
-			html += '<a class="page-link" href="#">3</a>';
-			html += '</li> <li class="page-item">';
-			html += '<a class="page-link" href="#">4</a>';
-			html += '</li> <li class="page-item">';
-			html += '<a class="page-link" href="#">5</a>';
-			html += '</li> <li class="page-item">';
-			html += '<a class="page-link" href="#">&raquo;</a>';
-			html += '</li> </ul>';
-			$("#pagination").append(html)*/
+
         }
         
         function getBoardData2(page){
@@ -367,7 +422,6 @@
                 	html += '<th>조회수</th>';
                 	html += '</tr>';
             		html += '</thead>';
-            		html += '<tbody>';
             		
             		var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수
             		var num = postCnt-dataPerPage*(page-1);
@@ -377,6 +431,7 @@
                     	let dateObj = new Date(obj.regDtm);
                     	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
                     	
+            			html += '<tbody>';
                     	html += '<tr>';
         				html += '<td>'+num+'</td>';
         				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
@@ -453,6 +508,45 @@
             });    	
         }
 
+        function countSearchTC(keyword){
+        	var cnt;
+        	
+        	$.ajax({
+                url: "/studyboard/countTC/"+groupId+"/"+keyword,
+                type: "GET",       
+                async: false,
+                dataType: "json",
+                success: function(response){
+    				cnt = response;
+                },
+                error: function(){
+                    alert("err");
+                }
+            });
+        	        	
+        	console.log(cnt);
+        	return cnt;
+        }
+        
+        function countSearchW(keyword){
+        	var cnt;
+        	
+        	$.ajax({
+                url: "/studyboard/countW/"+groupId+"/"+keyword,
+                type: "GET",       
+                async: false,
+                dataType: "json",
+                success: function(response){
+    				cnt = response;
+                },
+                error: function(){
+                    alert("err");
+                }
+            });
+        	        	
+        	console.log(cnt);
+        	return cnt;
+        }
 
 		</script>
         

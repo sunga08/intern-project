@@ -28,6 +28,7 @@ import com.wj.kstudy.service.BoardService;
 
 @RestController
 public class BoardController {
+	
 	@Autowired 
 	BoardService boardService;
 	
@@ -44,10 +45,17 @@ public class BoardController {
 	}
 	
 	//게시글 목록 조회 페이징
+//	@GetMapping("/studyboard/{groupId}/{page}")
+//	public List<Board> getBoardListPaging(@PathVariable(name="groupId")int groupId, @PathVariable(name="page")int page, @ModelAttribute("criteria") Criteria criteria){
+//		criteria.setCurrentPageNo(page);
+//		return boardService.getPostListPaging(groupId, criteria);
+//	}
+	
 	@GetMapping("/studyboard/{groupId}/{page}")
-	public List<Board> getBoardListPaging(@PathVariable(name="groupId")int groupId, @PathVariable(name="page")int page, @ModelAttribute("criteria") Criteria criteria){
+	public List<Board> getBoardListPaging2(@PathVariable(name="groupId")int groupId, @PathVariable(name="page")int page, Criteria criteria){
+		criteria.setGroupId(groupId);
 		criteria.setCurrentPageNo(page);
-		return boardService.getPostListPaging(groupId, criteria);
+		return boardService.getPostListPaging2(criteria);
 	}
 	
 	//게시글 작성
@@ -69,10 +77,10 @@ public class BoardController {
 		}
 		
 		ResponseEntity<Map<String,String>> responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
-		ObjectMapper objectMapper = new ObjectMapper();
-		String jsonString = objectMapper.writeValueAsString(responseEntity);
-		
-		System.out.println(jsonString);
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		String jsonString = objectMapper.writeValueAsString(responseEntity);
+//		
+//		System.out.println(jsonString);
 		
 		return responseEntity;
 			
@@ -89,4 +97,21 @@ public class BoardController {
 	public Board getPost(@PathVariable(name="boardId") int boardId) {
 		return boardService.getPost(boardId);
 	}
+		
+	
+	@GetMapping("/studyboard/{groupId}/search/{option}/{keyword}/{page}")
+	public List<Board> getBoardListSearchTC(Criteria criteria, @PathVariable(name="groupId")int groupId, @PathVariable(name="option")int option, @PathVariable(name="keyword")String keyword, @PathVariable(name="page")int page){
+		return boardService.getSearchListPaging(criteria, groupId, option, keyword, page);
+	}
+	
+	@GetMapping("/studyboard/countTC/{groupId}/{keyword}")
+	public int countSearchTC(Criteria criteria, @PathVariable(name="groupId")int groupId, @PathVariable(name="keyword") String keyword) {
+		return boardService.getTotalTC(criteria, groupId, keyword);
+	}
+
+	@GetMapping("/studyboard/countW/{groupId}/{keyword}")
+	public int countSearchW(Criteria criteria, @PathVariable(name="groupId")int groupId, @PathVariable(name="keyword") String keyword) {
+		return boardService.getTotalW(criteria, groupId, keyword);
+	}
+	
 }

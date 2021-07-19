@@ -141,7 +141,7 @@ public class StudyGroupService {
 	//스터디 참여 가능 여부 체크
 	public int checkAlreadyJoin(String userId, int groupId) {
 		
-		if(groupRegInfoMapper.countUserId(groupId, userId)>0) {
+		if(groupRegInfoMapper.countUserId(groupId, userId)>0) { //그룹에 사용자ID가 있는지 체크
 			return 0;
 		}
 		else if(studyGroupMapper.getOneStudyGroup(groupId).getCurMem()>=studyGroupMapper.getOneStudyGroup(groupId).getMaxMem()) {
@@ -159,8 +159,8 @@ public class StudyGroupService {
 		return studyGroupMapper.updateStudyGroup(studyGroup);
 	}
 	
-	//스터디 정보 수정시 개설자인지 체크
-	public int updateMemberCheck(String userId, int groupId) {
+	//개설자 여부 체크
+	public int isGroupLeader(String userId, int groupId) {
 		StudyGroup studyGroup = studyGroupMapper.getOneStudyGroup(groupId);
 
 		if(studyGroup.getRegUser().equals(userId)) {

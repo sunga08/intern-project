@@ -18,6 +18,7 @@
         
         <link href='/css/main.css' rel='stylesheet' />
 		<script src='/js/main.js'></script>
+		<script src="<c:url value='/ckeditor/ckeditor.js'/>"></script>
 		
 		<style>
 		
@@ -123,16 +124,13 @@
 									<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요" value="${post.title}">			
 								</div>
 				
+							</form>
 								
 								<div class="mb-3">			
 									<label for="content">내용</label>			
 									<textarea class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요">${post.content}</textarea>			
 								</div>
-													
-		
-									
-							</form>
-                        
+																								                        
                         
 	                    <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="submitPost()">등록</button></div>
 
@@ -158,6 +156,10 @@
 
         $(document).ready(function(){
         	goLecturePage();
+        	CKEDITOR.replace('content', {
+            	toolbar : 'Full',
+                
+            });
         });
         
 
@@ -173,6 +175,7 @@
         	var form = $('#form').serializeObject();
     		var groupId = "${groupInfo.groupId}";
     		var boardId = "${post.boardId}";
+    		var editor = CKEDITOR.instances.content;
     		//var sday = new Date(document.querySelector("#startDate").value);
     		//var eday = new Date(document.querySelector("#endDate").value);
 
@@ -180,7 +183,7 @@
     			var formData = {
     						boardId : '${post.boardId}',   		                
     		                title : form.title,
-    		                content : form.content	                       
+    		                content : editor.getData()	                       
     		   	}
     										 	
     			$.ajax({

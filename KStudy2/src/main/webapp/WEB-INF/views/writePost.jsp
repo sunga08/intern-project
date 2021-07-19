@@ -18,6 +18,8 @@
         
         <link href='/css/main.css' rel='stylesheet' />
 		<script src='/js/main.js'></script>
+		<script src="<c:url value='/ckeditor/ckeditor.js'/>"></script>
+		
 		
 		<style>
 		
@@ -106,14 +108,12 @@
                         <div style="padding-bottom:80px;">           
 	                        <div style="float:left;"><h1 class="mt-4">${groupInfo.groupName}</h1></div>
 	                    </div>
+	                    
                         <ol id="lectureName" class="breadcrumb mb-4">
-
                         </ol>
-                                               
-                
+                                                               
                         <hr>
-                        
-                        
+                                                
                         <div id="board" style="margin-top:30px;">
                         
                         	<form name="form" id="form" role="form" method="post" action="${pageContext.request.contextPath}/board/saveBoard">
@@ -122,22 +122,18 @@
 									<label for="title">제목</label>			
 									<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">			
 								</div>
+							</form>                        
 				
 								
-								<div class="mb-3">			
-									<label for="content">내용</label>			
-									<textarea class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>			
-								</div>
-													
-		
+							<div class="mb-3">			
+								<label for="content">내용</label>			
+								<textarea class="form-control" rows="10" name="content" id="content"></textarea>			
+							</div>															
 									
-							</form>
-                        
                         
 	                    <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="submitPost()">등록</button></div>
 
                     </div>
-
                     
                 </main>
 
@@ -158,6 +154,11 @@
 
         $(document).ready(function(){
         	goLecturePage();
+        	
+         	CKEDITOR.replace('content', {
+            	toolbar : 'Full',
+                
+            });
         });
         
 
@@ -172,14 +173,13 @@
         function submitPost(){
         	var form = $('#form').serializeObject();
     		var groupId = "${groupInfo.groupId}";
-    		//var sday = new Date(document.querySelector("#startDate").value);
-    		//var eday = new Date(document.querySelector("#endDate").value);
+    		var editor = CKEDITOR.instances.content;
 
-    		if(form.title!=""&&form.content!=""){
+    		if(form.title!=""&&editor.getData!=""){
     			var formData = {
     						groupId : '${groupInfo.groupId}',   		                
     		                title : form.title,
-    		                content : form.content	                       
+    		                content : editor.getData()	                       
     		   	}
     										 	
     			$.ajax({

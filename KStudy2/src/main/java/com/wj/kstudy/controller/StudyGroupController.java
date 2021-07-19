@@ -1,11 +1,14 @@
 package com.wj.kstudy.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -77,11 +80,24 @@ public class StudyGroupController {
 		return studyGroupService.checkAlreadyJoin(userId, groupId);
 	}
 	
-	//그룹에 가입된 사용자인지 체크
+	//가입 상태 체크
 	@GetMapping("/studygroup/check/member/{groupId}")
-	public int checkGroupMember(HttpSession session, @PathVariable(name="groupId")int groupId) {
+	public ResponseEntity<Map<String,String>> checkGroupMember(HttpSession session, @PathVariable(name="groupId")int groupId) {
 		String userId = session.getAttribute("user_id").toString();
-		return studyGroupService.checkRegMember(groupId, userId);
+		
+		Map<String, String> map = new HashMap<>();
+		if(studyGroupService.checkRegMember(groupId, userId)==1) {
+						
+			map.put("result", "member");
+			
+		}
+		else if(studyGroupService.checkRegMember(groupId, userId)==0){
+			map.put("result", "not member");
+		}
+		
+		ResponseEntity<Map<String,String>> responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+		
+		return responseEntity;
 	}
 	
 	
@@ -95,7 +111,7 @@ public class StudyGroupController {
 	@GetMapping("/studygroup/check/register/{groupId}")
 	public int updateMemberCheck(HttpSession session, @PathVariable(name="groupId")int groupId) {
 		String userId = session.getAttribute("user_id").toString();
-		return studyGroupService.updateMemberCheck(userId, groupId);
+		return studyGroupService.isGroupLeader(userId, groupId);
 	}
 	
 	//스터디 멤버 조회(개설자 제외)
