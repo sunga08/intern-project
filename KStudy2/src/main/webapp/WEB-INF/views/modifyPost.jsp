@@ -128,7 +128,7 @@
 								
 								<div class="mb-3">			
 									<label for="content">내용</label>			
-									<textarea class="form-control" rows="10" name="content" id="content" placeholder="내용을 입력해 주세요">${post.content}</textarea>			
+									<textarea class="form-control" rows="20" name="content" id="content" placeholder="내용을 입력해 주세요">${post.content}</textarea>			
 								</div>
 																								                        
                         
@@ -158,7 +158,7 @@
         	goLecturePage();
         	CKEDITOR.replace('content', {
             	toolbar : 'Full',
-                
+                height : 500
             });
         });
         

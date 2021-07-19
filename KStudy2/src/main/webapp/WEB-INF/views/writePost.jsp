@@ -127,7 +127,7 @@
 								
 							<div class="mb-3">			
 								<label for="content">³»¿ë</label>			
-								<textarea class="form-control" rows="10" name="content" id="content"></textarea>			
+								<textarea class="form-control" rows="20" name="content" id="content"></textarea>			
 							</div>															
 									
                         
@@ -157,7 +157,7 @@
         	
          	CKEDITOR.replace('content', {
             	toolbar : 'Full',
-                
+                height : 500
             });
         });
         
