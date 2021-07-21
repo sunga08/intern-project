@@ -30,11 +30,6 @@ public class StudyGroupController {
 	@Autowired
 	StudyGroupService studyGroupService;
 	
-	@GetMapping("/login/{userId}")
-	public int login(HttpSession session, @PathVariable(name="userId") String userId) {
-		//session.setAttribute("user_id", userId);
-		return studyGroupService.login(session, userId);			
-	}
 	
 	//강의id로 스터디 그룹 목록 조회
 	@GetMapping("lecture/studygroup/{lecId}")
@@ -80,19 +75,55 @@ public class StudyGroupController {
 		return studyGroupService.checkAlreadyJoin(userId, groupId);
 	}
 	
-	//가입 상태 체크
+	//가입 상태 체크(멤버/비멤버)
 	@GetMapping("/studygroup/check/member/{groupId}")
 	public ResponseEntity<Map<String,String>> checkGroupMember(HttpSession session, @PathVariable(name="groupId")int groupId) {
+
 		String userId = session.getAttribute("user_id").toString();
-		
+
+		System.out.println("체크 "+userId);
 		Map<String, String> map = new HashMap<>();
-		if(studyGroupService.checkRegMember(groupId, userId)==1) {
-						
-			map.put("result", "member");
-			
+		if(studyGroupService.checkRegMember(groupId, userId)==1) {						
+			map.put("result", "member");			
 		}
 		else if(studyGroupService.checkRegMember(groupId, userId)==0){
 			map.put("result", "not member");
+		}
+		
+		ResponseEntity<Map<String,String>> responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+		
+		return responseEntity;
+	}
+	
+	//인원 초과 여부 체크
+	@GetMapping("/studygroup/check/count/{groupId}")
+	public ResponseEntity<Map<String,String>> isOverMaxMember(HttpSession session, @PathVariable(name="groupId")int groupId) {
+		String userId = session.getAttribute("user_id").toString();
+		
+		Map<String, String> map = new HashMap<>();
+		if(studyGroupService.isOverMaxMember(groupId)==1) {						
+			map.put("result", "not over");			
+		}
+		else if(studyGroupService.isOverMaxMember(groupId)==0){
+			map.put("result", "over");
+		}
+		
+		ResponseEntity<Map<String,String>> responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+		
+		return responseEntity;
+	}
+	
+	//개설자 여부 체크
+	@GetMapping("/studygroup/check/state/{groupId}")
+	public ResponseEntity<Map<String,String>> isGroupLeader(HttpSession session, @PathVariable(name="groupId")int groupId) {
+		String userId = session.getAttribute("user_id").toString();
+		
+		Map<String, String> map = new HashMap<>();
+		if(studyGroupService.isGroupLeader(userId, groupId)==1) {						
+			map.put("result", "leader");			
+		}
+		else if(studyGroupService.isGroupLeader(userId, groupId)==0){
+			map.put("result", "member");
 		}
 		
 		ResponseEntity<Map<String,String>> responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);

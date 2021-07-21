@@ -20,7 +20,11 @@
     <%       	
 		request.setCharacterEncoding("UTF-8"); 
        	String id = request.getParameter("studyGroup");
+       	String state = request.getParameter("state");
+
     %>
+    <c:set var="st" value="<%=state %>"/>
+    
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STUDY</a>
@@ -34,15 +38,15 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
-                                <font size=5>스터디 정보</font>
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}?state=${st}'/>">
+                                <font size=5><i class="fas fa-info-circle"></i>&nbsp; 스터디 정보</font>
                             </a>
                             <!-- <a class="nav-link"  href='javascript:void(0);' onclick="goSchedulePage();">-->
-                            <a class="nav-link"  href='javascript:void(0);' onclick="checkMember(1);">
-                                <font size=5>일정 관리</font>
+                            <a class="nav-link"  href='javascript:void(0);' onclick="checkMember('schedule');">
+                                <font size=5><i class="far fa-calendar-alt"></i>&nbsp; 일정 관리</font>
                             </a>
-                            <a class="nav-link" href='javascript:void(0);' onclick="checkMember(2);">
-                                <font size=5>자유 게시판</font>
+                            <a class="nav-link" href='javascript:void(0);' onclick="checkMember('board');">
+                                <font size=5><i class="far fa-clipboard"></i>&nbsp; 자유 게시판</font>
                             </a>
                             
                         </div>
@@ -105,18 +109,7 @@
                      </div>
                     
                 </main>
-                <!-- <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; 웅진 씽크빅 IT 개발실</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>-->
+
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -129,15 +122,16 @@
         
         <script>
         
+        let state = "<%=state%>";
+        
         $(document).ready(function(){
-        	//goInfoPage();
-        	goLecturePage();
+        	lectureInfo();
         	showMembers();
         });
         
                 
         
-        function goSchedulePage(){
+        /* function goSchedulePage(){
         	var groupId = "${groupInfo.groupId}";
         	console.log(groupId);
         	
@@ -157,15 +151,17 @@
         	let html='';
         	html+='자유게시판 페이지';
         	$("#maincontent1").append(html)
-        }
+        } */
         
-        function goLecturePage(){
+        //스터디 진행중인 강의 정보 표시
+        function lectureInfo(){
         	var lecId = "${groupInfo.lecId}";
         	let html='';
         	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="<c:url value="/view/detail?courseId='+encodeURIComponent(lecId)+'"/>" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>'
         	$("#lectureName").append(html);
         }
         
+        //그룹장 외 멤버 표시
         function showMembers(){
         	var groupId = "${groupInfo.groupId}";
         	
@@ -193,13 +189,11 @@
                     alert("멤버 정보 가져오기 오류");
                 }
             });
-        	
-        	
-        	
+                	        	
         }
        	
-        
-        function viewModifyForm(){
+        //권한 확인 후 정보 수정 폼 띄우기
+/*         function viewModifyForm(){
         	var groupId = "${groupInfo.groupId}";
         	
         	$.ajax({
@@ -209,11 +203,11 @@
     			contentType: 'application/json',
     			success: function(data){
     				console.log(data);
-    				if(data==1){
+    				if(data==1){ //개설자인 경우
     					window.open('/studygroup/edit/${groupInfo.groupId}', '스터디 정보 수정','width=1200, height=700');
     		        	window.opener.document.getElementById('form').submit();
     				}
-    				else if(data==0 || data==-1){
+    				else if(data==0 || data==-1){ //미가입 멤버 또는 가입 멤버인 경우
     					alert('그룹 개설자만 수정이 가능합니다.');
     				}
 
@@ -224,9 +218,22 @@
     			}
     		})
         	
+        } */
+        
+        
+        function viewModifyForm(){
+        	if(state=="leader"){ //개설자인 경우
+				window.open('/studygroup/edit/${groupInfo.groupId}', '스터디 정보 수정','width=1200, height=700');
+	        	window.opener.document.getElementById('form').submit();
+			}
+			else if(state=="member" || state=="nmember"){ //미가입 멤버 또는 가입 멤버인 경우
+				alert('그룹 개설자만 수정이 가능합니다.');
+			}
+        	
         }
         
-        function checkDeleteMember(){
+        //탈퇴하기 => 권한 확인 후 그룹 삭제 or 탈퇴 or 경고창
+/*         function checkDeleteMember(){
         	var groupId = "${groupInfo.groupId}";
         	
         	$.ajax({
@@ -236,16 +243,16 @@
     			contentType: 'application/json',
     			success: function(data){
     				console.log(data);
-    				if(data==1){
+    				if(data==1){ //개설자인 경우
     					var con = confirm('그룹 개설자가 탈퇴 시 스터디 그룹이 삭제됩니다. 탈퇴하시겠습니까?');
     					if(con==true){
     						deleteStudyGroup();
     					}
     				}
-    				else if(data==-1){
+    				else if(data==-1){ //미가입 멤버인 경우
     					alert('가입된 멤버가 아닙니다.');
     				}
-    				else if(data==0){
+    				else if(data==0){ //멤버인 경우
     					deleteMember();
     				}
 
@@ -255,9 +262,28 @@
     				console.log(xhr.status+" error: "+error);
     			}
     		})
+        } */
+        
+        
+        function checkDeleteMember(){
+        	if(state=="leader" ){
+        		var con = confirm('그룹 개설자가 탈퇴 시 스터디 그룹이 삭제됩니다. 탈퇴하시겠습니까?');
+				if(con==true){
+					deleteStudyGroup();
+				}
+        	}
+        	else if(state=="member"){
+        		deleteMember();
+        	}
+        	else if(state=="nmember"){
+        		alert('가입된 멤버가 아닙니다.');
+        	}
+        	else{
+        		alert('권한 확인 오류');
+        	}
         }
         
-        
+        //멤버 탈퇴
         function deleteMember(){
         	var groupId = "${groupInfo.groupId}";
         	
@@ -271,8 +297,7 @@
         			success: function(data){
         				console.log(data);
     					if(data==1){
-    						alert('탈퇴되었습니다.');
-    						
+    						alert('탈퇴되었습니다.');    						
     					}
     					else if(data==0){
     						alert('탈퇴 실패!');
@@ -285,10 +310,10 @@
         		})       		
         		location.reload();
            	}
-        	
-    		    		
+        	    		    		
         }
         
+        //그룹 삭제
         function deleteStudyGroup(){
         	var groupId = "${groupInfo.groupId}";
         	var lecId = "${groupInfo.lecId}"
@@ -314,7 +339,8 @@
     		})       
         }
         
-        function checkMember(num){
+        //권한 확인 후 일정 관리, 자유 게시판 페이지 이동
+/*         function checkMember(num){
         	var groupId = "${groupInfo.groupId}";
         	
         	$.ajax({
@@ -339,6 +365,23 @@
     				console.log(xhr.status+" error: "+error);
     			}
     		})       
+        } */
+        
+        function checkMember(option){
+        	if(state=="leader" || state=="member"){
+        		if(option=="schedule"){
+	        		window.location.href = "/view/schedule/"+${groupInfo.groupId}+"?state="+state;
+        		}
+        		else if(option=="board"){
+        			window.location.href = "/view/studyboard/"+${groupInfo.groupId}+"?state="+state;
+        		}
+        	}
+        	else if(state=="nmember"){
+        		alert('그룹 가입자만 볼 수 있습니다.');
+        	}
+        	else{
+        		alert('권한 확인 오류');
+        	}
         }
         
         </script>

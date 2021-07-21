@@ -80,12 +80,19 @@ public class ViewController {
 	}
 	
 	@RequestMapping("/main") //메인화면
-	public ModelAndView main() throws Exception{
+	public ModelAndView main(HttpSession session) throws Exception{
 //		Cookie cookie = new Cookie("view",null);
 //		cookie.setComment("게시글 조회수");
 //		cookie.setMaxAge(60*60*24*365);
-		
 		ModelAndView mav = new ModelAndView("index");
+		if(session.getAttribute("user_id")!=null) {
+			String userId=session.getAttribute("user_id").toString();
+			mav.addObject("userId", userId);
+		}
+		else {
+			mav.addObject("userId","");
+		}
+		
 		mav.setViewName("index");
 		return mav;
 	}
@@ -96,7 +103,6 @@ public class ViewController {
 		
 		if(session.getAttribute("user_id")!=null) {
 			String user_id = session.getAttribute("user_id").toString();
-			System.out.println(user_id);
 		}
 		
 		ModelAndView mav = new ModelAndView("detail");

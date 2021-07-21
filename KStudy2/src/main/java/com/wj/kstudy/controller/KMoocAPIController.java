@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,8 @@ import com.wj.kstudy.dto.Lecture;
 import com.wj.kstudy.dto.ListDto;
 import com.wj.kstudy.service.KMoocAPIService;
 import com.wj.kstudy.service.KMoocListService;
+
+import ch.qos.logback.classic.Logger;
 
 @RestController
 public class KMoocAPIController {
@@ -72,6 +75,9 @@ public class KMoocAPIController {
 		
 	}
 		
-
+//	@Scheduled(fixedRateString="5000", initialDelay=3000)
+//	private void scheduleTest() {
+//		System.out.println("test");
+//	}
 	
 }

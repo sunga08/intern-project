@@ -63,12 +63,14 @@
 				
 				</ul>
 				
-				<form class="d-flex">
-	   				 <div style="margin-left: 10px auto; margin-bottom: 10px; height: 20px;" class="form-floating">
-	      				<input type="text" id="userId" placeholder="ID" name="userId" required>
-	    			</div>	
-				</form>
-					<button class="btn btn-primary btn-sm" onclick="login()">로그인</button>
+				<div id="login">
+					<form class="d-flex">
+		   				 <div style="margin-left: 10px auto; margin-bottom: 10px; height: 20px;" class="form-floating">
+		      				<input type="text" id="userId" placeholder="ID" name="userId" required>
+		    			</div>	
+						<button class="btn btn-primary btn-sm" onclick="login()">로그인</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -249,16 +251,26 @@
     let globalCategory;
     let globalKeyword;
     
-    //console.log(document.getElementById("aaa").innerText);
-	
+    let userId;
+    
+   	
     $(document).ready(function(){
+    	userId = "${userId}";
+    	console.log(userId);
+	   	if(userId.length>0){
+	   		$("#login").empty();
+	      	html='';
+	      	html+='<div class="d-flex"><h5>'+userId+'님 환영합니다!</h5>';
+	      	html+='<button class="btn btn-primary btn-sm" onclick="logout()">로그아웃</button></div>';
+	      	$("#login").append(html);
+	   	}
     	getLecturePaging(1);
     	totalData = countAllLecture();
 		pagination(totalData, dataPerPage, pageCount, 1, "main");
     });
     
     
-    
+    //전체 강좌 개수
     function countAllLecture(){
 		var cnt;
     	
@@ -281,6 +293,7 @@
     	return cnt;
 	}
 	
+    //카테고리별 강좌 개수
 	function countCategoryLecture(category){
 		var cnt;
     	
@@ -303,6 +316,7 @@
     	return cnt;
 	}
 	
+    //검색 결과 강좌 개수
 	function countSearchLecture(keyword){
 		var cnt;
     	
@@ -325,7 +339,7 @@
     	return cnt;
 	}
     
-    function getLecture () {
+    /* function getLecture () {
 		
     	$.ajax({
             url: "/lecture",
@@ -377,7 +391,7 @@
                 alert("err");
             }
         });
-    }
+    } */
     
 	function getLecturePaging (page) {
 		
@@ -436,67 +450,11 @@
         });
     }
 	
-	function getLecturePaging2 (page) {
-
-		$("#list").empty()
-		
-    	$.ajax({
-            url: "/lecture/"+page,
-            type: "GET",
-            contentType: "application/json; charset=utf-8;",
-            dataType: "json",
-            success: function(data){
-                console.log(data);
-                                
-                let html = '';
-                $.each(data, function(index, obj){
-                	console.log(obj)
-                	                	
-                	html += '<div class="col mb-5">';
-                	html += '<div class="card h-100">';
-                	html += '<img class="card-img-top" src="'+obj.image+'" alt="..." />';
-                	html += '<div class="card-body p-4">';
-                	html += '<div class="text-center">';
-                	html += '<h5 class="fw-bolder">';
-                	html += obj.lecName;
-                	html += '</h5>';
-                	html += '['+obj.orgName+']';
-                	html += '</div>';
-                	html += '<p></p>';
-                	html += '<p class="text-style-1">';
-                	html += obj.teachers;
-                	html += '</p>'
-                	html += '<p class="text-style-1">등록기간<br/>';
-                	html += obj.enrollStart.substring(0,10)+'~'+obj.enrollEnd.substring(0,10);
-                	html += '</p>';
-                	html += '<p class="text-style-1">진행중인 스터디: &nbsp;'+countGroup(encodeURIComponent(obj.lecId))+'개';
-                	html += '</div>';
-						
-                	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
-                	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="<c:url value="/view/detail?courseId='+encodeURIComponent(obj.lecId)+'"/>">';
-                	html += '자세히 보기</a>';
-                	html += '</div>';
-                	html += '</div>';
-                	html += '</div>';	
-                	html += '</div>';
-                })
-                console.log("html")
-                console.log(html)
-                $("#list").append(html)
-                
-            },
-            error: function(){
-                alert("err");
-            }
-        });
-    }
 	
 	function setCategory(category){
     	globalCategory=category;
     	getCategoryData(category,1);
     	
-    	//$("#category").empty();
     	totalData = countCategoryLecture(category);
 		pagination(totalData, dataPerPage, pageCount, 1, "category");
 		
@@ -715,7 +673,7 @@
 
     }
     
-	   
+	//강좌별 스터디 개수
     function countGroup(lecId){
     	var cnt;
     	
@@ -725,7 +683,6 @@
             async: false,
             dataType: "json",
             success: function(response){
-                //console.log(response);
 				cnt = response;
 
             },
@@ -740,26 +697,11 @@
     }
     
     
-    
-    function sendData(){
-
-   	  $.ajax({
-   	    url: "detail/course-v1:ACRCEDU+ACRC01+2019_01",
-   	    type: "POST",
-   	    success : function(){
-   	      console.log("성공")
-   	    },
-   	    error : function(){
-   	      alert("에러")		
-   	    }
-   	  });
-    }
-    
     function login(){
-    	const name = document.getElementById('userId').value;
-		
+    	userId = document.getElementById('userId').value;
+
     	$.ajax({
-    	    url: "/login/"+name,
+    	    url: "/login/"+userId,
     	    type: "GET",
     	    async: false,
     	    contentType: "application/json; charset=utf-8;",
@@ -767,14 +709,17 @@
     	    	
     	    	if(response==1){
     	    		
-	    	      alert("로그인 성공");
-	    	      window.location="/main";
+	    	      	//window.location="/main";
+	    	      	$("#login").empty();
+	    	      	html='';
+	    	      	html+='<div class="d-flex"><h5>'+userId+'님 환영합니다! &nbsp;</h5>';
+	    	      	html+='<button class="btn btn-primary btn-sm" onclick="logout()">로그아웃</button></div>';
+	    	      	$("#login").append(html);
     	    	}
 	    	    else{
 	    	    	
 	    	    	alert("가입된 회원이 아닙니다.");
 	    	    	window.location="/main";
-
 	    	    }
 	    	    	
     	    },
@@ -784,6 +729,23 @@
     	  });
     	
     	
+    }
+    
+    function logout(){
+    	$.ajax({
+    	    url: "/logout",
+    	    type: "GET",
+    	    async: false,
+    	    contentType: "application/json; charset=utf-8;",
+    	    success : function(response){
+   	    		
+	    		window.location="/main";
+	    	    
+    	    },
+    	    error : function(){
+    	      alert("에러")		
+    	    }
+    	  });
     }
     
 

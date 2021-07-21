@@ -284,19 +284,20 @@
         var boardId="${post.boardId}";
         
         $(document).ready(function(){
-        	goLecturePage();
+        	lectureInfo();
         	getComments();
         });
         
 
         
-        function goLecturePage(){
+        function lectureInfo(){
         	var lecId = "${groupInfo.lecId}";
         	let html='';
         	html+='<li class="breadcrumb-item active">스터디 진행중인 강의: <a href="<c:url value="/view/detail?courseId='+encodeURIComponent(lecId)+'"/>" style="text-decoration: none; color: #fb8836;">${groupInfo.lecName}</a></li>';
         	$("#lectureName").append(html);
         }
         
+        //게시글 삭제
         function deletePost(){
         	        	
         	if("${post.userId}"=="${user}"){
@@ -307,7 +308,6 @@
 		    			type: 'DELETE',
 		    			async: false,
 		    			success: function(data){
-		    				console.log(data);
 		    				if(data.result=="success"){
 		    					alert('삭제되었습니다.')
 		    					window.location.replace("/view/studyboard/"+groupId);
@@ -326,6 +326,7 @@
         	}
         }
         
+        //게시글 삭제
         function updatePost(){
         	if("${post.userId}"=="${user}"){
         		location.href="/view/studyboard/update/"+${groupInfo.groupId}+"/"+${post.boardId};
@@ -335,10 +336,9 @@
         	}
         }
         
-		//대댓창 보이기/숨기기       
+		//대댓창 보이기,숨기기       
         function showReplyArea(rid){
         	if($('#replyInput'+rid).css("display")=="none"){	
-        		console.log("rid: "+rid);
         		$('#replyInput'+rid).show();
         	}
         	else if($('#replyInput'+rid).css("display")!="none"){
@@ -346,28 +346,26 @@
         	}
         }
 		
-		function showUpdateArea(commentId, rid, content, regUser, useYn){
-			if(useYn=="n"){
-				alert('삭제된 댓글입니다.');
+		//댓글 수정 UI로 변경
+		function showUpdateArea(commentId, rid, content, regUser){
+			
+			if(regUser=="${user}"){
+				$('#textArea'+rid).empty();
+				let html='';
+				html+='<ul class="list-group list-group-flush">';
+				html+='<li class="list-group-item">';
+				html+='<form name="form" id="updateForm'+rid+'" role="form">';
+				html+='<textarea class="form-control" rows="3" name="updateComment" id="updateComment">'+content+'</textarea>';
+				html+='</form>';
+				html+='<button type="button" class="btn btn-dark mt-3" onClick="updateComment('+rid+','+commentId+')">등록</button>';
+				html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="getComments()">취소</button>';
+				html+='</li></ul>';
+				$('#textArea'+rid).append(html)
 			}
 			else{
-				if(regUser=="${user}"){
-					$('#textArea'+rid).empty();
-					let html='';
-					html+='<ul class="list-group list-group-flush">';
-					html+='<li class="list-group-item">';
-					html+='<form name="form" id="updateForm'+rid+'" role="form">';
-					html+='<textarea class="form-control" rows="3" name="updateComment" id="updateComment">'+content+'</textarea>';
-					html+='</form>';
-					html+='<button type="button" class="btn btn-dark mt-3" onClick="updateComment('+rid+','+commentId+')">등록</button>';
-					html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="getComments()">취소</button>';
-					html+='</li></ul>';
-					$('#textArea'+rid).append(html)
-				}
-				else{
-					alert('권한이 없습니다.');
-				}
+				alert('권한이 없습니다.');
 			}
+
 		}
         
         function getComments() {
@@ -379,14 +377,10 @@
                 contentType: "application/json; charset=utf-8;",
                 dataType: "json",
                 success: function(data){
-                    console.log(data);
                                     
                     let html = '';
                     var rid = 1;
-                    $.each(data, function(index, obj){
-                    	console.log(obj)
-                    	
-
+                    $.each(data, function(index, obj){                   	
                     	
                     	//원댓
                     	if(obj.depth==0){
@@ -405,7 +399,7 @@
     	                    	html+='</div>';
                         	}
                     		else{					
-		                    	html+='<li style="list-style: none;"><button type="button" class="btn btn-dark mt-3" onClick="showUpdateArea('+obj.commentId+','+rid+',\''+obj.content+'\',\''+obj.regUser+'\',\''+obj.useYn+'\')">수정</button>';
+		                    	html+='<li style="list-style: none;"><button type="button" class="btn btn-dark mt-3" onClick="showUpdateArea('+obj.commentId+','+rid+',\''+obj.content+'\',\''+obj.regUser+'\')">수정</button>';
 		                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="deleteOriginalComment('+obj.commentId+',\''+obj.regUser+'\',\''+obj.useYn+'\')">삭제</button>';		                    	
 		                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="showReplyArea('+rid+')">답글</button></li>';
 		                    	html+='</div>';
@@ -495,10 +489,9 @@
     		}
         }
         
+        //대댓 등록
         function addReplyComment(bundleId, rid){
         	var form = $('#replyForm'+rid).serializeObject();
-			console.log(form);
-			//var newStr = "replyComment"+rid;
 			
     		if(form.replyComment!=""){
     			var formData = {
@@ -514,10 +507,8 @@
     				contentType: 'application/json',
     				data: JSON.stringify(formData),
     				success: function(data){
-    					console.log(data);
     					if(data==1){
     						getComments();
-    						//window.location.replace("/view/studyboard/"+groupId);
     					}
     					else{
     						alert('등록 실패');
@@ -530,6 +521,7 @@
     		}
         }
         
+        //댓글 삭제(대댓)
         function deleteComment(commentId, register){
        	    
         	if(register=="${user}"){
@@ -559,6 +551,7 @@
         	
         }
         
+        //댓글 삭제
         function deleteOriginalComment(commentId, register, useYn){
         	console.log(commentId);
         	if(useYn=="n"){

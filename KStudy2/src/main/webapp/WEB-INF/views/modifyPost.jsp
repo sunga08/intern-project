@@ -162,7 +162,6 @@
             });
         });
         
-
         
         function goLecturePage(){
         	var lecId = "${groupInfo.lecId}";
@@ -176,8 +175,7 @@
     		var groupId = "${groupInfo.groupId}";
     		var boardId = "${post.boardId}";
     		var editor = CKEDITOR.instances.content;
-    		//var sday = new Date(document.querySelector("#startDate").value);
-    		//var eday = new Date(document.querySelector("#endDate").value);
+    		
 
     		if(form.title!=""&&form.content!=""){
     			var formData = {
@@ -211,7 +209,6 @@
         }
         
         
-
 		</script>
         
     </body>

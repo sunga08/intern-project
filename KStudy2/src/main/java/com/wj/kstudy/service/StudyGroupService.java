@@ -151,7 +151,16 @@ public class StudyGroupService {
 			return 1;
 		}
 		
-
+	}
+	
+	//스터디 인원초과 여부 체크
+	public int isOverMaxMember(int groupId) {
+		if(studyGroupMapper.getOneStudyGroup(groupId).getCurMem()<studyGroupMapper.getOneStudyGroup(groupId).getMaxMem()) {
+			return 1; //인원초과X
+		}
+		else {
+			return 0; //인원초과
+		}
 	}
 	
 	//스터디 정보 수정
@@ -166,9 +175,9 @@ public class StudyGroupService {
 		if(studyGroup.getRegUser().equals(userId)) {
 			return 1; //개설자
 		}
-		else if(groupRegInfoMapper.countUserId(groupId, userId)==0) {
-			return -1; //가입된 사용자가 아님
-		}
+//		else if(groupRegInfoMapper.countUserId(groupId, userId)==0) {
+//			return -1; //가입된 사용자가 아님
+//		}
 		else {
 			return 0; //
 		}
