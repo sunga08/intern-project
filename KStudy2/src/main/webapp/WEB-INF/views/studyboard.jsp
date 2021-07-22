@@ -153,6 +153,7 @@
         function getBoardData(page){
         	var groupId = "${groupInfo.groupId}";
         	var lecId = "${groupInfo.lecId}";
+        	var userState ="<%=state%>"; 
         	
         	$("#board").empty()
         	
@@ -187,7 +188,7 @@
             			html += '<tbody>';
                     	html += '<tr>';
         				html += '<td>'+num+'</td>';
-        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'?state='+userState+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
         				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
         				html += '<td>'+obj.userId+'</td>';
         				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
@@ -239,7 +240,8 @@
         }
         
         //검색 결과 조회
-        function getSearchData(keyword, page, searchCnt, option){        	
+        function getSearchData(keyword, page, searchCnt, option){ 
+        	var userState = "<%=state%>";
         	$("#board").empty();
         	
         	$.ajax({
@@ -273,7 +275,7 @@
             			html += '<tbody>';
                     	html += '<tr>';
         				html += '<td>'+num+'</td>';
-        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'?state='+userState+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
         				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
         				html += '<td>'+obj.userId+'</td>';
         				html += '<td>'+timeString_KR.substring(0,11)+'</td>';

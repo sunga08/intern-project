@@ -20,6 +20,8 @@
         <link href='/css/main.css' rel='stylesheet' />
 		<script src='/js/main.js'></script>
 		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
+		
 		<style>
 		
             .mt-4-1{
@@ -72,9 +74,9 @@
     <body class="sb-nav-fixed">
     <%       	
 		request.setCharacterEncoding("UTF-8"); 
-       	//String boardId = request.getParameter("boardId");
-       	//String groupId = request.getParameter("groupId");
+    	String state = request.getParameter("state");
     %>
+    <c:set var="st" value="<%=state %>"/>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STUDY</a>
@@ -88,15 +90,15 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}?state=${st}'/>">
                                 <!-- <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>-->
-                                <font size=5>스터디 정보</font>
+                                <font size=5><i class="fas fa-info-circle"></i>&nbsp; 스터디 정보</font>
                             </a>
-                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}'/>">
-                                <font size=5>일정 관리</font>
+                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}?state=${st}'/>">
+                                <font size=5><i class="far fa-calendar-alt"></i>&nbsp; 일정 관리</font>
                             </a>
-                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}'/>">
-                                <font size=5>자유 게시판</font>
+                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}?state=${st}'/>">
+                                <font size=5><i class="far fa-clipboard"></i>&nbsp; 자유 게시판</font>
                             </a>
                             
                         </div>
@@ -123,7 +125,7 @@
                         
                         <h4></h4>
                         <hr>
-                        <div style="float:left;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/${groupInfo.groupId}?page=2&searchType=제목+내용&keyword=페이징'">목록보기</button></div>
+                        <div style="float:left;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/${groupInfo.groupId}?state=${st}'">목록보기</button></div>
                         <div id="board" style="margin-bottom: 100px;">
                         
                         	<table id="datatable-scroller" class="table table-bordered tbl_Form">
@@ -328,8 +330,9 @@
         
         //게시글 삭제
         function updatePost(){
+        	var userState = "<%=state%>";
         	if("${post.userId}"=="${user}"){
-        		location.href="/view/studyboard/update/"+${groupInfo.groupId}+"/"+${post.boardId};
+        		location.href="/view/studyboard/update/"+${groupInfo.groupId}+"/"+${post.boardId}+"?state="+userState;
         	}
         	else{
         		alert("수정은 게시글 작성자만 가능합니다.");

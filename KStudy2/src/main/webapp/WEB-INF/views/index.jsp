@@ -33,6 +33,11 @@
         top: 50%;
         transform: translate(-50%, -50%);
   	}
+  	video{
+  		width: 100%;
+  		height: 300px;
+  		object-fit: cover;
+  	}
 </style>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon"
@@ -75,14 +80,16 @@
 		</div>
 	</nav>
 	<!-- Header-->
-	<header class="bg-dark py-5">
+	<!-- <header class="bg-dark py-5">
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="text-center text-white">
 				<h1 class="display-4 fw-bolder">K-STUDY</h1>
+	
 				<p class="lead fw-normal text-white-50 mb-0">K-MOOC 온라인 스터디 웹 사이트</p>
 			</div>
 		</div>
-	</header>
+	</header> -->
+	<video src="/Kstudy.mp4" muted autoplay></video>
 
 	<!-- Menu Bar -->	
 	<div class="bs-docs-section clearfix">
