@@ -44,7 +44,7 @@
 
 	<!-- 스터디 생성 -->
 	<insert id="addStudyGroup" parameterType="com.wj.kstudy.dto.StudyGroup" useGeneratedKeys="true" keyProperty="groupId"> 
-		insert into study_group(lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, reg_dtm, reg_user, cur_mem, create_date, use_yn, post_cnt) values(#{lecId}, #{lecName}, #{groupName}, #{schoolName}, #{shortDsc}, #{longDsc}, #{maxMem}, curdate(), #{regUser}, 0, curdate(), 'y', 0)
+		insert into study_group(lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, reg_dtm, reg_user, cur_mem, create_date, use_yn, post_cnt) values(#{lecId}, #{lecName}, #{groupName}, #{schoolName}, #{shortDsc}, #{longDsc}, #{maxMem}, now(), #{regUser}, 0, now(), 'y', 0)
 	</insert> 
 	
 	<!-- 현재 멤버 증가 -->

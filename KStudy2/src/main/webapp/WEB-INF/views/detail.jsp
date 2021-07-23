@@ -25,6 +25,12 @@
 		  border-color: #fe4c39;
 	  }
 	  
+	  .btn-green {
+		  color: #fff;
+		  background-color: #04B431;
+		  border-color: #04B431;
+	  }
+	  
 	  .container{
   		position:relative;
   	  }
@@ -460,13 +466,18 @@
                     	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+',1)">참여하기</a></div>';
                     } */
                     if(isJoin(obj.groupId)==1){ //가입된 그룹
-                    	html += '<div class="card-footer"><a class="btn btn-red btn-sm" style="cursor: default;">가입된 그룹</a></div>';
+                    	if(memberState(obj.groupId)==1){
+                    		html += '<div class="card-footer"><a class="btn btn-green" style="cursor: default;">개설한 그룹</a></div>';
+                    	}
+                    	else{
+	                    	html += '<div class="card-footer"><a class="btn btn-green" style="cursor: default;">가입된 그룹</a></div>';                    		
+                    	}
                     }
                     else if(isJoin(obj.groupId)==0){ //가입되지 않은 그룹
                     	//html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+',1)">참여하기</a></div>';
                     	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="isOverMaxMember('+obj.groupId+')">참여하기</a></div>';
                     }
-                    else if(isJoin(obj.groupId)==-1){
+                    else if(isJoin(obj.groupId)==-1){//로그인하지 않은 사용자
                     	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="loginAlert()">참여하기</a></div>';
                     }
                     html += '</div>';
@@ -560,8 +571,7 @@
 
                 let html = '';
                 
-                html += '<div style="margin-top:50px;margin-bottom:50px;text-align:center;"><h5>관련 도서가 없습니다.</h3></div>';	
-                
+                html += '<div style="margin-top:50px;margin-bottom:50px;text-align:center;"><h5>관련 도서가 없습니다.</h3></div>';	                
 
                 $("#bookData").append(html)
 

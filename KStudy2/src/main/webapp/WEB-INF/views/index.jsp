@@ -89,7 +89,7 @@
 			</div>
 		</div>
 	</header> -->
-	<video src="/Kstudy.mp4" muted autoplay></video>
+	<video src="/Kstudy2.mp4" muted autoplay></video>
 
 	<!-- Menu Bar -->	
 	<div class="bs-docs-section clearfix">

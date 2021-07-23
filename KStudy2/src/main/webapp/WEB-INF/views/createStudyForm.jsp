@@ -25,7 +25,6 @@
     
     
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
 	
 	<style>
@@ -140,8 +139,6 @@
 	//스터디 생성 폼 처리
 	function sendForm(){
 		var form = $('#form').serializeObject();
-		console.dir(form);
-		console.log(form.schoolName);
 		
 		
 		if(form.groupName!=""&&form.shortDsc!=""&&form.maxMem!=""){
