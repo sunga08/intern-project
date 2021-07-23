@@ -10,6 +10,7 @@ import com.wj.kstudy.dto.Lecture;
 @Mapper
 public interface LectureMapper {
 	public void insertLecture(Lecture lecture);
+	public void insertOrUpdateLecture(Lecture lecture);
 	public List<Lecture> getLectureList();
 	public List<Lecture> getLectureListPaging(@Param("start") int start, @Param("recordsPerPage") int recordsPerPage);
 	public List<Lecture> getLectureByCategory(String category);

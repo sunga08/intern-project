@@ -75,9 +75,6 @@ public class KMoocAPIController {
 		
 	}
 		
-//	@Scheduled(fixedRateString="5000", initialDelay=3000)
-//	private void scheduleTest() {
-//		System.out.println("test");
-//	}
+
 	
 }

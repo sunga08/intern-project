@@ -19,6 +19,12 @@
 		insert into lecture(lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name) values(#{lecId}, #{blocksUrl}, #{lecUrl}, #{lecName}, #{classfy}, #{midClassfy}, #{teachers}, #{orgName}, #{enrollStart}, #{enrollEnd}, #{auditYn}, #{image}, #{shortDsc}, #{hidden}, #{languageName})
 	</insert> 
 	
+	<insert id="insertOrUpdateLecture" parameterType="com.wj.kstudy.dto.Lecture">
+		insert into lecture(lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name) values(#{lecId}, #{blocksUrl}, #{lecUrl}, #{lecName}, #{classfy}, #{midClassfy}, #{teachers}, #{orgName}, #{enrollStart}, #{enrollEnd}, #{auditYn}, #{image}, #{shortDsc}, #{hidden}, #{languageName})
+		on duplicate key
+		update lec_id=#{lecId}, blocks_url=#{blocksUrl}, lec_url=#{lecUrl}, lec_name=#{lecName}, classfy=#{classfy}, mid_classfy=#{midClassfy}, teachers=#{teachers}, org_name=#{orgName}, enroll_start=#{enrollStart}, enroll_end=#{enrollEnd}, audit_yn=#{auditYn}, image=#{image}, short_dsc=#{shortDsc}, hidden=#{hidden}, language_name=#{languageName}
+	</insert>
+	
 	<!-- 전체 강좌 리스트 -->
 	<select id="getLectureList" parameterType="java.lang.String" resultMap="lecture_resultMap">
 		select lec_id, blocks_url, lec_url, lec_name, classfy, mid_classfy, teachers, org_name, enroll_start, enroll_end, audit_yn, image, short_dsc, hidden, language_name 
