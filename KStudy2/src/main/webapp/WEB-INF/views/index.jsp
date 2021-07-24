@@ -72,7 +72,7 @@
 					<div id="naver_id_login" style="text-align:center">
 					<c:choose>
 						<c:when test="${user_id!=null}">
-							<h3>${nickname}´Ô È¯¿µÇÕ´Ï´Ù!&nbsp;<a href='javascript:void(0);' onclick="logout()">·Î±×¾Æ¿ô</a></h3>
+							<h3>${nickname}´Ô È¯¿µÇÕ´Ï´Ù! &nbsp;<a href='javascript:void(0);' onclick="logout()">·Î±×¾Æ¿ô</a></h3>
 							
 						</c:when>
 						<c:otherwise>
@@ -272,15 +272,15 @@
     let globalKeyword;
     
     let userId;
-    
+    let nickname;
    	
     $(document).ready(function(){
-    	userId = "${userId}";
-    	console.log(userId);
-	   	if(userId.length>0){
+    	nickname = "${nickname}";
+
+	   	if(nickname.length>0){
 	   		$("#login").empty();
 	      	html='';
-	      	html+='<div class="d-flex"><h5>'+userId+'´Ô È¯¿µÇÕ´Ï´Ù!</h5>';
+	      	html+='<div class="d-flex"><h3>'+nickname+'´Ô È¯¿µÇÕ´Ï´Ù! &nbsp;</h3>';
 	      	html+='<button class="btn btn-primary btn-sm" onclick="logout()">·Î±×¾Æ¿ô</button></div>';
 	      	$("#login").append(html);
 	   	}

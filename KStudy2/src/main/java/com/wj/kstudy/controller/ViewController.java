@@ -105,11 +105,10 @@ public class ViewController {
 		System.out.println("네이버:" + naverAuthUrl);
 		
 		if(session.getAttribute("user_id")!=null) {
-			String userId=session.getAttribute("nickname").toString();
-			mav.addObject("userId", userId);
+			String nickname=session.getAttribute("nickname").toString();
+			mav.addObject("nickname", nickname);
 		}
-		
-		
+				
 		mav.setViewName("index");
 		
 		//네이버
@@ -121,12 +120,13 @@ public class ViewController {
 	//강의 상세페이지 화면
 	@RequestMapping("/view/detail") 
 	public ModelAndView detail(HttpSession session) {
+		ModelAndView mav = new ModelAndView("detail");
 		
 		if(session.getAttribute("user_id")!=null) {
-			String user_id = session.getAttribute("user_id").toString();
+			String nickname = session.getAttribute("nickname").toString();
+			mav.addObject("nickname", nickname);
 		}
 		
-		ModelAndView mav = new ModelAndView("detail");
 		mav.setViewName("detail");
 		return mav;
 	}

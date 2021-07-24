@@ -13,6 +13,7 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
     
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
@@ -176,7 +177,20 @@
 				
 				</ul>
 			
+				<div id="naver_id_login" style="text-align:center">
+					<c:choose>
+						<c:when test="${nickname!=null}">
+							<i class="fas fa-user"></i>&nbsp;<h3>${nickname} &nbsp;</h3><button class="btn btn-primary btn-sm" onclick="logout()">·Î±×¾Æ¿ô</button>
+							
+						</c:when>
+						<c:otherwise>
+							<a href="${url}">
+							<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a>
+						</c:otherwise>					
+					</c:choose>
+				</div>
 			</div>
+			
             
         </div>
     </nav>
@@ -202,30 +216,7 @@
         
         
         <div class=container style="margin-top:10px; margin-bottom:30px;">
-			<div id="pagination" class="pagination-div">
-			  	<!-- <ul class="pagination">
-				    <li class="page-item disabled">
-				      <a class="page-link" href="#">&laquo;</a>
-				    </li>
-				    <li class="page-item active">
-				      <a class="page-link" href="#">1</a>
-				    </li>
-				    <li class="page-item">
-				      <a class="page-link" href="#">2</a>
-				    </li>
-				    <li class="page-item">
-				      <a class="page-link" href="#">3</a>
-				    </li>
-				    <li class="page-item">
-				      <a class="page-link" href="#">4</a>
-				    </li>
-				    <li class="page-item">
-				      <a class="page-link" href="#">5</a>
-				    </li>
-				    <li class="page-item">
-				      <a class="page-link" href="#">&raquo;</a>
-				    </li>
-			  	</ul> -->
+			<div id="pagination" class="pagination-div">			  	
 			</div>
 		</div>
         

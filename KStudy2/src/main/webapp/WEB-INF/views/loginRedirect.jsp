@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="refresh" content="1; url=<c:url value='/main'/>">
+<meta http-equiv="refresh" content="0.1; url=<c:url value='/main'/>">
 <title>Login Redirect</title>
 </head>
 <body>
