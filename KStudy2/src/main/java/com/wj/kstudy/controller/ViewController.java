@@ -324,7 +324,7 @@ public class ViewController {
 		//model.addAttribute("result", apiResult);
 		mav.addObject("result", apiResult);
 		mav.addObject("nickname",nickname);
-		mav.setViewName("index");
+		mav.setViewName("loginRedirect");
 		
 		return mav;
 	}
