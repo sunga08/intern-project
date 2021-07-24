@@ -177,17 +177,11 @@
 				
 				</ul>
 			
-				<div id="naver_id_login" style="text-align:center">
-					<c:choose>
-						<c:when test="${nickname!=null}">
-							<i class="fas fa-user"></i>&nbsp;<h3>${nickname} &nbsp;</h3><button class="btn btn-primary btn-sm" onclick="logout()">·Î±×¾Æ¿ô</button>
-							
-						</c:when>
-						<c:otherwise>
-							<a href="${url}">
-							<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a>
-						</c:otherwise>					
-					</c:choose>
+				<div id="naver_id_login" style="text-align:center">					
+					<c:if test="${nickname!=null}">
+						<div class="d-flex"><i class="fas fa-user-circle" style="color:white;"></i>&nbsp;<h3 style="color:white;">${nickname} &nbsp;</h3><button class="btn btn-primary btn-sm" onclick="logout()">·Î±×¾Æ¿ô</button></div>							
+					</c:if>
+										
 				</div>
 			</div>
 			
