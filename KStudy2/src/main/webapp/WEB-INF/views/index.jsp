@@ -41,13 +41,13 @@
 </style>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon"
-	href="../resources/assets/favicon.ico" />
+	href="/assets/favicon.ico" />
 <!-- Bootstrap icons-->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="../resources/css/styles.css" rel="stylesheet" />
+<link href="/css/styles.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
@@ -260,7 +260,7 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<script src="../resources/js/scripts.js"></script>
+	<script src="/js/scripts.js"></script>
 	<script type="text/javascript">
 	
 	let totalData; //รั ตฅภฬลอ ผ๖
@@ -487,7 +487,7 @@
 		$("#list").empty()
 		
     	$.ajax({
-            url: "lecture/"+category+"/"+page,
+            url: "/lecture/"+category+"/"+page,
             type: "GET",
             contentType: "application/json; charset=utf-8;",
             dataType: "json",
@@ -560,7 +560,7 @@
 		$("#list").empty()
 		
     	$.ajax({
-            url: "lecture/search/"+keyword+"/"+page,
+            url: "/lecture/search/"+keyword+"/"+page,
             type: "GET",       
             contentType: "application/json; charset=utf-8;",
             dataType: "json",
