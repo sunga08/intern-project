@@ -92,7 +92,8 @@ public class BoardService {
 	
 	@Transactional
 	public Board getPostAndPlusView(HttpServletRequest request, HttpServletResponse response, HttpSession session, int boardId) {
-		String userId = session.getAttribute("userId").toString();
+		//String userId = session.getAttribute("userId").toString();
+		String nickname = session.getAttribute("nickname").toString();
 		Board board = boardMapper.getPost(boardId);
 		System.out.println(board.getViewCnt());
 		
@@ -102,7 +103,7 @@ public class BoardService {
 		
 		if(cookies != null && cookies.length>0) {
 			for(int i=0; i<cookies.length;i++) {
-				if(cookies[i].getName().equals("cookie"+userId+"|"+boardId)) {
+				if(cookies[i].getName().equals("cookie"+nickname+"|"+boardId)) {
 					System.out.println("처음 쿠키가 생성된 뒤 들어옴");
 					viewCookie = cookies[i];
 				}
@@ -114,7 +115,7 @@ public class BoardService {
 
 			if(viewCookie==null) {
 				System.out.println("쿠키 없음");
-				Cookie newCookie = new Cookie("cookie"+userId+"|"+boardId,"|"+userId+"|"+boardId+"|");
+				Cookie newCookie = new Cookie("cookie"+nickname+"|"+boardId,"|"+nickname+"|"+boardId+"|");
 				//newCookie.setMaxAge(5);
 				response.addCookie(newCookie);
 				int result = boardMapper.plusViewCnt(boardId);
