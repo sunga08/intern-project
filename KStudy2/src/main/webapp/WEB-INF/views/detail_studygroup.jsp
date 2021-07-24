@@ -91,11 +91,11 @@
                         </div>
                         <h3 class="mt-4"><i class="fas fa-users"></i> 스터디 참여 멤버</h3>
                         <div id="members" class="row">
-							<div class="col-xl-3-1 col-md-6">
+							<%-- <div class="col-xl-3-1 col-md-6">
                         		<div class="card bg-primary text-white mb-4">
                         			<div class="card-body">${groupInfo.regUser} (개설자)</div>
                        			</div>
-                    		</div>
+                    		</div> --%>
                         </div>
                         
                         <!-- <h3 class="mt-4">사전</h3>
@@ -177,7 +177,7 @@
                     	console.log(obj);
    	                 	html += '<div class="col-xl-3-1 col-md-6">';
                         html += '<div class="card bg-primary text-white mb-4">';
-                        html += '<div class="card-body"><c:if test="${groupInfo.regUser eq '+obj.userName+'}"><h5>개설자</h5></c:if>'+obj.userName+'</div>';
+                        html += '<div class="card-body">'+obj.userName+'<c:if test="${groupInfo.regUser eq '+obj.userName+'}"><h5>(개설자)</h5></c:if></div>';
                         html += '</div>';
                     	html += '</div>';
                     })
