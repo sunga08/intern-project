@@ -46,8 +46,8 @@ public class StudyGroupController {
 	//스터디 그룹 생성하기
 	@PostMapping("/studygroup")
 	public int addStudyGroup(HttpSession session, @RequestBody StudyGroup studyGroup) {
-		studyGroup.setRegUser(session.getAttribute("user_id").toString());
-		return studyGroupService.addStudyGroup(studyGroup);
+		studyGroup.setRegUser(session.getAttribute("nickname").toString()); //ID 대신 닉네임으로 개설자명 설정
+		return studyGroupService.addStudyGroup(studyGroup, session);
 	}
 	
 //	@GetMapping("/studygroup/count/{groupId}")

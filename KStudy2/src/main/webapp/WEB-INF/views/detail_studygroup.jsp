@@ -161,7 +161,7 @@
         	$("#lectureName").append(html);
         }
         
-        //그룹장 외 멤버 표시
+        //개설자 외 멤버 표시
         function showMembers(){
         	var groupId = "${groupInfo.groupId}";
         	
@@ -177,7 +177,7 @@
                     	console.log(obj);
    	                 	html += '<div class="col-xl-3-1 col-md-6">';
                         html += '<div class="card bg-primary text-white mb-4">';
-                        html += '<div class="card-body"><c:if test="${groupInfo.regUser eq '+obj.userId+'}"><h5>개설자</h5></c:if>'+obj.userId+'</div>';
+                        html += '<div class="card-body"><c:if test="${groupInfo.regUser eq '+obj.userName+'}"><h5>개설자</h5></c:if>'+obj.userName+'</div>';
                         html += '</div>';
                     	html += '</div>';
                     })

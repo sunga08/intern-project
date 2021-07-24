@@ -72,16 +72,17 @@ public class StudyGroupService {
 	
 	//스터디 생성
 	@Transactional
-	public int addStudyGroup(StudyGroup studyGroup) {
+	public int addStudyGroup(StudyGroup studyGroup, HttpSession session) {
 		GroupRegInfo groupRegInfo = new GroupRegInfo();
 		
 		int result = 0;
 		
 		try {	
 			int addResult = studyGroupMapper.addStudyGroup(studyGroup);
-			groupRegInfo.setUserId(studyGroup.getRegUser());
+			groupRegInfo.setUserId(session.getAttribute("user_id").toString());
 			groupRegInfo.setGroupId(studyGroup.getGroupId());
 			groupRegInfo.setRegDtm(studyGroup.getCreateDate());
+			groupRegInfo.setRegUser(studyGroup.getRegUser());
 			if(addResult==1 && groupRegInfoMapper.addGroupRegInfo(groupRegInfo)==1) {
 				result = studyGroupMapper.addCurMember(studyGroup.getGroupId());
 			}
