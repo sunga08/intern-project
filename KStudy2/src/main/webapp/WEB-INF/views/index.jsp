@@ -69,12 +69,26 @@
 				</ul>
 				
 				<div id="login">
-					<form class="d-flex">
+					<div id="naver_id_login" style="text-align:center">
+					<c:choose>
+						<c:when test="${sessionId!=null}">
+							<h3>${sessionId}님 환영합니다!</h3>
+							<h3><a href="logout">로그아웃</a></h3>
+							
+						</c:when>
+						<c:otherwise>
+							<a href="${url}">
+							<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a>
+						</c:otherwise>					
+					</c:choose>
+					</div>
+					<!-- <form class="d-flex">
+
 		   				 <div style="margin-left: 10px auto; margin-bottom: 10px; height: 20px;" class="form-floating">
 		      				<input type="text" id="userId" placeholder="ID" name="userId" required>
 		    			</div>	
 						<button class="btn btn-primary btn-sm" onclick="login()">로그인</button>
-					</form>
+					</form> -->
 				</div>
 			</div>
 		</div>

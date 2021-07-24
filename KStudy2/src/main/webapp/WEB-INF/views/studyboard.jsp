@@ -28,7 +28,7 @@
             }
             
             .pagination, .dataTable-pagination ul{
-            	padding-left: 550px;
+            	padding-left: 750px;
             }
             
    		</style>

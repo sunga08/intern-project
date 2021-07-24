@@ -148,7 +148,7 @@
 								  
 								  
 								  <tr>
-								    <td class="tg-0pky" colspan="4"><pre>${post.content}</pre></td>
+								    <td class="tg-0pky" colspan="4" >${post.content}</td>
 								  </tr>
 								</tbody>
 							</table>

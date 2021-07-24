@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wj.kstudy.NaverLoginBO;
 import com.wj.kstudy.service.StudyGroupService;
 
 @RestController
@@ -15,6 +16,8 @@ public class LoginController {
 	@Autowired
 	StudyGroupService studyGroupService;
 	
+
+
 	@GetMapping("/login/{userId}")
 	public int login(HttpSession session, @PathVariable(name="userId") String userId) {
 		return studyGroupService.login(session, userId);			
@@ -24,4 +27,7 @@ public class LoginController {
 	public void logout(HttpSession session) {
 		session.removeAttribute("user_id");
 	}
+	
+	
+
 }

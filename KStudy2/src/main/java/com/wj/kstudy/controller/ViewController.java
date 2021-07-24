@@ -1,5 +1,6 @@
 package com.wj.kstudy.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.wj.kstudy.NaverLoginBO;
 import com.wj.kstudy.dto.Board;
 import com.wj.kstudy.dto.Criteria;
 import com.wj.kstudy.dto.Lecture;
@@ -48,6 +56,14 @@ public class ViewController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+	
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
 	
 	@GetMapping("/post")
 	public String test(Model model) {
@@ -85,15 +101,22 @@ public class ViewController {
 //		cookie.setComment("게시글 조회수");
 //		cookie.setMaxAge(60*60*24*365);
 		ModelAndView mav = new ModelAndView("index");
-		if(session.getAttribute("user_id")!=null) {
-			String userId=session.getAttribute("user_id").toString();
-			mav.addObject("userId", userId);
-		}
-		else {
-			mav.addObject("userId","");
-		}
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		System.out.println("네이버:" + naverAuthUrl);
+		
+//		if(session.getAttribute("user_id")!=null) {
+//			String userId=session.getAttribute("user_id").toString();
+//			mav.addObject("userId", userId);
+//		}
+//		else {
+//			mav.addObject("userId","");
+//		}
 		
 		mav.setViewName("index");
+		
+		//네이버
+		mav.addObject("url", naverAuthUrl);
+		
 		return mav;
 	}
 	
@@ -266,6 +289,47 @@ public class ViewController {
 		mav.addObject("groupInfo",studyGroup);
 		
 		return mav;
+	}
+	
+	//네이버 로그인 성공시 callback호출 메소드
+	@RequestMapping(value = "/main/callback", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+		System.out.println("여기는 callback");
+		ModelAndView mav = new ModelAndView("callback");
+		OAuth2AccessToken oauthToken;
+		oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		//1. 로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginBO.getUserProfile(oauthToken); //String형식의 json데이터
+		/** apiResult json 구조
+		{"resultcode":"00",
+		"message":"success",
+		"response":{"id":"33666449","nickname":"shinn****","age":"20-29","gender":"M","email":"sh@naver.com","name":"\uc2e0\ubc94\ud638"}}
+		**/
+		//2. String형식인 apiResult를 json형태로 바꿈
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+		//3. 데이터 파싱
+		//Top레벨 단계 _response 파싱
+		JSONObject response_obj = (JSONObject)jsonObj.get("response");
+		//response의 nickname값 파싱
+		String nickname = (String)response_obj.get("nickname");
+		System.out.println("nickname: "+nickname);
+		//4.파싱 닉네임 세션으로 저장
+		session.setAttribute("sessionId",nickname); //세션 생성
+		//model.addAttribute("result", apiResult);
+		mav.addObject("result", apiResult);
+		mav.setViewName("index");
+		
+		return mav;
+	}
+	
+	//로그아웃
+	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
+	public String logout(HttpSession session)throws IOException {
+		System.out.println("여기는 logout");
+		session.invalidate();
+		return "redirect:index.jsp";
 	}
 
 }

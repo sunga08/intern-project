@@ -39,4 +39,6 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	config.stylesSet = 'my_styles';
 	config.stylesSet = 'my_styles:./wj_styles.js';
+	
+	config.fontSize_defaultLabel = '13px';
 };
