@@ -12,7 +12,7 @@
 		SELECT u.user_id, u.user_name FROM user u join group_reg_info g
 		WHERE u.user_id=g.user_id
 		AND g.group_id=#{groupId}
-		AND u.user_id NOT IN (
+		AND u.user_name NOT IN (
 			SELECT reg_user FROM study_group WHERE group_id=#{groupId}
 		)
 		ORDER BY g.join_date;

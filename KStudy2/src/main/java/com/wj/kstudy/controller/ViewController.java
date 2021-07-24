@@ -105,8 +105,8 @@ public class ViewController {
 		System.out.println("네이버:" + naverAuthUrl);
 		
 		if(session.getAttribute("user_id")!=null) {
-			String userId=session.getAttribute("user_id").toString();
-			mav.addObject("nickname", userId);
+			String nickname=session.getAttribute("nickname").toString();
+			mav.addObject("nickname", nickname);
 		}
 				
 		mav.setViewName("index");
@@ -123,8 +123,8 @@ public class ViewController {
 		ModelAndView mav = new ModelAndView("detail");
 		
 		if(session.getAttribute("user_id")!=null) {
-			String userId = session.getAttribute("user_id").toString();
-			mav.addObject("nickname", userId);
+			String nickname = session.getAttribute("nickname").toString();
+			mav.addObject("nickname", nickname);
 		}
 		
 		mav.setViewName("detail");
@@ -258,13 +258,13 @@ public class ViewController {
 				
 		mav.addObject("post",board);
 		mav.setViewName("viewPost");
-		mav.addObject("user",session.getAttribute("user_id"));
+		mav.addObject("user",session.getAttribute("nickname"));
 		mav.addObject("groupInfo",studyGroup);
 		
 		return mav;
 	}
 	
-	//글스기 화면
+	//글쓰기 화면
 	@GetMapping("/view/studyboard/write/{groupId}")
 	public ModelAndView writePostView(@PathVariable(name="groupId") int groupId) {
 		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);

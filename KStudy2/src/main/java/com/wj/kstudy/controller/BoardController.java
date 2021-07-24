@@ -62,6 +62,7 @@ public class BoardController {
 	@PostMapping("/studyboard")
 	public int addPost(HttpSession session, @RequestBody Board board) {
 		board.setUserId(session.getAttribute("user_id").toString());
+		board.setRegUser(session.getAttribute("nickname").toString());
 		return boardService.addPost(board);
 	}
 	

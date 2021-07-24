@@ -10,6 +10,7 @@ public class Board {
 	String content;
 	int viewCnt;
 	Date regDtm;
+	String regUser;
 	
 	
 	public int getBoardId() {
@@ -54,6 +55,14 @@ public class Board {
 	}
 	public void setRegDtm(Date regDtm) {
 		this.regDtm = regDtm;
+	}
+	
+	
+	public String getRegUser() {
+		return regUser;
+	}
+	public void setRegUser(String regUser) {
+		this.regUser = regUser;
 	}
 	@Override
 	public String toString() {
