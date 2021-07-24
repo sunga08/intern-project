@@ -92,7 +92,7 @@ public class BoardService {
 	
 	@Transactional
 	public Board getPostAndPlusView(HttpServletRequest request, HttpServletResponse response, HttpSession session, int boardId) {
-		String userId = session.getAttribute("user_id").toString();
+		String userId = session.getAttribute("userId").toString();
 		Board board = boardMapper.getPost(boardId);
 		System.out.println(board.getViewCnt());
 		
@@ -131,8 +131,7 @@ public class BoardService {
 				
 				String value = viewCookie.getValue();
 				System.out.println("쿠키값:"+value);
-			}
-			
+			}			
 			
 		}
 		

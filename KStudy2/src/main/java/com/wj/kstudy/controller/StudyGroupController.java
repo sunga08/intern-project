@@ -81,7 +81,6 @@ public class StudyGroupController {
 
 		String userId = session.getAttribute("user_id").toString();
 
-		System.out.println("체크 "+userId);
 		Map<String, String> map = new HashMap<>();
 		if(studyGroupService.checkRegMember(groupId, userId)==1) {						
 			map.put("result", "member");			
