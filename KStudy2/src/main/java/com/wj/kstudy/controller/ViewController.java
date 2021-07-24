@@ -104,13 +104,11 @@ public class ViewController {
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		System.out.println("네이버:" + naverAuthUrl);
 		
-//		if(session.getAttribute("user_id")!=null) {
-//			String userId=session.getAttribute("user_id").toString();
-//			mav.addObject("userId", userId);
-//		}
-//		else {
-//			mav.addObject("userId","");
-//		}
+		if(session.getAttribute("user_id")!=null) {
+			String userId=session.getAttribute("nickname").toString();
+			mav.addObject("userId", userId);
+		}
+		
 		
 		mav.setViewName("index");
 		
@@ -322,6 +320,7 @@ public class ViewController {
 		System.out.println(response_obj.toString());
 		//4.파싱 닉네임 세션으로 저장
 		session.setAttribute("user_id",email); //세션 생성
+		session.setAttribute("nickname", nickname);
 		//model.addAttribute("result", apiResult);
 		mav.addObject("result", apiResult);
 		mav.addObject("nickname",nickname);
