@@ -281,10 +281,10 @@
                  	
                  	html += '<div class="col mb-5">';
                 	html += '<div class="card h-100" style="min-width:200px;">';
-                	html += '<a href="'+obj.link+' target="_balnk"><img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
+                	html += '<a href="'+obj.link+"'><img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
                 	html += '<div class="card-body p-4">';
                 	html += '<div class="text-center">';
-                	html += '<a href="'+obj.link+'><h5 class="fw-bolder">';
+                	html += '<a href="'+obj.link+'"><h5 class="fw-bolder">';
                 	html += obj.title;
                 	html += '</h5></a>';
                 	html += '['+obj.publisher+']';
@@ -299,12 +299,12 @@
                 	
                 	html += '</div>';
 						
-                	//html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
-                	//html += '<div class="text-center">';
-                	//html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
-                	//html += '자세히 보기</a>';
-                	//html += '</div>';
-                	//html += '</div>';
+                	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                	html += '<div class="text-center">';
+                	html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
+                	html += '자세히 보기</a>';
+                	html += '</div>';
+                	html += '</div>';
                 	html += '</div>';	
                 	html += '</div>';
                 	
