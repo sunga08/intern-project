@@ -104,13 +104,14 @@ public class StudyGroupService {
 	
 	//스터디 참여
 	@Transactional
-	public int addStudyGroupMember(String userId, StudyGroup studyGroup) {
+	public int addStudyGroupMember(String userId, String nickname, StudyGroup studyGroup) {
 		int result = 0;
 		GroupRegInfo groupRegInfo = new GroupRegInfo();
 		
 		try {
 			if(groupRegInfoMapper.countUserId(studyGroup.getGroupId(), userId)==0) {
 				groupRegInfo.setUserId(userId);
+				groupRegInfo.setRegUser(nickname);
 				groupRegInfo.setGroupId(studyGroup.getGroupId());
 				System.out.println(groupRegInfo.toString());
 				if(groupRegInfoMapper.addGroupRegInfo(groupRegInfo)==1) {				

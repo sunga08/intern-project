@@ -544,6 +544,7 @@
     }
     
     
+    //사용 X
     function GetBookData() {
 
     	$.ajax({
@@ -558,7 +559,7 @@
                 
                 html += '<div style="margin-top:50px;margin-bottom:50px;text-align:center;"><h5>관련 도서가 없습니다.</h3></div>';	                
 
-                $("#bookData").append(html)
+                $("#bookData").append(html);
 
             },
             error: function(){
@@ -577,7 +578,7 @@
     }
     
     //가입여부, 인원초과 여부 판단
-    function checkJoin(groupId, tmp){
+    /* function checkJoin(groupId, tmp){
     	var check=1;
 
     	$.ajax({
@@ -606,7 +607,7 @@
 		})
 		
 		return check;
-    }
+    } */
     
     
     //가입 여부 판단
@@ -694,6 +695,7 @@
 		return res;
     }
     
+    //가입하려는 그룹 정보 가져오기
     function confirmJoin(groupId){
 
     	$.ajax({
@@ -706,7 +708,7 @@
                           
                	var con = confirm('스터디 참여가 가능합니다. 참여하시겠습니까?');
                	if(con==true){
-               		joinStudy(groupData);                		
+               		joinStudy(groupData);  //가입처리              		
                		location.reload();
                	}
             },

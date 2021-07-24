@@ -319,8 +319,8 @@ public class ViewController {
 
 		System.out.println(response_obj.toString());
 		//4.파싱 닉네임 세션으로 저장
-		session.setAttribute("user_id",nickname); //세션 생성
-		session.setAttribute("email", email);
+		session.setAttribute("user_id",email); //세션 생성
+		session.setAttribute("nickname", nickname);
 		//model.addAttribute("result", apiResult);
 		mav.addObject("result", apiResult);
 		mav.addObject("nickname",nickname);

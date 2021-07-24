@@ -10,7 +10,6 @@ public class GroupRegInfo {
 	String regUser;
 	
 	
-
 	public String getRegUser() {
 		return regUser;
 	}

@@ -12,7 +12,7 @@
 
 	<!-- 가입정보 테이블 데이터 추가 -->
 	<insert id="addGroupRegInfo" parameterType="com.wj.kstudy.dto.GroupRegInfo" useGeneratedKeys="true" keyProperty="info_Id"> 
-		insert into group_reg_info(group_id, user_id, join_date, reg_dtm) values(#{groupId}, #{userId}, now(), now())
+		insert into group_reg_info(group_id, user_id, join_date, reg_dtm, reg_user) values(#{groupId}, #{userId}, now(), now(), #{regUser})
 	</insert> 
 	
 
