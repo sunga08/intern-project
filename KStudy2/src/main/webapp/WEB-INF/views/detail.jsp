@@ -179,7 +179,7 @@
 			
 				<div id="naver_id_login" style="text-align:center">					
 					<c:if test="${nickname!=null}">
-						<div class="d-flex"><i class="fas fa-user-circle" style="color:white;"></i>&nbsp;<h3 style="color:white;">${nickname} &nbsp;</h3><button class="btn btn-primary btn-sm" onclick="logout()">로그아웃</button></div>							
+						<div class="d-flex"><h5 style="color:white;">${nickname} 님 &nbsp;</h5><button class="btn btn-primary btn-sm" onclick="logout()">로그아웃</button></div>							
 					</c:if>
 										
 				</div>
@@ -281,12 +281,12 @@
                  	
                  	html += '<div class="col mb-5">';
                 	html += '<div class="card h-100" style="min-width:200px;">';
-                	html += '<img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
+                	html += '<a href="'+obj.link+' target="_balnk"><img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
                 	html += '<div class="card-body p-4">';
                 	html += '<div class="text-center">';
-                	html += '<h5 class="fw-bolder">';
+                	html += '<a href="'+obj.link+'><h5 class="fw-bolder">';
                 	html += obj.title;
-                	html += '</h5>';
+                	html += '</h5></a>';
                 	html += '['+obj.publisher+']';
                 	html += '</div>';
                 	html += '<p></p>';
@@ -299,12 +299,12 @@
                 	
                 	html += '</div>';
 						
-                	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
-                	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
-                	html += '자세히 보기</a>';
-                	html += '</div>';
-                	html += '</div>';
+                	//html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                	//html += '<div class="text-center">';
+                	//html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
+                	//html += '자세히 보기</a>';
+                	//html += '</div>';
+                	//html += '</div>';
                 	html += '</div>';	
                 	html += '</div>';
                 	
@@ -810,7 +810,23 @@
 	       	    
 	       	  });
        	
-
+    }
+    
+    function logout(){
+    	$.ajax({
+    	    url: "/logout",
+    	    type: "GET",
+    	    async: false,
+    	    contentType: "application/json; charset=utf-8;",
+    	    success : function(response){
+   	    		
+	    		window.location="/main";
+	    	    
+    	    },
+    	    error : function(){
+    	      alert("에러")		
+    	    }
+    	  });
     }
     
     </script>
