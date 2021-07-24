@@ -138,7 +138,7 @@
                         <div class="dropdown-menu">
                           <a class="dropdown-item" href='javascript:void(0);' onclick="setCategory('경영ㆍ경제')">경영/경제</a>
                           <a class="dropdown-item" href='javascript:void(0);' onclick="setCategory('법률')">법률</a>
-                          <a class="dropdown-item" href='javascript:void(0);' onclick="setCategory('사회')">사회</a>
+                          <a class="dropdown-item" href='javascript:void(0);' onclick="setCategory('사회과학')">사회과학</a>
                         </div>
                       </li>
                       <li class="nav-item dropdown">

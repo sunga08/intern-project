@@ -290,7 +290,7 @@ public class ViewController {
 	}
 	
 	//네이버 로그인 성공시 callback호출 메소드
-	@RequestMapping(value = "/main/callback", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/main", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
 		System.out.println("여기는 callback");
 		ModelAndView mav = new ModelAndView("callback");
