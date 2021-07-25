@@ -59,4 +59,9 @@ public class CommentController {
 	public int updateComment(@RequestBody Comment comment) {
 		return commentService.updateComment(comment);
 	}
+	
+	@GetMapping("/reply/count/{groupId}/{bundleId}")
+	public int countReply(@PathVariable(name="groupId") int groupId, @PathVariable(name="bundleId") int bundleId) {
+		return commentService.countReply(groupId, bundleId);
+	}
 }

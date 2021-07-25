@@ -385,7 +385,7 @@
                     $.each(data, function(index, obj){                   	
                     	
                     	//원댓
-                    	if(obj.depth==0){
+                    	if(obj.depth==0 && obj.useYn=='y'){
                     		html+='<div class="card mt-2">';
         	                html+='<div class="card-header p-2">';
         	                html+='<table><tr class="align-middle">';
@@ -394,23 +394,32 @@
         	                html+='<tr><td><font size="2"><i class="far fa-clock"></i>&nbsp;'+obj.regDtm+'</font></td></tr></table>';
         	                html+='</div>';
         	                html+='<div id="textArea'+rid+'" class="card-body">';
-        	                html+='<p class="card-text">'+obj.content+'</p>	';
-        	                
-                    		if(obj.useYn=="n"){						                    	
-    	                    	html+='</div>';
-    	                    	html+='</div>';
-                        	}
-                    		else{					
-		                    	html+='<li style="list-style: none;"><button type="button" class="btn btn-dark mt-3" onClick="showUpdateArea('+obj.commentId+','+rid+',\''+obj.content+'\',\''+obj.regUser+'\')">수정</button>';
-		                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="deleteOriginalComment('+obj.commentId+',\''+obj.regUser+'\',\''+obj.useYn+'\')">삭제</button>';		                    	
-		                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="showReplyArea('+rid+')">답글</button></li>';
-		                    	html+='</div>';
-		                    	html+='</div>';
-                    		}
+        	                	
+                   			html+='<p class="card-text">'+obj.content+'</p>	';
+	                    	html+='<li style="list-style: none;"><button type="button" class="btn btn-dark mt-3" onClick="showUpdateArea('+obj.commentId+','+rid+',\''+obj.content+'\',\''+obj.regUser+'\')">수정</button>';
+	                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="deleteOriginalComment('+obj.commentId+',\''+obj.regUser+'\')">삭제</button>';		                    	
+	                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="showReplyArea('+rid+')">답글</button></li>';
+	                    	html+='</div>';
+	                    	html+='</div>';
+                    		
+                    	}
+                    	
+                    	else if(obj.depth==0 && obj.useYn=="n" && countReply(obj.bundleId)>1){ 
+                    		html+='<div class="card mt-2">';
+        	                html+='<div class="card-header p-2">';
+        	                html+='<table><tr class="align-middle">';
+        	                html+='<td rowspan="2" class="pr-2"></td>';
+        	                html+='<td class="ml"><i class="fas fa-user"></i>&nbsp;'+obj.regUser+'</td></tr>';
+        	                html+='<tr><td><font size="2"><i class="far fa-clock"></i>&nbsp;'+obj.regDtm+'</font></td></tr></table>';
+        	                html+='</div>';
+        	                html+='<div id="textArea'+rid+'" class="card-body">';
+                			html+='<p class="card-text">삭제된 댓글입니다.</p>';
+	                    	html+='</div>';
+	                    	html+='</div>';
                     	}
                     	
                     	//대댓
-                    	else if(obj.depth==1){		
+                    	else if(obj.depth==1 && obj.userYn=="y"){		
                     		html+='<div class="d-flex">';
 	                    	html+='<div class="p-2"><i class="mt-3 fa fa-reply fa fa-rotate-180" aria-hidden="true"></i></div>';
 	                    	html+='<div class="flex-fill"><div class="card mt-2">';
@@ -554,37 +563,33 @@
         }
         
         //댓글 삭제
-        function deleteOriginalComment(commentId, register, useYn){
-        	console.log(commentId);
-        	if(useYn=="n"){
-        		alert('삭제된 댓글입니다.');
-        	}        	
-        	else{
-	        	if(register=="${user}"){
-		        	var con = confirm('삭제하시겠습니까?');
-		           	if(con==true){
-			        	$.ajax({
-			    			url: '/comment/original/'+commentId,
-			    			type: 'PUT',
-			    			success: function(data){
-			    				console.log(data);
-			    				if(data==1){
-			    					alert('삭제되었습니다.')
-			    					getComments();
-			    				}
-			    				else{
-			    					alert('삭제 실패')
-			    				}
-			    			}, error: function(xhr, status,error){
-			    				console.log(xhr.status+" error: "+error);
-			    			}
-			    		})
-		           	}
-	        	}
-	        	else{
-	        		alert("권한이 없습니다.");
-	        	}
+        function deleteOriginalComment(commentId, register){
+        	
+        	if(register=="${user}"){
+	        	var con = confirm('삭제하시겠습니까?');
+	           	if(con==true){
+		        	$.ajax({
+		    			url: '/comment/original/'+commentId,
+		    			type: 'PUT',
+		    			success: function(data){
+		    				console.log(data);
+		    				if(data==1){
+		    					alert('삭제되었습니다.')
+		    					getComments();
+		    				}
+		    				else{
+		    					alert('삭제 실패')
+		    				}
+		    			}, error: function(xhr, status,error){
+		    				console.log(xhr.status+" error: "+error);
+		    			}
+		    		})
+	           	}
         	}
+        	else{
+        		alert("권한이 없습니다.");
+        	}
+        	
         }
         
         function updateComment(rid, commentId){
@@ -613,6 +618,22 @@
     				console.log(xhr.status+" error: "+error);
     			}
     		})
+        }
+        
+        function countReply(bundelId){
+        	var cnt;
+        	$.ajax({
+    			url: '/reply/count/'+groupId+'/'+bundleId,
+    			type: 'GET',
+    			async: false,
+    			dataType: "json",
+    			success: function(data){
+    				cnt=data;
+    			}, error: function(xhr, status,error){
+    				console.log(xhr.status+" error: "+error);
+    			}
+    		})
+    		return cnt;
         }
 		</script>
         

@@ -128,7 +128,7 @@
         <script type="text/javascript">
 
         let totalData; //총 데이터 수
-        let dataPerPage = 5; //한 페이지에 나타낼 글 수
+        let dataPerPage = 10; //한 페이지에 나타낼 글 수
         let pageCount = 5; //페이징에 나타낼 페이지 수
         let globalCurrentPage=1; //현재 페이지
         var groupId = "${groupInfo.groupId}";
@@ -182,7 +182,7 @@
             		var num = postCnt-dataPerPage*(page-1);
             		if(postCnt==0){
             			html += '<tbody><tr><td colspan="5" algint="center">';
-            			html+='<h3>등록된 게시글이 없습니다.</h3></td></tr>';
+            			html+='<h5>등록된 게시글이 없습니다.</h5></td></tr>';
             		}
             		else{
 	                    $.each(response, function(index, obj){

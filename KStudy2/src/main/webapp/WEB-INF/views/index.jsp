@@ -72,7 +72,7 @@
 					<div id="naver_id_login" style="text-align:center">
 					<c:choose>
 						<c:when test="${user_id!=null}">
-							<h3>${nickname}님 환영합니다! &nbsp;<a href='javascript:void(0);' onclick="logout()">로그아웃</a></h3>
+							<h5>${nickname}님 환영합니다! &nbsp;<a href='javascript:void(0);' onclick="logout()">로그아웃</a></h5>
 							
 						</c:when>
 						<c:otherwise>
@@ -545,8 +545,6 @@
     function setSearchData(){
     	globalKeyword=document.querySelector(".form-control.me-sm-2").value;
     	getSearchData(globalKeyword,1);
-    	
-    	//$("#category").empty();
     	totalData = countSearchLecture(globalKeyword);
 		pagination(totalData, dataPerPage, pageCount, 1, "search");
     }
@@ -716,8 +714,8 @@
     	return cnt;
     }
     
-    
-    function login(){
+    //DB에 있는 사용자인지 체크
+    /* function login(){
     	userId = document.getElementById('userId').value;
 
     	$.ajax({
@@ -728,16 +726,13 @@
     	    success : function(response){
     	    	
     	    	if(response==1){
-    	    		
-	    	      	//window.location="/main";
 	    	      	$("#login").empty();
 	    	      	html='';
 	    	      	html+='<div class="d-flex"><h5>'+userId+'님 환영합니다! &nbsp;</h5>';
 	    	      	html+='<button class="btn btn-primary btn-sm" onclick="logout()">로그아웃</button></div>';
 	    	      	$("#login").append(html);
     	    	}
-	    	    else{
-	    	    	
+	    	    else{	    	    	
 	    	    	alert("가입된 회원이 아닙니다.");
 	    	    	window.location="/main";
 	    	    }
@@ -746,10 +741,8 @@
     	    error : function(){
     	      alert("에러")		
     	    }
-    	  });
-    	
-    	
-    }
+    	  });    	    	
+    } */
     
     function logout(){
     	$.ajax({

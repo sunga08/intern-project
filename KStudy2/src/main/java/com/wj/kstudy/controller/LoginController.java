@@ -17,7 +17,7 @@ public class LoginController {
 	StudyGroupService studyGroupService;
 	
 
-
+	//DB에 있는 사용자인지 체크
 	@GetMapping("/login/{userId}")
 	public int login(HttpSession session, @PathVariable(name="userId") String userId) {
 		return studyGroupService.login(session, userId);			

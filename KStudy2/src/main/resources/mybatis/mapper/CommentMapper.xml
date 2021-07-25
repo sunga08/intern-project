@@ -20,6 +20,7 @@
 		order by bundle_id, bundle_order;
 	</select>
 	
+	<!-- 댓글 하나 조회 -->
 	<select id="getOneComment" parameterType="java.lang.Integer" resultMap="comment_resultMap">
 		select comment_id, board_id, group_id, content, depth, bundle_id, bundle_order, reg_user, reg_dtm, mod_dtm, use_yn from comments 
 		where comment_id=#{commentId}
@@ -44,12 +45,12 @@
 	<delete id="deleteComment" parameterType="java.lang.Integer">
 		delete from comments where comment_id=#{commentId}
 	</delete>
-	
-	
-	<!-- 삭제된 댓글로 업데이트 -->
+		
+		
+	<!-- 댓글 삭제 - 사용여부 변경 -->
 	<update id="updateDeleteComment" parameterType="java.lang.Integer">
 		update comments
-		set content='삭제된 댓글입니다.', use_yn='n'
+		set use_yn='n'
 		where comment_id=#{commentId}
 	</update>
 	

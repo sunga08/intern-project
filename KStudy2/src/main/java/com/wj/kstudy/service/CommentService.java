@@ -51,15 +51,20 @@ public class CommentService {
 	//삭제된 댓글로 업뎃
 	public int updateDeleteComment(int commentId) {
 		Comment comment = commentMapper.getOneComment(commentId);
-		if(commentMapper.countBundleComment(comment.getGroupId(), comment.getBundleId())>1) {			
-			return commentMapper.updateDeleteComment(commentId);
-		}
-		else {
-			return commentMapper.deleteComment(commentId);
-		}
+//		if(commentMapper.countBundleComment(comment.getGroupId(), comment.getBundleId())>1) {			
+//			return commentMapper.updateDeleteComment(commentId);
+//		}
+//		else {
+//			return commentMapper.deleteComment(commentId);
+//		}
+		return commentMapper.updateDeleteComment(commentId);
 	}
 	
 	public int updateComment(Comment comment) {
 		return commentMapper.updateComment(comment);
+	}
+
+	public int countReply(int groupId, int bundleId) {
+		return commentMapper.countBundleComment(groupId, bundleId);
 	}
 }

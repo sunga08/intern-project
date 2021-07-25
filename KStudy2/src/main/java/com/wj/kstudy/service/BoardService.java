@@ -30,8 +30,8 @@ public class BoardService {
 	StudyGroupMapper studyGroupMapper;
 	
 	
-	@Value("5")
-	private int PAGE_SIZE;
+	@Value("10") 
+	private int PAGE_SIZE; //한 페이지에 나타나는 게시글 수
 	
 	
 	public List<Board> getPostList(int groupId){
