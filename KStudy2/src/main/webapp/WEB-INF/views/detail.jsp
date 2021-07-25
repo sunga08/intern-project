@@ -276,43 +276,47 @@
              dataType: "json",
              success: function(data){
             	 let html = '';
+            	 console.log(data.length);
             	 
             	 if(data.length==0){
                  	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>관련 도서 정보가 없습니다.</h3></div>';	
                  }
             	 
-                 $.each(data.items, function(index, obj){
-                 	
-                 	html += '<div class="col mb-5">';
-                	html += '<div class="card h-100" style="min-width:200px;">';
-                	html += '<a href="'+obj.link+'"><img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
-                	html += '<div class="card-body p-4">';
-                	html += '<div class="text-center">';
-                	html += '<a href="'+obj.link+'"><h5 class="fw-bolder">';
-                	html += obj.title;
-                	html += '</h5></a>';
-                	html += '['+obj.publisher+']';
-                	html += '</div>';
-                	html += '<p></p>';
-                	html += '<p class="text-style-1">저자<br/>';
-                	html += obj.author;
-                	html += '</p>' 
-                	html += '<p class="text-style-1">가격<br/>';
-                	html += obj.price+'원';
-                	html += '</p>'               	
-                	
-                	html += '</div>';
-						
-                	/* html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
-                	html += '<div class="text-center">';
-                	html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
-                	html += '자세히 보기</a>';
-                	html += '</div>';
-                	html += '</div>'; */
-                	html += '</div>';	
-                	html += '</div>';
-                	
-                 })
+            	 
+            	 else{
+	                 $.each(data.items, function(index, obj){
+	                 	
+	                 	html += '<div class="col mb-5">';
+	                	html += '<div class="card h-100" style="min-width:200px;">';
+	                	html += '<a href="'+obj.link+'"><img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
+	                	html += '<div class="card-body p-4">';
+	                	html += '<div class="text-center">';
+	                	html += '<a href="'+obj.link+'"><h5 class="fw-bolder">';
+	                	html += obj.title;
+	                	html += '</h5></a>';
+	                	html += '['+obj.publisher+']';
+	                	html += '</div>';
+	                	html += '<p></p>';
+	                	html += '<p class="text-style-1">저자<br/>';
+	                	html += obj.author;
+	                	html += '</p>' 
+	                	html += '<p class="text-style-1">가격<br/>';
+	                	html += obj.price+'원';
+	                	html += '</p>'               	
+	                	
+	                	html += '</div>';
+							
+	                	/* html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+	                	html += '<div class="text-center">';
+	                	html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
+	                	html += '자세히 보기</a>';
+	                	html += '</div>';
+	                	html += '</div>'; */
+	                	html += '</div>';	
+	                	html += '</div>';
+	                	
+	                 })
+            	 }
                	 $("#bookData").append(html)
              },
              error: function(){
