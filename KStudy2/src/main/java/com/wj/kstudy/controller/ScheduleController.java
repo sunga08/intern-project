@@ -27,17 +27,20 @@ public class ScheduleController {
 		return scheduleService.getScheduleList(groupId);
 	}
 	
+	//일정 등록
 	@PostMapping("/schedule")
 	public int addSchedule(HttpSession session, @RequestBody Schedule schedule) {
 		schedule.setRegUser(session.getAttribute("user_id").toString());
 		return scheduleService.addSchedule(schedule);
 	}
 	
+	//일정 삭제
 	@DeleteMapping("/schedule/{scheduleId}")
 	public int deleteSchedule(@PathVariable(name="scheduleId") int scheduleId) {
 		return scheduleService.deleteSchedule(scheduleId);
 	}
 	
+	//일정 수정
 	@PutMapping("/schedule")
 	public int updateSchedule(@RequestBody Schedule schedule) {		
 		return scheduleService.updateSchedule(schedule);

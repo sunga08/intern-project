@@ -485,6 +485,7 @@
     	alert('로그인이 필요합니다.');
     }
     
+    //스터디 클릭시 사용자 권한 체크
     function checkMemberState(groupId){
     	
     	$.ajax({
