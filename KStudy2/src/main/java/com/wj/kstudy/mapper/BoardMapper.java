@@ -11,7 +11,7 @@ import com.wj.kstudy.dto.Criteria;
 @Mapper
 public interface BoardMapper {
 	public List<Board> getPostList(@Param("groupId") int groupId);
-	public List<Board> getPostListPaging(@Param("groupId") int groupId, @Param("startPage") int startPage, @Param("recordsPerPage") int recordsPerPage);
+	public List<Board> getPostListPaging(@Param("groupId") int groupId, @Param("startPage") int startPage, @Param("recordsPerPage") int recordsPerPage); //사용x
 	public List<Board> getPostListPaging2(Criteria criteria);
 	public List<Board> getPostListTCPaging(Criteria criteria);
 	public List<Board> getPostListWPaging(Criteria criteria);
