@@ -620,7 +620,7 @@
     		})
         }
         
-        function countReply(bundelId){
+        function countReply(bundleId){
         	var cnt;
         	$.ajax({
     			url: '/reply/count/'+groupId+'/'+bundleId,
