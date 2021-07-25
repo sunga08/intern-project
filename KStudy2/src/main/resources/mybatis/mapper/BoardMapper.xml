@@ -27,7 +27,7 @@
 	
 	<select id="getPostListPaging2" resultMap="board_resultMap">
 		SELECT r1.* FROM (
-			select board_id, group_id, user_id, title, content, view_cnt, reg_dtm
+			select board_id, group_id, user_id, title, content, view_cnt, reg_dtm, reg_user
 			from board where group_id=#{groupId}
 			<if test="keyword != null">
 				and title like concat('%',#{keyword},'%')

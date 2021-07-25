@@ -301,7 +301,7 @@
         //게시글 삭제
         function deletePost(){
         	        	
-        	if("${post.userId}"=="${user}"){
+        	if("${post.regUser}"=="${user}"){
 	        	var con = confirm('삭제하시겠습니까?');
 	           	if(con==true){
 		        	$.ajax({
@@ -330,7 +330,7 @@
         //게시글 삭제
         function updatePost(){
         	var userState = "<%=state%>";
-        	if("${post.userId}"=="${user}"){
+        	if("${post.regUser}"=="${user}"){
         		location.href="/view/studyboard/update/"+${groupInfo.groupId}+"/"+${post.boardId}+"?state="+userState;
         	}
         	else{
