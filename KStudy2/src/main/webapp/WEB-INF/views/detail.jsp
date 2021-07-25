@@ -154,6 +154,10 @@
 		}
 
 
+		.row-cols-xl-4 > *{
+   			width: 20%;
+		}
+		
     </style>
     
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -223,8 +227,7 @@
         
         <!-- µµ¼­ Content-->
         <!-- <div id="bookData" class="row gx-4 gx-lg-5"> -->
-        <div id="bookData" class="row">
-
+        <div id="bookData" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         </div>
         
         

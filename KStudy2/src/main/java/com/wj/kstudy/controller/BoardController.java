@@ -67,25 +67,31 @@ public class BoardController {
 	}
 	
 	//게시글 삭제
-	@DeleteMapping("/studyboard/{boardId}")
-	public ResponseEntity<Map<String,String>> deletePost(@PathVariable(name="boardId") int boardId) throws JsonProcessingException {
-		Map<String, String> map = new HashMap<>();
-		if(boardService.deletePost(boardId)==1) {
-			map.put("result", "success");
-		}
-		else {
-			map.put("result", "false");
-		}
-		
-		ResponseEntity<Map<String,String>> responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+//	@DeleteMapping("/studyboard/{boardId}")
+//	public ResponseEntity<Map<String,String>> deletePost(@PathVariable(name="boardId") int boardId) throws JsonProcessingException {
+//		Map<String, String> map = new HashMap<>();
+//		if(boardService.deletePost(boardId)==1) {
+//			map.put("result", "success");
+//		}
+//		else {
+//			map.put("result", "false");
+//		}
+//		
+//		ResponseEntity<Map<String,String>> responseEntity = new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
 //		ObjectMapper objectMapper = new ObjectMapper();
 //		String jsonString = objectMapper.writeValueAsString(responseEntity);
 //		
 //		System.out.println(jsonString);
-		
-		return responseEntity;
-			
+//		
+//		return responseEntity;
+//			
+//	}
+	
+	@PutMapping("/studyboard/{boardId}")
+	public int deleteUpdatePost(@PathVariable(name="boardId") int boardId) {
+		return boardService.deleteUpdatePost(boardId);
 	}
+	
 	
 	//게시글 수정
 	@PutMapping("/studyboard")

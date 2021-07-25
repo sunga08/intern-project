@@ -42,13 +42,13 @@ public class CommentController {
 	}
 	
 	//댓글 삭제
-	@DeleteMapping("/comment/{commentId}")
-	public int deleteComment(@PathVariable(name="commentId") int commentId) {
-		return commentService.deleteComment(commentId);
-	}
+//	@DeleteMapping("/comment/{commentId}")
+//	public int deleteComment(@PathVariable(name="commentId") int commentId) {
+//		return commentService.deleteComment(commentId);
+//	}
 	
 	//삭제된 댓글로 업뎃
-	@PutMapping("/comment/original/{commentId}")
+	@PutMapping("/comment/{commentId}")
 	public int updateDeleteComment(@PathVariable(name="commentId") int commentId) {
 		return commentService.updateDeleteComment(commentId);
 	}

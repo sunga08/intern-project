@@ -82,6 +82,23 @@ public class BoardService {
 		return result;
 	}
 	
+	
+	@Transactional
+	public int deleteUpdatePost(int boardId) {
+		int result=0;
+		
+		Board board = boardMapper.getPost(boardId);
+		int groupId = board.getGroupId();
+		try {
+			studyGroupMapper.minusPostCnt(groupId);
+			result = boardMapper.deleteUpdatePost(boardId);
+		}catch(Exception e) {
+			
+		}
+		return result;
+	}
+	
+	
 	public int updateBoard(Board board) {
 		return boardMapper.updatePost(board);
 	}

@@ -70,6 +70,13 @@
 		delete from board where board_id=#{boardId}	
 	</delete>
 	
+	<!-- 게시글 삭제 - 사용여부 변경 -->
+	<update id="updateDeletePost" parameterType="java.lang.Integer">
+		update board
+		set use_yn='n'
+		where board_id=#{boardId}
+	</update>
+	
 	<!-- 게시글 수정 -->
 	<update id="updatePost" parameterType="com.wj.kstudy.dto.Board">
 		update board

@@ -18,6 +18,7 @@ public interface BoardMapper {
 	public Board getPost(int boardId);
 	public int insertPost(Board board);
 	public int deletePost(int boardId);
+	public int deleteUpdatePost(int boardId);
 	public int updatePost(Board board);
 	public int plusViewCnt(int boardId);
 	public int getTotalTC(Criteria criteria);

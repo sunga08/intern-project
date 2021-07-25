@@ -106,8 +106,8 @@
 						</div>     
 						
 						<!-- ÆäÀÌÂ¡ Ç¥½Ã -->
-	                    <!-- <div id="pagination" class="pagination-div">							  	
-						</div> -->                                                                  
+	                    <div id="pagination" class="pagination-div">							  	
+						</div>                                                               
                         
                     </div>
                 </main>
@@ -207,8 +207,6 @@
                         	
                     html += '</table>';
                     html += '<hr/> ';
-                    
-                    html += '<div id="pagination" class="pagination-div"></div>'; 
                     
 					
                     console.log("html")

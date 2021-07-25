@@ -289,7 +289,6 @@
         	getComments();
         });
         
-
         
         function lectureInfo(){
         	var lecId = "${groupInfo.lecId}";
@@ -299,7 +298,7 @@
         }
         
         //게시글 삭제
-        function deletePost(){
+/*         function deletePost(){
         	        	
         	if("${post.regUser}"=="${user}"){
 	        	var con = confirm('삭제하시겠습니까?');
@@ -325,9 +324,38 @@
         	else{
         		alert("삭제는 게시글 작성자만 가능합니다.");
         	}
+        } */
+        
+        
+        function deletePost(){
+        	
+        	if("${post.regUser}"=="${user}"){
+	        	var con = confirm('삭제하시겠습니까?');
+	           	if(con==true){
+		        	$.ajax({
+		    			url: '/studyboard/'+boardId,
+		    			type: 'PUT',
+		    			async: false,
+		    			success: function(data){
+		    				if(data==1){
+		    					alert('삭제되었습니다.')
+		    					window.location.replace("/view/studyboard/"+groupId);
+		    				}
+		    				else{
+		    					alert('삭제 실패')
+		    				}
+		    			}, error: function(xhr, status,error){
+		    				console.log(xhr.status+" error: "+error);
+		    			}
+		    		})
+	           	}
+        	}
+        	else{
+        		alert("삭제는 게시글 작성자만 가능합니다.");
+        	}
         }
         
-        //게시글 삭제
+        //게시글 수정
         function updatePost(){
         	var userState = "<%=state%>";
         	if("${post.regUser}"=="${user}"){
@@ -370,6 +398,7 @@
 
 		}
         
+		//댓글 조회
         function getComments() {
         	$("#commentList").empty();
         	
@@ -397,13 +426,14 @@
         	                	
                    			html+='<p class="card-text">'+obj.content+'</p>	';
 	                    	html+='<li style="list-style: none;"><button type="button" class="btn btn-dark mt-3" onClick="showUpdateArea('+obj.commentId+','+rid+',\''+obj.content+'\',\''+obj.regUser+'\')">수정</button>';
-	                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="deleteOriginalComment('+obj.commentId+',\''+obj.regUser+'\')">삭제</button>';		                    	
+	                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="deleteComment('+obj.commentId+',\''+obj.regUser+'\')">삭제</button>';		                    	
 	                    	html+='&nbsp;<button type="button" class="btn btn-dark mt-3" onClick="showReplyArea('+rid+')">답글</button></li>';
 	                    	html+='</div>';
 	                    	html+='</div>';
                     		
                     	}
                     	
+                    	//삭제된 원댓글 표시
                     	else if(obj.depth==0 && obj.useYn=="n" && countReply(obj.bundleId)>1){ 
                     		html+='<div class="card mt-2">';
         	                html+='<div class="card-header p-2">';
@@ -418,7 +448,7 @@
 	                    	html+='</div>';
                     	}
                     	
-                    	//대댓
+                    	//답댓글
                     	else if(obj.depth==1 && obj.useYn=="y"){		
                     		html+='<div class="d-flex">';
 	                    	html+='<div class="p-2"><i class="mt-3 fa fa-reply fa fa-rotate-180" aria-hidden="true"></i></div>';
@@ -465,7 +495,7 @@
             });
         }
         
-        
+        //원댓글 등록
         function addComment(){
         	var form = $('#form').serializeObject();
 
@@ -533,7 +563,7 @@
         }
         
         //댓글 삭제(대댓)
-        function deleteComment(commentId, register){
+        /* function deleteComment(commentId, register){
        	    
         	if(register=="${user}"){
 	        	var con = confirm('삭제하시겠습니까?');
@@ -560,16 +590,16 @@
         		alert("권한이 없습니다.");
         	}
         	
-        }
+        } */
         
         //댓글 삭제
-        function deleteOriginalComment(commentId, register){
+        function deleteComment(commentId, register){
         	
         	if(register=="${user}"){
 	        	var con = confirm('삭제하시겠습니까?');
 	           	if(con==true){
 		        	$.ajax({
-		    			url: '/comment/original/'+commentId,
+		    			url: '/comment/'+commentId,
 		    			type: 'PUT',
 		    			success: function(data){
 		    				console.log(data);
@@ -592,6 +622,7 @@
         	
         }
         
+        //댓글 수정
         function updateComment(rid, commentId){
         	var form = $('#updateForm'+rid).serializeObject();
         	
@@ -620,6 +651,7 @@
     		})
         }
         
+        //사용여부가 y인 답댓글 개수
         function countReply(bundleId){
         	var cnt;
         	$.ajax({
