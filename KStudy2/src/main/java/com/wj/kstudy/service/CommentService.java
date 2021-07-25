@@ -23,7 +23,7 @@ public class CommentService {
 	
 	//원글 댓글 추가
 	public int insertComment(HttpSession session, Comment comment) {
-		comment.setRegUser(session.getAttribute("user_id").toString());
+		comment.setRegUser(session.getAttribute("nickname").toString());
 		int bundleCnt = commentMapper.countBundle(comment.getGroupId()); //원댓 개수
 		comment.setBundleId(bundleCnt+1);
 		comment.setBundleOrder(0);
@@ -34,7 +34,7 @@ public class CommentService {
 	
 	//대댓글 추가
 	public int insertReplyComment(HttpSession session, Comment comment) {
-		comment.setRegUser(session.getAttribute("user_id").toString());
+		comment.setRegUser(session.getAttribute("nickname").toString());
 		int bundleCommentCnt = commentMapper.countBundleComment(comment.getGroupId(), comment.getBundleId()); //원댓에 달린 대댓 개수(원댓 포함)
 		comment.setBundleOrder(bundleCommentCnt);
 		comment.setDepth(1);

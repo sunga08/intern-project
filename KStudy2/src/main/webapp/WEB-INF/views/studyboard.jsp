@@ -179,23 +179,29 @@
             		
             		var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수
             		var num = postCnt-dataPerPage*(page-1);
-                    $.each(response, function(index, obj){
-                    	console.log(obj)
-                    	
-                    	let dateObj = new Date(obj.regDtm);
-                    	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
-                    	
+            		if(postCnt==0){
             			html += '<tbody>';
-                    	html += '<tr>';
-        				html += '<td>'+num+'</td>';
-        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'?state='+userState+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
-        				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
-        				html += '<td>'+obj.userId+'</td>';
-        				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
-        				html += '<td>'+obj.viewCnt+'</td>';
-        				html += '</tr>';
-        				num=num-1; //감소시키기
-                    })
+            			html+='<h3>등록된 게시글이 없습니다.</h3>';
+            		}
+            		else{
+	                    $.each(response, function(index, obj){
+	                    	console.log(obj)
+	                    	
+	                    	let dateObj = new Date(obj.regDtm);
+	                    	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
+	                    	
+	            			html += '<tbody>';
+	                    	html += '<tr>';
+	        				html += '<td>'+num+'</td>';
+	        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'?state='+userState+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+	        				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+	        				html += '<td>'+obj.regUser+'</td>';
+	        				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
+	        				html += '<td>'+obj.viewCnt+'</td>';
+	        				html += '</tr>';
+	        				num=num-1; //감소시키기
+	                    })
+            		}
                     
                     html += '</tbody>';
                         	

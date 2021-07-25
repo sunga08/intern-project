@@ -99,17 +99,19 @@ public class BoardController {
 		return boardService.getPost(boardId);
 	}
 		
-	
+	//검색 조건에 따른 게시글 조회
 	@GetMapping("/studyboard/{groupId}/search/{option}/{keyword}/{page}")
 	public List<Board> getBoardListSearchTC(Criteria criteria, @PathVariable(name="groupId")int groupId, @PathVariable(name="option")int option, @PathVariable(name="keyword")String keyword, @PathVariable(name="page")int page){
 		return boardService.getSearchListPaging(criteria, groupId, option, keyword, page);
 	}
 	
+	//제목+내용 검색 결과 개수 조회
 	@GetMapping("/studyboard/countTC/{groupId}/{keyword}")
 	public int countSearchTC(Criteria criteria, @PathVariable(name="groupId")int groupId, @PathVariable(name="keyword") String keyword) {
 		return boardService.getTotalTC(criteria, groupId, keyword);
 	}
 
+	//작성자 검색 결과 개수 조회
 	@GetMapping("/studyboard/countW/{groupId}/{keyword}")
 	public int countSearchW(Criteria criteria, @PathVariable(name="groupId")int groupId, @PathVariable(name="keyword") String keyword) {
 		return boardService.getTotalW(criteria, groupId, keyword);

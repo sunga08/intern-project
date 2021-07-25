@@ -140,7 +140,7 @@
 								
 								  <tr>
 								    <th class="tg-yj5y">작성자</th>
-								    <td class="tg-0pky">${post.userId}</td>
+								    <td class="tg-0pky">${post.regUser}</td>
 								    <th class="tg-uqo3">조회수</th>
 								    <td class="tg-0lax">${post.viewCnt}</td>
 								  </tr>
