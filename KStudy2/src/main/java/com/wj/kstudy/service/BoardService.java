@@ -95,6 +95,7 @@ public class BoardService {
 		}catch(Exception e) {
 			
 		}
+		System.out.println("delete: "+result);
 		return result;
 	}
 	

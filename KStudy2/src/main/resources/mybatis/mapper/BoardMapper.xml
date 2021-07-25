@@ -73,7 +73,7 @@
 	</delete>
 	
 	<!-- 게시글 삭제 - 사용여부 변경 -->
-	<update id="updateDeletePost" parameterType="java.lang.Integer">
+	<update id="deleteUpdatePost" parameterType="java.lang.Integer">
 		update board
 		set use_yn='n'
 		where board_id=#{boardId}
