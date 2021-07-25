@@ -419,7 +419,7 @@
                     	}
                     	
                     	//´ë´ñ
-                    	else if(obj.depth==1 && obj.userYn=="y"){		
+                    	else if(obj.depth==1 && obj.useYn=="y"){		
                     		html+='<div class="d-flex">';
 	                    	html+='<div class="p-2"><i class="mt-3 fa fa-reply fa fa-rotate-180" aria-hidden="true"></i></div>';
 	                    	html+='<div class="flex-fill"><div class="card mt-2">';
