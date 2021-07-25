@@ -65,6 +65,6 @@ public class CommentService {
 	}
 
 	public int countReply(int groupId, int bundleId) {
-		return commentMapper.countBundleComment(groupId, bundleId);
+		return commentMapper.countReplyUseY(groupId, bundleId);
 	}
 }

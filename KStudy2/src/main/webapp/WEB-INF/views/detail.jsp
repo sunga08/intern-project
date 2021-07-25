@@ -276,8 +276,12 @@
              dataType: "json",
              success: function(data){
             	 let html = '';
+            	 
+            	 if(data.length==0){
+                 	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>관련 도서 정보가 없습니다.</h3></div>';	
+                 }
+            	 
                  $.each(data.items, function(index, obj){
-                 	console.log("title: "+obj.title)
                  	
                  	html += '<div class="col mb-5">';
                 	html += '<div class="card h-100" style="min-width:200px;">';
@@ -299,12 +303,12 @@
                 	
                 	html += '</div>';
 						
-                	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+                	/* html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
                 	html += '<div class="text-center">';
                 	html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
                 	html += '자세히 보기</a>';
                 	html += '</div>';
-                	html += '</div>';
+                	html += '</div>'; */
                 	html += '</div>';	
                 	html += '</div>';
                 	

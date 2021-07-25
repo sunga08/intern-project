@@ -102,13 +102,12 @@
                         <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/write/${groupInfo.groupId}'">글쓰기</button></div>
                         
                         <!-- 게시글 목록 -->
-                        <div id="board" style="height:350px;">                	                        	
-                        
-                        
-	                        <!-- 페이징 표시 -->
-		                    <div id="pagination" class="pagination-div">							  	
-							</div>  
-						</div>                                                                      
+                        <div id="board" style="height:350px;">                	                        		                        
+						</div>     
+						
+						<!-- 페이징 표시 -->
+	                    <!-- <div id="pagination" class="pagination-div">							  	
+						</div> -->                                                                  
                         
                     </div>
                 </main>
@@ -208,6 +207,8 @@
                         	
                     html += '</table>';
                     html += '<hr/> ';
+                    
+                    html += '<div id="pagination" class="pagination-div"></div>'; 
                     
 					
                     console.log("html")
