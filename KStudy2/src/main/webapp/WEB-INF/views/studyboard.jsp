@@ -103,11 +103,12 @@
                         
                         <!-- 게시글 목록 -->
                         <div id="board" style="height:350px;">                	                        	
-                        </div>
                         
-                        <!-- 페이징 표시 -->
-	                    <div id="pagination" class="pagination-div">							  	
-						</div>                                                                        
+                        
+	                        <!-- 페이징 표시 -->
+		                    <div id="pagination" class="pagination-div">							  	
+							</div>  
+						</div>                                                                      
                         
                     </div>
                 </main>
@@ -166,7 +167,7 @@
                     
                     let html = '';
                     
-                    html += '<table class="table table-hover table-striped text-center" style="border: 1px solid;">';
+                    html += '<table class="table table-hover text-center" style="border: 1px solid;">';
             		html += '<thead>';
             		html += '<tr>';
                 	html += '<th>번호</th>';
@@ -180,8 +181,8 @@
             		var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수
             		var num = postCnt-dataPerPage*(page-1);
             		if(postCnt==0){
-            			html += '<tbody>';
-            			html+='<h3>등록된 게시글이 없습니다.</h3>';
+            			html += '<tbody><tr><td colspan="5" algint="center">';
+            			html+='<h3>등록된 게시글이 없습니다.</h3></td></tr>';
             		}
             		else{
 	                    $.each(response, function(index, obj){
@@ -283,7 +284,7 @@
         				html += '<td>'+num+'</td>';
         				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'?state='+userState+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
         				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
-        				html += '<td>'+obj.userId+'</td>';
+        				html += '<td>'+obj.regUser+'</td>';
         				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
         				html += '<td>'+obj.viewCnt+'</td>';
         				html += '</tr>';
