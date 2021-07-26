@@ -93,6 +93,12 @@
 		where board_id=#{boardId}
 	</update>
 		
+	<!-- 전체 게시글 개수 -->
+	<select id="getTotalPost" resultType="java.lang.Integer">
+		select count(*) form board
+		where group_id=#{groupId}
+	</select>
+		
 	<!-- 제목+내용 검색 결과 개수 -->
 	<select id="getTotalTC" resultType="java.lang.Integer">
 		select count(*) from board 

@@ -413,6 +413,9 @@
                     var rid = 1;
                     $.each(data, function(index, obj){                   	
                     	
+                    	let dateObj = new Date(obj.regDtm);
+                    	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
+                    	
                     	//원댓
                     	if(obj.depth==0 && obj.useYn=='y'){
                     		html+='<div class="card mt-2">';
@@ -420,7 +423,7 @@
         	                html+='<table><tr class="align-middle">';
         	                html+='<td rowspan="2" class="pr-2"></td>';
         	                html+='<td class="ml"><i class="fas fa-user"></i>&nbsp;'+obj.regUser+'</td></tr>';
-        	                html+='<tr><td><font size="2"><i class="far fa-clock"></i>&nbsp;'+obj.regDtm+'</font></td></tr></table>';
+        	                html+='<tr><td><font size="2"><i class="far fa-clock"></i>&nbsp;'+timeString_KR+'</font></td></tr></table>';
         	                html+='</div>';
         	                html+='<div id="textArea'+rid+'" class="card-body">';
         	                	
@@ -440,7 +443,7 @@
         	                html+='<table><tr class="align-middle">';
         	                html+='<td rowspan="2" class="pr-2"></td>';
         	                html+='<td class="ml"><i class="fas fa-user"></i>&nbsp;'+obj.regUser+'</td></tr>';
-        	                html+='<tr><td><font size="2"><i class="far fa-clock"></i>&nbsp;'+obj.regDtm+'</font></td></tr></table>';
+        	                html+='<tr><td><font size="2"><i class="far fa-clock"></i>&nbsp;'+timeString_KR+'</font></td></tr></table>';
         	                html+='</div>';
         	                html+='<div id="textArea'+rid+'" class="card-body">';
                 			html+='<p class="card-text">삭제된 댓글입니다.</p>';
@@ -457,7 +460,7 @@
 	                    	html+='<table><tr class="align-middle">';
 	                    	html+='<td rowspan="2" class="pr-2"></td>';
 	                    	html+='<td class="ml"><i class="fas fa-user"></i>&nbsp;'+obj.regUser+'</td></tr>';
-	                    	html+='<tr><td><font size="2"><i class="far fa-clock"></i>&nbsp;'+obj.regDtm+'</font></td></tr>';
+	                    	html+='<tr><td><font size="2"><i class="far fa-clock"></i>&nbsp;'+timeString_KR+'</font></td></tr>';
 	                    	html+='</table></div>';
 	                    	html+='<div id="textArea'+rid+'" class="card-body"><p class="card-text">'+obj.content+'</p>';
 	                    	html+='<li style="list-style: none;"><button type="button" class="btn btn-dark mt-3" onClick="showUpdateArea('+obj.commentId+','+rid+',\''+obj.content+'\',\''+obj.regUser+'\')">수정</button>';

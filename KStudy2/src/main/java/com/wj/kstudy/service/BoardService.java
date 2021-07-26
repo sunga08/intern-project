@@ -204,7 +204,7 @@ public class BoardService {
 		return boardMapper.getPostListWPaging(criteria);
 	}
 	
-	//제목+내용 게시글 카운트
+	//작성자 게시글 카운트
 	public int getTotalW(Criteria criteria, int groupId, String keyword) {
 		criteria.setGroupId(groupId);
 		criteria.setKeyword(keyword);
@@ -212,5 +212,9 @@ public class BoardService {
 		return boardMapper.getTotalW(criteria);
 	}
 	
+	//전체 게시글 카운트
+	public int getTotalPost(int groupId) {
+		return boardMapper.getTotalPost(groupId);
+	}
 	
 }

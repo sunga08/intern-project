@@ -177,7 +177,8 @@
                 	html += '</tr>';
             		html += '</thead>';
             		
-            		var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수
+            		//var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수  ===> API 개발하기,,
+            		var postCnt = getTotal();
             		var num = postCnt-dataPerPage*(page-1);
             		if(postCnt==0){
             			html += '<tbody><tr><td colspan="5" algint="center">';
@@ -386,7 +387,28 @@
 
         }
         
-      //제목+작성자 검색 결과 개수
+        //전체 게시글 검색 결과 개수
+        function countTotal(){
+        	var cnt;
+        	
+        	$.ajax({
+                url: "/studyboard/count/"+groupId,
+                type: "GET",       
+                async: false,
+                dataType: "json",
+                success: function(response){
+    				cnt = response;
+                },
+                error: function(){
+                    alert("err");
+                }
+            });
+        	        	
+        	console.log(cnt);
+        	return cnt;
+        }
+        
+        //제목+작성자 검색 결과 개수
         function countSearchTC(keyword){
         	var cnt;
         	

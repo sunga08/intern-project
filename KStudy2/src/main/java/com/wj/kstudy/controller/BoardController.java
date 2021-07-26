@@ -123,4 +123,9 @@ public class BoardController {
 		return boardService.getTotalW(criteria, groupId, keyword);
 	}
 	
+	@GetMapping("/studyboard/count/{groupId}")
+	public int countTotalPost(@PathVariable(name="groupId")int groupId) {
+		return boardService.getTotalPost(groupId);
+	}
+	
 }

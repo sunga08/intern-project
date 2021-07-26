@@ -208,9 +208,7 @@
         
         <!-- ½ºÅÍµð Content -->
         <div id="studygroup" class="row gx-4 gx-lg-5">
-
-        </div>
-        
+        </div>        
         
         
         <div class=container style="margin-top:10px; margin-bottom:30px;">
