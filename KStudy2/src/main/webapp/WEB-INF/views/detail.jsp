@@ -305,12 +305,12 @@
 	                	
 	                	html += '</div>';
 							
-	                	/* html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
+	                	html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
 	                	html += '<div class="text-center">';
 	                	html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
 	                	html += '자세히 보기</a>';
 	                	html += '</div>';
-	                	html += '</div>'; */
+	                	html += '</div>'; 
 	                	html += '</div>';	
 	                	html += '</div>';
 	                	
