@@ -96,7 +96,7 @@
 	<!-- 전체 게시글 개수 -->
 	<select id="getTotalPost" resultType="java.lang.Integer">
 		select count(*) from board
-		where group_id=#{groupId}
+		where group_id=#{groupId} and use_yn='y'
 	</select>
 		
 	<!-- 제목+내용 검색 결과 개수 -->

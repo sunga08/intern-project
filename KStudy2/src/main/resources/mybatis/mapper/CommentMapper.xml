@@ -37,7 +37,7 @@
 	</select>
 	
 	<select id="countReplyUseY" resultType="java.lang.Integer">
-		select count(*) from comments where group_id=#{groupId} and bundle_id=#{bundleId} and user_yn='y'
+		select count(*) from comments where group_id=#{groupId} and bundle_id=#{bundleId} and use_yn='y'
 	</select>
 	
 	<!-- 원댓 개수 -->
