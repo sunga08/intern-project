@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,8 @@ public class StudyGroupController {
 	@Autowired
 	StudyGroupService studyGroupService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	//강의id로 스터디 그룹 목록 조회
 	@GetMapping("lecture/studygroup/{lecId}")
@@ -65,8 +68,9 @@ public class StudyGroupController {
 	@PostMapping("/studygroup/join")
 	public int addStudyGroupMember(HttpSession session, @RequestBody StudyGroup studyGroup) {
 		String userId = session.getAttribute("user_id").toString();
+		String encodedUserId = passwordEncoder.encode(userId);
 		String nickname = session.getAttribute("nickname").toString();
-		return studyGroupService.addStudyGroupMember(userId, nickname, studyGroup);
+		return studyGroupService.addStudyGroupMember(encodedUserId, nickname, studyGroup);
 	}
 	
 	//스터디 참여 가능한 사용자인지 체크

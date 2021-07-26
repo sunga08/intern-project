@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,6 +32,9 @@ public class BoardController {
 	
 	@Autowired 
 	BoardService boardService;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 //	@GetMapping("/studyboard/{groupId}")
@@ -61,7 +65,9 @@ public class BoardController {
 	//게시글 작성
 	@PostMapping("/studyboard")
 	public int addPost(HttpSession session, @RequestBody Board board) {
-		board.setUserId(session.getAttribute("user_id").toString());
+		String userId = session.getAttribute("user_id").toString();
+		String encodedUserId = passwordEncoder.encode(userId);
+		board.setUserId(encodedUserId);
 		board.setRegUser(session.getAttribute("nickname").toString());
 		return boardService.addPost(board);
 	}

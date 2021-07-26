@@ -30,7 +30,7 @@ public class ScheduleController {
 	//일정 등록
 	@PostMapping("/schedule")
 	public int addSchedule(HttpSession session, @RequestBody Schedule schedule) {
-		schedule.setRegUser(session.getAttribute("user_id").toString());
+		schedule.setRegUser(session.getAttribute("nickname").toString());
 		return scheduleService.addSchedule(schedule);
 	}
 	
