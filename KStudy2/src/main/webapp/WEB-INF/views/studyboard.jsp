@@ -178,7 +178,7 @@
             		html += '</thead>';
             		
             		//var postCnt ="${groupInfo.postCnt}"; //게시글 번호 => 그룹별 총 게시글 수  ===> API 개발하기,,
-            		var postCnt = getTotal();
+            		var postCnt = countTotal();
             		var num = postCnt-dataPerPage*(page-1);
             		if(postCnt==0){
             			html += '<tbody><tr><td colspan="5" algint="center">';
