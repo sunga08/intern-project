@@ -383,8 +383,8 @@
              	html += '등록기간 | '+data.enrollStart.substring(0,10)+'~'+data.enrollEnd.substring(0,10)+'</p>';
              	html += '<li style="list-style: none;"><a class="btn btn-primary" href="'+data.lecUrl+'" target="_blank">강의 바로가기</a>';
              	
-             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn">영어사전 보기</button>';
-             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn2">국어사전 보기</button></li>';
+             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn">웅진 영어사전</button>';
+             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn2">웅진 국어사전</button></li>';
 
                 html += '</div>';
                 html += '</div>';

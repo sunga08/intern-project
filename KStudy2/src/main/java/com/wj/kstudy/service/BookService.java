@@ -37,7 +37,7 @@ public class BookService {
         
         UriComponents builder = UriComponentsBuilder.fromHttpUrl(url).queryParam("query", keyword).queryParam("display",10).build(false);
         
-        //System.out.println(builder.toString());
+        System.out.println(builder.toString());
         
         final HttpEntity<String> entity = new HttpEntity<>(headers);
         
@@ -45,7 +45,7 @@ public class BookService {
         
         Object response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, String.class).getBody();
 
-        //System.out.println(response.toString());
+        System.out.println(response.toString());
 		
         return response;
     
