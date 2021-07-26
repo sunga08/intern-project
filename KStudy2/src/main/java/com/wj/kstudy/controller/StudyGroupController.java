@@ -68,9 +68,9 @@ public class StudyGroupController {
 	@PostMapping("/studygroup/join")
 	public int addStudyGroupMember(HttpSession session, @RequestBody StudyGroup studyGroup) {
 		String userId = session.getAttribute("user_id").toString();
-		String encodedUserId = passwordEncoder.encode(userId);
+		//String encodedUserId = passwordEncoder.encode(userId);
 		String nickname = session.getAttribute("nickname").toString();
-		return studyGroupService.addStudyGroupMember(encodedUserId, nickname, studyGroup);
+		return studyGroupService.addStudyGroupMember(userId, nickname, studyGroup);
 	}
 	
 	//스터디 참여 가능한 사용자인지 체크

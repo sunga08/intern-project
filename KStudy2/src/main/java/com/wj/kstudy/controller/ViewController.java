@@ -314,16 +314,19 @@ public class ViewController {
 		//3. 데이터 파싱
 		//Top레벨 단계 _response 파싱
 		JSONObject response_obj = (JSONObject)jsonObj.get("response");
+		
+		String userId = (String)response_obj.get("id");
+		
 		//response의 nickname값 파싱
 		String nickname = (String)response_obj.get("nickname");
 		System.out.println("nickname: "+nickname);
 		
-		String email = (String)response_obj.get("email");
-		System.out.println("email: "+email);
+//		String email = (String)response_obj.get("email");
+//		System.out.println("email: "+email);
 
 		System.out.println(response_obj.toString());
 		//4.파싱 닉네임 세션으로 저장
-		session.setAttribute("user_id",email); //세션 생성
+		session.setAttribute("user_id",userId); //세션 생성
 		session.setAttribute("nickname", nickname);
 		//model.addAttribute("result", apiResult);
 				

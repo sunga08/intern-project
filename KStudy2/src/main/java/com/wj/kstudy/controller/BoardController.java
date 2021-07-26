@@ -66,8 +66,8 @@ public class BoardController {
 	@PostMapping("/studyboard")
 	public int addPost(HttpSession session, @RequestBody Board board) {
 		String userId = session.getAttribute("user_id").toString();
-		String encodedUserId = passwordEncoder.encode(userId);
-		board.setUserId(encodedUserId);
+		//String encodedUserId = passwordEncoder.encode(userId);
+		board.setUserId(userId);
 		board.setRegUser(session.getAttribute("nickname").toString());
 		return boardService.addPost(board);
 	}
