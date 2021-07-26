@@ -95,7 +95,7 @@
 		
 	<!-- 전체 게시글 개수 -->
 	<select id="getTotalPost" resultType="java.lang.Integer">
-		select count(*) form board
+		select count(*) from board
 		where group_id=#{groupId}
 	</select>
 		
