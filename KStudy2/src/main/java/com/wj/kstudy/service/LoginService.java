@@ -30,10 +30,12 @@ public class LoginService {
 		}
 	}
 	
-	public int signup(HttpSession session) {
+	public void signup(HttpSession session) {
 		User user = null;
 		String email = session.getAttribute("user_id").toString();
 		String encodedPassword = passwordEncoder.encode(email);
+		System.out.println("sign up email:"+email);
+		System.out.println("sign up encode:"+encodedPassword);
 		
 		user.setUserId(session.getAttribute("user_id").toString());
 		user.setUserName(session.getAttribute("nickname").toString());
@@ -41,10 +43,7 @@ public class LoginService {
 		if(userMapper.checkMember(session.getAttribute("user_id").toString())!=1) { //가입된 회원
 			userMapper.insertMember(user);	
 			System.out.println("회원가입:"+user.getUserName());
-			return 1;
 		}
-		else {
-			return 0;
-		}
+
 	}
 }
