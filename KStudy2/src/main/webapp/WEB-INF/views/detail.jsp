@@ -287,7 +287,7 @@
 	                 	
 	                 	html += '<div class="col mb-5">';
 	                	html += '<div class="card h-100" style="min-width:200px;">';
-	                	html += '<a href="'+obj.link+'" target="_blank"><img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
+	                	html += '<a href="'+obj.link+'"><img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
 	                	html += '<div class="card-body p-4">';
 	                	html += '<div class="text-center">';
 	                	html += '<a href="'+obj.link+'" target="_blank" style="text-decoration: none; color: #000000"><h5 class="fw-bolder">';
