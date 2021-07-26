@@ -4,6 +4,7 @@
 	<resultMap type="com.wj.kstudy.dto.User" id="user_resultMap">
 		<result column="user_id" property="userId"/>
 		<result column="user_name" property="userName"/>
+		<result column="reg_dtm" property="regDtm"/>
 	</resultMap>
 	
 	
@@ -33,5 +34,9 @@
 		select count(*) from user
 		where user_id=#{userId}
 	</select>
+	
+	<insert id="insertMember" parameterType="com.wj.kstudy.dto.User">
+		insert into user (user_id, user_name, reg_dtm) values(#{userId},#{userName},now())
+	</insert>
 	
 </mapper>

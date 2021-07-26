@@ -23,7 +23,7 @@ public class BookController {
 	BookService bookService;
 	
 	
-	//@Cacheable(key="#size", value="getBooks")
+	@Cacheable(key="#size", value="getBooks")
 	@GetMapping("/book/{keyword}")
     public Object goBookPage(@PathVariable("keyword") String keyword) throws JsonProcessingException, UnsupportedEncodingException{
         return bookService.getNaverOpenApi(keyword);

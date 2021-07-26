@@ -99,7 +99,7 @@
                         </div>
 	                    
 	                    <!-- 게시글 작성 버튼 -->
-                        <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/write/${groupInfo.groupId}'">글쓰기</button></div>
+                        <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/write/${groupInfo.groupId}/?state=${st}'">글쓰기</button></div>
                         
                         <!-- 게시글 목록 -->
                         <div id="board">                	                        		                        

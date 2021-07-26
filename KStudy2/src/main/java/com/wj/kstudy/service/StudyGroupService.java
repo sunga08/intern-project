@@ -39,16 +39,6 @@ public class StudyGroupService {
 	@Value("6")
 	private int PAGE_SIZE;
 	
-	public int login(HttpSession httpSession, String userId) {
-		if(userMapper.checkMember(userId)==1) { //가입된 회원
-			httpSession.setAttribute("user_id", userId);
-			System.out.println("로그인:"+httpSession.getAttribute("user_id").toString());
-			return 1;
-		}
-		else {
-			return 0;
-		}
-	}
 	
 	
 	public List<StudyGroup> showStudyGroup(String lecId) {

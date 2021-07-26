@@ -35,6 +35,7 @@ import com.wj.kstudy.dto.StudyGroup;
 import com.wj.kstudy.dto.UserDto;
 import com.wj.kstudy.service.BoardService;
 import com.wj.kstudy.service.KMoocListService;
+import com.wj.kstudy.service.LoginService;
 import com.wj.kstudy.service.ScheduleService;
 import com.wj.kstudy.service.StudyGroupService;
 import com.wj.kstudy.service.TestService;
@@ -56,6 +57,9 @@ public class ViewController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	LoginService loginService;
 	
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
@@ -322,8 +326,11 @@ public class ViewController {
 		session.setAttribute("user_id",email); //세션 생성
 		session.setAttribute("nickname", nickname);
 		//model.addAttribute("result", apiResult);
+				
+		loginService.signup(session);
+		
 		mav.addObject("result", apiResult);
-		mav.addObject("nickname",nickname);
+		mav.addObject("nickname",nickname);				
 		mav.setViewName("loginRedirect");
 		
 		return mav;

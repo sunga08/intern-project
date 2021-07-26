@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,6 +31,7 @@ public class KMoocListController {
 		return kmoocListService.getLectureList();
 	}
 	
+
 	@GetMapping("lecture/{page}")
 	public List<Lecture> getLectureListPaging(@PathVariable(name="page")int page, @ModelAttribute("criteria") Criteria criteria){
 		criteria.setCurrentPageNo(page);
