@@ -260,7 +260,7 @@
                    
                     let html = '';
                     
-                    html += '<table class="table table-hover table-striped text-center" style="border: 1px solid;">';
+                    html += '<table class="table table-hover text-center" style="border: 1px solid;">';
             		html += '<thead>';
             		html += '<tr>';
                 	html += '<th>¹øÈ£</th>';

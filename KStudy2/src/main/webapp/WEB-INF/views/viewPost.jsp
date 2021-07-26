@@ -437,7 +437,7 @@
                     	}
                     	
                     	//삭제된 원댓글 표시
-                    	else if(obj.depth==0 && obj.useYn=="n" && countReply(obj.bundleId)>1){ 
+                    	else if(obj.depth==0 && obj.useYn=="n" && countReply(obj.bundleId)>=1){ 
                     		html+='<div class="card mt-2">';
         	                html+='<div class="card-header p-2">';
         	                html+='<table><tr class="align-middle">';
