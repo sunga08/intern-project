@@ -33,16 +33,20 @@ public class LoginService {
 	public void signup(HttpSession session) {
 		User user = null;
 		String email = session.getAttribute("user_id").toString();
-		String encodedPassword = passwordEncoder.encode(email);
+		String encodedEmail = passwordEncoder.encode(email);
 		System.out.println("sign up email:"+email);
-		System.out.println("sign up encode:"+encodedPassword);
+		System.out.println("sign up encode:"+encodedEmail);
 		
-		user.setUserId(session.getAttribute("user_id").toString());
-		user.setUserName(session.getAttribute("nickname").toString());
 		
-		if(userMapper.checkMember(session.getAttribute("user_id").toString())!=1) { //가입된 회원
+		if(userMapper.checkMember(session.getAttribute("user_id").toString())!=1) { //가입되지 않은 회원
+			user.setUserId(encodedEmail);
+			user.setUserName(session.getAttribute("nickname").toString());
 			userMapper.insertMember(user);	
 			System.out.println("회원가입:"+user.getUserName());
+		}
+		
+		else {
+			System.out.println("가입된 회원");
 		}
 
 	}
