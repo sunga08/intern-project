@@ -64,7 +64,6 @@
 	        width: 800px;
 	        height: 600px;
 	        position: absolute;
-	        top: 30%;
 	        left: 40%;
 	        margin: -250px 0 0 -250px;
 	        background:#FFFFFF;
@@ -76,7 +75,6 @@
 	        width: 800px;
 	        height: 600px;
 	        position: absolute;
-	        top:30%;
 	        left: 40%;
 	        margin: -250px 0 0 -250px;
 	        background:#FFFFFF;
@@ -292,7 +290,7 @@
 	                	html += '<a href="'+obj.link+'" target="_blank"><img class="card-img-top" style="width:50%; margin-left:25%;" src="'+obj.image+'" alt="..." width="100" height="150"/>';
 	                	html += '<div class="card-body p-4">';
 	                	html += '<div class="text-center">';
-	                	html += '<a href="'+obj.link+'" target="_blank" style="text-decoration: none; color: #000b83"><h5 class="fw-bolder">';
+	                	html += '<a href="'+obj.link+'" target="_blank" style="text-decoration: none; color: #000000"><h5 class="fw-bolder">';
 	                	html += obj.title;
 	                	html += '</h5></a>';
 	                	html += '['+obj.publisher+']';
