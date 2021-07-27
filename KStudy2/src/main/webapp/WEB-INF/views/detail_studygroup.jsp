@@ -379,7 +379,7 @@
         		}
         	}
         	//else if(state=="nmember"){
-        	else if(${member}=="n")
+        	else if(${member}=="n"){
         		alert('그룹 가입자만 볼 수 있습니다.');
         	}
         	else{
