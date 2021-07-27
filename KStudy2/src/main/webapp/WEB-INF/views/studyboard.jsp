@@ -26,7 +26,16 @@
             .mt-4-1{
             	margin-bottom: 1rem;
             }
-            
+            .container{
+		  		position:relative;
+		  	  }
+		  	  
+		  	  .pagination-div{
+		  		position: absolute;
+		  		left: 50%;
+		        top: 50%;
+		        transform: translate(-50%, -50%);
+		  	  }
             /* .pagination, .dataTable-pagination ul{
             	padding-left: 750px;
             } */

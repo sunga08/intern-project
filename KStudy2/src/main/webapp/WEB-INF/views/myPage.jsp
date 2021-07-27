@@ -88,7 +88,7 @@
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->       
         <div style="margin-top:30px;">
-        	<h1 class="mt-4"><i class="fas fa-users"></i>My Page</h1>
+        	<h1 class="mt-4"><i class="fas fa-user"></i>&nbsp; My Page</h1>
         </div>
 
 		<hr/>
