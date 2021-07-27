@@ -20,10 +20,10 @@
     <%       	
 		request.setCharacterEncoding("UTF-8"); 
        	String id = request.getParameter("studyGroup");
-       	String state = request.getParameter("state");
+       	//String state = request.getParameter("state");
 
     %>
-    <c:set var="st" value="<%=state %>"/>
+    <%-- <c:set var="st" value="<%=state %>"/> --%>
     
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
@@ -38,7 +38,7 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
                                 <font size=5><i class="fas fa-info-circle"></i>&nbsp; 스터디 정보</font>
                             </a>
                             <!-- <a class="nav-link"  href='javascript:void(0);' onclick="goSchedulePage();">-->
@@ -122,7 +122,8 @@
         
         <script>
         
-        let state = "<%=state%>";
+        
+        var state = ${state};
         
         $(document).ready(function(){
         	lectureInfo();
@@ -267,6 +268,7 @@
         
         
         function checkDeleteMember(){
+        	//var state=${state};
         	if(state=="leader" ){
         		var con = confirm('그룹 개설자가 탈퇴 시 스터디 그룹이 삭제됩니다. 탈퇴하시겠습니까?');
 				if(con==true){
@@ -370,9 +372,9 @@
         
         function checkMember(option){
         	
-        	var state = "${member}";
+        	//var state = "${state}";
         	//if(${member}=="leader" || ${member}=="member"){
-        	if(state=="y"){
+        	if(state=="member"||state=="leader"){
         		if(option=="schedule"){
 	        		window.location.href = "/view/schedule/"+${groupInfo.groupId};
         		}
@@ -380,8 +382,7 @@
         			window.location.href = "/view/studyboard/"+${groupInfo.groupId};
         		}
         	}
-        	//else if(state=="nmember"){
-        	else if(state=="n"){
+        	else if(state=="nmember"){
         		alert('그룹 가입자만 볼 수 있습니다.');
         	}
         	else{

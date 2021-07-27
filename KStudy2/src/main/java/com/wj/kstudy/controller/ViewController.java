@@ -177,10 +177,17 @@ public class ViewController {
 		ModelAndView mav = new ModelAndView("studyInfo");
 		
 		if(studyGroupService.checkRegMember(groupId, session.getAttribute("user_id").toString())==1) {
-			mav.addObject("member","y");
+			//멤버일 경우
+			
+			if(studyGroupService.isGroupLeader(session.getAttribute("user_id").toString(), groupId)==1) {
+				mav.addObject("state","leader");
+			}
+			else {
+				mav.addObject("state","member");
+			}
 		}
-		else {
-			mav.addObject("member","n");
+		else { //미가입자인 경우
+			mav.addObject("state","nmember");
 		}
 		
 		mav.addObject("groupInfo", studyGroup);
