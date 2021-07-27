@@ -14,7 +14,7 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
-    
+
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/styles2.css" rel="stylesheet" />
@@ -86,7 +86,9 @@
     <!-- Page Content-->
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->       
-        <h5><i class="fas fa-user"></i>My Page</h5>
+        <div style="margin-top:30px;">
+        	<h1><i class="fas fa-user"></i>My Page</h1>
+        </div>
 
 	   	<div>
 	   		<div style="margin-top:100px; margin-bottom:20px;"><h3>내가 개설한 스터디</h3></div>
