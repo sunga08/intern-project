@@ -68,7 +68,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 					<li class="nav-item"><a class="nav-link active" aria-current="page" href="<c:url value='/main'/>">Home</a></li>
-					<!-- <li class="nav-item"><a class="nav-link" href="#!">My Page</a></li> -->
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/mypage'/>">My Page</a></li>
 				
 				</ul>
 			
@@ -86,6 +86,7 @@
     <!-- Page Content-->
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->       
+        <h5><i class="fas fa-user"></i>My Page</h5>
 
 	   	<div>
 	   		<div style="margin-top:100px; margin-bottom:20px;"><h3>내가 개설한 스터디</h3></div>
@@ -101,6 +102,7 @@
 			</div>
 		</div>
 		
+		<br/>
 		
 		<div>
 	   		<div style="margin-top:100px; margin-bottom:20px;"><h3>가입한 스터디</h3></div>
@@ -234,7 +236,7 @@
                     html += '<a href="<c:url value="/view/info/'+obj.groupId+'"/>" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
                     //html += '<a href="javascript:void(0);" onclick="checkMemberState('+obj.groupId+')" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
                     html += '<p class="card-text">'+obj.shortDsc+'</p>';
-                    html += '<p class="card-text"> 학교명 | '+obj.schoolName+'<br/> 인원  | '+obj.curMem+' / '+obj.maxMem+'<br/> 생성일 | '+timeString_KR.substring(0,11)+'<br/> 개설자 | '+obj.regUser+'</p>';
+                    html += '<p class="card-text"> 강좌명 | '+obj.lecName+'<br/> 학교명 | '+obj.schoolName+'<br/> 인원  | '+obj.curMem+' / '+obj.maxMem+'<br/> 생성일 | '+timeString_KR.substring(0,11)+'<br/> 개설자 | '+obj.regUser+'</p>';
                     html += '</div>';
                     
                     html += '</div>';
