@@ -123,7 +123,7 @@
         <script>
         
         
-        var state = ${state};
+        var state = "${state}";
         
         $(document).ready(function(){
         	lectureInfo();
