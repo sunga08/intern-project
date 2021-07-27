@@ -188,11 +188,25 @@ public class StudyGroupController {
 		return studyGroupService.getMyStudyGroup(regUser, criteria);
 	}
 	
+	@GetMapping("/mypage/join/{page}")
+	public List<StudyGroup> getMyJoinStudyGroup(@PathVariable(name="page") int page, @ModelAttribute("criteria") Criteria criteria, HttpSession session) {
+		criteria.setCurrentPageNo(page);
+		String regUser = session.getAttribute("nickname").toString();
+		return studyGroupService.getMyJoinStudyGroup(regUser, criteria);
+	}
+	
 	@GetMapping("/studygroup/count/my")
 	public int countMyStudyGroup(HttpSession session) {
 		String regUser = session.getAttribute("nickname").toString();
 		
 		return studyGroupService.countMyStudyGroup(regUser);
+	}
+	
+	@GetMapping("/studygroup/count/myJoin")
+	public int countMyJoinStudyGroup(HttpSession session) {
+		String regUser = session.getAttribute("nickname").toString();
+		
+		return studyGroupService.countMyJoinStudyGroup(regUser);
 	}
 	
 }

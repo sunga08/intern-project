@@ -13,6 +13,7 @@ public interface StudyGroupMapper {
 	public List<StudyGroup> getStudyGroup(String lecId);
 	public List<StudyGroup> getStudyGroupPaging(@Param("lecId") String lecId, @Param("start") int start, @Param("recordsPerPage") int recordsPerPage);
 	public List<StudyGroup> myStudyGroup(@Param("regUser") String regUser, @Param("start") int start, @Param("recordsPerPage") int recordsPerPage);
+	public List<StudyGroup> myJoinStudyGroup(@Param("regUser") String regUser, @Param("start") int start, @Param("recordsPerPage") int recordsPerPage);
 	public int addStudyGroup(StudyGroup studyGroup);
 	public int addCurMember(int groupId);
 	public int minusCurMember(int groupId);
@@ -23,5 +24,6 @@ public interface StudyGroupMapper {
 	public int plusPostCnt(int groupId);
 	public int minusPostCnt(int groupId);
 	public int countStudyGroup(String lecId);
-	public int countMyStudyGroup(String regUSer);
+	public int countMyStudyGroup(String regUser);
+	public int countMyJoinStudyGroup(String regUser);
 }

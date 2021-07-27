@@ -88,11 +88,11 @@
         <!-- Heading Row-->       
 
 	   	<div>
-	   		<div ><h3>내가 개설한 스터디</h3></div>
+	   		<div style="margin-top:100px; margin-bottom:20px;"><h3>내가 개설한 스터디</h3></div>
 	   	</div>
        
         <!-- 스터디 Content -->
-        <div id="studygroup" class="row gx-4 gx-lg-5">
+        <div id="myStudy" class="row gx-4 gx-lg-5">
         </div>        
         
         
@@ -102,17 +102,17 @@
 		</div>
 		
 		
-		<div style="margin-bottom:100px">
-	   		<div><h3>가입한 스터디</h3></div>
+		<div>
+	   		<div style="margin-top:100px; margin-bottom:20px;"><h3>가입한 스터디</h3></div>
 	   	</div>
        
         <!-- 스터디 Content -->
-        <div id="studygroup" class="row gx-4 gx-lg-5">
+        <div id="myJoinStudy" class="row gx-4 gx-lg-5">
         </div>        
         
         
         <div class=container style="margin-top:10px; margin-bottom:30px;">
-			<div id="pagination" class="pagination-div">			  	
+			<div id="pagination2" class="pagination-div">			  	
 			</div>
 		</div>
         
@@ -146,14 +146,17 @@
     
      $(document).ready(function(){
 		getStudyData(1); //스터디 그룹 목록 1페이지
+		getJoinStudyData(1);
 		totalData = countStudyGroup();
-		pagination(totalData, dataPerPage, pageCount, 1, "study");
+		totalData2 = countJoinStudyGroup();
+		pagination(totalData, dataPerPage, pageCount, 1);
+		pagination2(totalData2, dataPerPage, pageCount, 1);
      });
       
     
     //스터디 그룹 목록 조회
     function getStudyData(page) {
-    	$("#studygroup").empty()
+    	$("#myStudy").empty()
     	
     	$.ajax({
             url: "/mypage/"+page,
@@ -191,7 +194,56 @@
                 })
                 console.log("html")
                 console.log(html)
-                $("#studygroup").append(html)
+                $("#myStudy").append(html)
+
+            },
+            error: function(){
+                alert("err");
+            }
+        });
+
+    }
+    
+    function getJoinStudyData(page) {
+    	$("#myJoinStudy").empty()
+    	
+    	$.ajax({
+            url: "/mypage/join/"+page,
+            type: "GET",
+            async: false,
+            dataType: "json",
+            success: function(data){
+
+                console.log(data);
+
+                let html = '';
+                if(data.length==0){
+                	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>개설한 스터디가 없습니다.</h3></div>';	
+                }
+                
+                $.each(data, function(index, obj){
+                	console.log(obj)
+                	
+                	let dateObj = new Date(obj.createDate);
+                	let timeString_KR = dateObj.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
+                	console.log(timeString_KR);
+                	
+                	html += '<div class="col-md-4 mb-5">';
+                    html += '<div class="card h-100">';
+                    html += '<div class="card-body">';
+                    html += '<a href="<c:url value="/view/info/'+obj.groupId+'"/>" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
+                    //html += '<a href="javascript:void(0);" onclick="checkMemberState('+obj.groupId+')" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
+                    html += '<p class="card-text">'+obj.shortDsc+'</p>';
+                    html += '<p class="card-text"> 학교명 | '+obj.schoolName+'<br/> 인원  | '+obj.curMem+' / '+obj.maxMem+'<br/> 생성일 | '+timeString_KR.substring(0,11)+'<br/> 개설자 | '+obj.regUser+'</p>';
+                    html += '</div>';
+                    
+                    html += '</div>';
+                    html += '</div>';
+                	
+                })
+                console.log("html")
+                console.log(html)
+                $("#myJoinStudy").append(html)
 
             },
             error: function(){
@@ -211,6 +263,26 @@
     	
     	$.ajax({
             url: "/studygroup/count/my",
+            type: "GET",       
+            async: false,
+            dataType: "json",
+            success: function(response){
+				cnt = response;
+            },
+            error: function(){
+                alert("err");
+            }
+        });
+    	   	
+    	console.log("lec cnt:"+cnt);
+    	return cnt;
+    }
+    
+    function countJoinStudyGroup(){
+		var cnt;
+    	
+    	$.ajax({
+            url: "/studygroup/count/myJoin",
             type: "GET",       
             async: false,
             dataType: "json",
@@ -311,7 +383,7 @@
     }
     
         
-    function pagination(totalData, dataPerPage, pageCount, currentPage, option){
+    function pagination(totalData, dataPerPage, pageCount, currentPage){
 	  	let html='';
 	  	        	       	
 	  	totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
@@ -371,11 +443,78 @@
 
 
        	    	//페이징 표시 재호출
-	       	    if(option=="study"){
-	       	   		pagination(totalData, dataPerPage, pageCount, selectedPage, "study");
-		       	    getStudyData(selectedPage);
-	       	    }
+	       	   	pagination(totalData, dataPerPage, pageCount, selectedPage);
+		       	getStudyData(selectedPage);
+	       	   
+	       	    
+	       	  });
+       	
+    }
+    
+    function pagination2(totalData, dataPerPage, pageCount, currentPage){
+	  	let html='';
+	  	        	       	
+	  	totalPage = Math.ceil(totalData / dataPerPage); //총 페이지 수
 
+	  	
+	   	  if(totalPage<pageCount){ //전체페이지 수<페이징에 나타낼 페이지 수
+	   	    pageCount=totalPage; //페이징에 나타낼 페이지 수 = 전체페이지 수
+	   	  }
+	   	  
+	   	  let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹 (현재페이지/페이징에 나타낼 페이지 수) = 1(1~5), 2(6~10)...
+	   	  let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+	   	  
+	   	  
+	   	  if (last > totalPage) {
+	   	    last = totalPage;
+	   	  }
+	
+	   	  let first = (pageGroup-1)*pageCount+1; //화면에 보여질 첫번째 페이지 번호
+	   	  let next = last + 1;
+	   	  let prev = first - 1;
+	
+	   	  let pageHtml = "";
+	   	  
+	   	  pageHtml += '<ul class="pagination">';
+	
+	   	  if (prev > 0) {
+	   	    pageHtml += "<li class='page-item'><a class='page-link' id='prev' href='#'>&laquo;</a></li>";
+	   	  }
+	
+	   	 //페이징 번호 표시 
+	   	  for (var i = first; i <= last; i++) {
+	   	    if (currentPage == i) {
+	   	      pageHtml +=
+	   	        "<li class='page-item active'><a class='page-link' href='#' id='" + i + "'>" + i + "</a></li>";
+	   	    } else {
+	   	      pageHtml += "<li class='page-item'><a class='page-link' href='#' id='" + i + "'>" + i + "</a></li>";
+	   	    }
+	   	  }
+	
+	   	  if (last < totalPage) {
+	   	    pageHtml += "<li class='page-item'><a class='page-link' href='#' id='next'>&raquo;</a></li>";
+	   	  }
+	   	  
+	   	  pageHtml += '</ul>';
+	
+	   	  $("#pagination2").html(pageHtml);
+	    	
+	       	$("#pagination2 li a").click(function () {
+	       	    let $id = $(this).attr("id");
+	       	    selectedPage = $(this).text();
+	
+	       	    if ($id == "next") selectedPage = next;
+	       	    if ($id == "prev") selectedPage = prev;
+	       	    
+	       	    
+	       	    globalCurrentPage = selectedPage; //선택된 페이지 번호
+
+
+       	    	//페이징 표시 재호출
+
+	       	   	pagination2(totalData, dataPerPage, pageCount, selectedPage);
+		       	getJoinStudyData(selectedPage);
+	       	   
 	       	    
 	       	  });
        	
