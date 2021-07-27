@@ -340,7 +340,7 @@ public class ViewController {
 	}
 	
 	//로그아웃
-	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/logouts", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView logout(HttpSession session)throws IOException {
 		System.out.println("여기는 logout");
 		ModelAndView mav = new ModelAndView("logout");
