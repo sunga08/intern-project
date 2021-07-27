@@ -218,7 +218,7 @@
 
                 let html = '';
                 if(data.length==0){
-                	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>개설한 스터디가 없습니다.</h3></div>';	
+                	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>가입한 스터디가 없습니다.</h3></div>';	
                 }
                 
                 $.each(data, function(index, obj){

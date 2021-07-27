@@ -116,7 +116,7 @@
 		SELECT sg.* FROM (
 			select group_id, lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
 			from study_group
-			WHERE group_id IN (SELECT group_id FROM group_reg_info WHERE user_id=#{regUser})
+			WHERE group_id IN (SELECT group_id FROM group_reg_info WHERE reg_user=#{regUser})
 			AND group_id NOT IN(SELECT group_id FROM study_group WHERE reg_user=#{regUser}) AND use_yn='y'
 			order by create_date desc) sg
 		limit #{start}, #{recordsPerPage}
@@ -124,7 +124,7 @@
 	
 	<select id="countMyJoinStudyGroup" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select count(*) from study_group
-		WHERE group_id IN (SELECT group_id FROM group_reg_info WHERE user_id=#{regUser})
+		WHERE group_id IN (SELECT group_id FROM group_reg_info WHERE reg_user=#{regUser})
 		AND group_id NOT IN(SELECT group_id FROM study_group WHERE reg_user=#{regUser}) AND use_yn='y'
 	</select>
 	
