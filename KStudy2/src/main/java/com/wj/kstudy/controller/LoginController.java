@@ -28,11 +28,11 @@ public class LoginController {
 	}
 
 	
-	@GetMapping("/logout")
-	public void logout(HttpSession session) {
-		session.removeAttribute("user_id");
-		session.invalidate();
-	}
+//	@GetMapping("/logout")
+//	public void logout(HttpSession session) {
+//		//session.removeAttribute("user_id");
+//		session.invalidate();
+//	}
 	
 	
 
