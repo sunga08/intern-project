@@ -73,7 +73,7 @@
 					<div id="naver_id_login" style="text-align:center">
 					<c:choose>
 						<c:when test="${user_id!=null}">
-							<h5>${nickname}´Ô È¯¿µÇÕ´Ï´Ù! &nbsp;<a href="/logouts"> ·Î±×¾Æ¿ô</a></h5>
+							<h5>${nickname}´Ô È¯¿µÇÕ´Ï´Ù! &nbsp;<a onclick="logout()"> ·Î±×¾Æ¿ô</a></h5>
 							
 						</c:when>
 						<c:otherwise>
@@ -747,7 +747,7 @@
     
     function logout(){
     	$.ajax({
-    	    url: "/logout",
+    	    url: "/logout/naver",
     	    type: "GET",
     	    contentType: "application/json; charset=utf-8;",
     	    success : function(response){

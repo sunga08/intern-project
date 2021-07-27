@@ -824,7 +824,7 @@
     
     function logout(){
     	$.ajax({
-    	    url: "/logouts",
+    	    url: "/logout/naver",
     	    type: "GET",
     	    contentType: "application/json; charset=utf-8;",
     	    success : function(response){
