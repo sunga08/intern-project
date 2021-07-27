@@ -747,13 +747,12 @@
     
     function logout(){
     	$.ajax({
-    	    url: "https://project-intern05.wjthinkbig.com/logout",
+    	    url: "/logouts",
     	    type: "GET",
     	    contentType: "application/json; charset=utf-8;",
     	    success : function(response){
    	    		alert("로그아웃 성공")
-	    		window.location="/main";
-	    	    
+	    		window.location="/main";	    	    
     	    },
     	    error : function(){
     	      alert("로그아웃 에러")		
