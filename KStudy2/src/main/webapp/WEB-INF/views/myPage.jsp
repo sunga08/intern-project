@@ -87,8 +87,8 @@
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->       
 
-	   	<div style="margin-bottom:100px">
-	   		<div style="float:left"><h3>내가 개설한 스터디</h3></div>
+	   	<div>
+	   		<div ><h3>내가 개설한 스터디</h3></div>
 	   	</div>
        
         <!-- 스터디 Content -->
@@ -103,7 +103,7 @@
 		
 		
 		<div style="margin-bottom:100px">
-	   		<div style="float:left"><h3>가입한 스터디</h3></div>
+	   		<div><h3>가입한 스터디</h3></div>
 	   	</div>
        
         <!-- 스터디 Content -->
