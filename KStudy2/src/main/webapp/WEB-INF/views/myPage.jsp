@@ -57,7 +57,7 @@
 
 	<%       	
 		request.setCharacterEncoding("UTF-8"); 
-       	String id = request.getParameter("courseId");
+       	//String id = request.getParameter("courseId");
     %>
     <!-- Responsive navbar-->
     <div class="black_bg"></div>
@@ -145,14 +145,11 @@
     var lecName;
     
      $(document).ready(function(){
-     	console.log("<%=id%>");
-     	showDetail(); //강좌 상세정보 조회   
 		getStudyData(1); //스터디 그룹 목록 1페이지
 		totalData = countStudyGroup();
 		pagination(totalData, dataPerPage, pageCount, 1, "study");
      });
-
-        
+      
     
     //스터디 그룹 목록 조회
     function getStudyData(page) {
@@ -213,7 +210,7 @@
 		var cnt;
     	
     	$.ajax({
-            url: "/lecture/groupcount/"+"<%=id%>",
+            url: "/studygroup/count/my";
             type: "GET",       
             async: false,
             dataType: "json",

@@ -188,4 +188,11 @@ public class StudyGroupController {
 		return studyGroupService.getMyStudyGroup(regUser, criteria);
 	}
 	
+	@GetMapping("/studygroup/count/my")
+	public int countMyStudyGroup(HttpSession session) {
+		String regUser = session.getAttribute("nickname").toString();
+		
+		return studyGroupService.countMyStudyGroup(regUser);
+	}
+	
 }

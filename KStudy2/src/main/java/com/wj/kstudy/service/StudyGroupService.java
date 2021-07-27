@@ -257,5 +257,9 @@ public class StudyGroupService {
 	public int countStudyGroup(String lecId) {
 		return studyGroupMapper.countStudyGroup(lecId);
 	}
+	
+	public int countMyStudyGroup(String userId) {
+		return studyGroupMapper.countMyStudyGroup(userId);
+	}
 
 }
