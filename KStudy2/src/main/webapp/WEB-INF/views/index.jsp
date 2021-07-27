@@ -749,7 +749,6 @@
     	$.ajax({
     	    url: "/logout",
     	    type: "GET",
-    	    async: false,
     	    contentType: "application/json; charset=utf-8;",
     	    success : function(response){
    	    		
