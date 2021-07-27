@@ -369,8 +369,10 @@
         } */
         
         function checkMember(option){
+        	
+        	var state = "${member}";
         	//if(${member}=="leader" || ${member}=="member"){
-        	if(${member}=="y"){
+        	if(state=="y"){
         		if(option=="schedule"){
 	        		window.location.href = "/view/schedule/"+${groupInfo.groupId};
         		}
@@ -379,7 +381,7 @@
         		}
         	}
         	//else if(state=="nmember"){
-        	else if(${member}=="n"){
+        	else if(state=="n"){
         		alert('그룹 가입자만 볼 수 있습니다.');
         	}
         	else{

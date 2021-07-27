@@ -176,7 +176,7 @@ public class ViewController {
 		//체크하는 Service
 		ModelAndView mav = new ModelAndView("studyInfo");
 		
-		if(studyGroupService.checkRegMember(groupId, session.getAttribute("nickname").toString())==1) {
+		if(studyGroupService.checkRegMember(groupId, session.getAttribute("user_id").toString())==1) {
 			mav.addObject("member","y");
 		}
 		else {
