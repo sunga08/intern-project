@@ -120,7 +120,7 @@ public class StudyGroupController {
 	//개설자 여부 체크
 	@GetMapping("/studygroup/check/state/{groupId}")
 	public ResponseEntity<Map<String,String>> isGroupLeader(HttpSession session, @PathVariable(name="groupId")int groupId) {
-		String userId = session.getAttribute("user_id").toString();
+		String userId = session.getAttribute("nickname").toString();
 		
 		Map<String, String> map = new HashMap<>();
 		if(studyGroupService.isGroupLeader(userId, groupId)==1) {						

@@ -73,9 +73,9 @@
     <body class="sb-nav-fixed">
     <%       	
 		request.setCharacterEncoding("UTF-8"); 
-    	String state = request.getParameter("state");
+    	//String state = request.getParameter("state");
     %>
-    <c:set var="st" value="<%=state %>"/>
+    <%-- <c:set var="st" value="<%=state %>"/> --%>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="<c:url value='/main'/>">K-STUDY</a>
@@ -89,14 +89,14 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
                                 <!-- <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>-->
                                 <font size=5><i class="fas fa-info-circle"></i>&nbsp; 스터디 정보</font>
                             </a>
-                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}'/>">
                                 <font size=5><i class="far fa-calendar-alt"></i>&nbsp; 일정 관리</font>
                             </a>
-                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}'/>">
                                 <font size=5><i class="far fa-clipboard"></i>&nbsp; 자유 게시판</font>
                             </a>
                             
@@ -124,7 +124,7 @@
                         
                         <h4></h4>
                         <hr>
-                        <div style="float:left;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/${groupInfo.groupId}?state=${st}'">목록보기</button></div>
+                        <div style="float:left;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/${groupInfo.groupId}'">목록보기</button></div>
                         <div id="board" style="margin-bottom: 100px;">
                         
                         	<table id="datatable-scroller" class="table table-bordered tbl_Form">
@@ -357,9 +357,9 @@
         
         //게시글 수정
         function updatePost(){
-        	var userState = "<%=state%>";
+        	<%-- var userState = "<%=state%>"; --%>
         	if("${post.regUser}"=="${user}"){
-        		location.href="/view/studyboard/update/"+${groupInfo.groupId}+"/"+${post.boardId}+"?state="+userState;
+        		location.href="/view/studyboard/update/"+${groupInfo.groupId}+"/"+${post.boardId};
         	}
         	else{
         		alert("수정은 게시글 작성자만 가능합니다.");

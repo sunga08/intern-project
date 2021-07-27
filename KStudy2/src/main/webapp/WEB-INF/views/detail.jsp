@@ -493,7 +493,7 @@
     }
     
     //스터디 클릭시 사용자 권한 체크
-    function checkMemberState(groupId){
+    /* function checkMemberState(groupId){
     	
     	$.ajax({
 			url: '/studygroup/check/member/'+groupId, 
@@ -525,11 +525,11 @@
 		})
 		
 		
-    }
+    } */
     
-    function showStudyDetail(state, groupId){
+    /* function showStudyDetail(state, groupId){
     	location.href='/view/info/'+groupId+'?state='+state;
-    }
+    } */
 
     function countStudyGroup(){
 		var cnt;
@@ -748,10 +748,7 @@
 			}
 		})
     }
-    
-    
-    
-    
+        
     function pagination(totalData, dataPerPage, pageCount, currentPage, option){
 	  	let html='';
 	  	        	       	

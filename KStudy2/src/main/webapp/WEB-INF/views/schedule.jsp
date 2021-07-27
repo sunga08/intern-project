@@ -154,9 +154,9 @@
     <body class="sb-nav-fixed">
     <%       	
 		request.setCharacterEncoding("UTF-8"); 
-       	String state = request.getParameter("state");
+       	//String state = request.getParameter("state");
     %>
-    <c:set var="st" value="<%=state %>"/>
+    <%-- <c:set var="st" value="<%=state %>"/> --%>
     
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
@@ -171,14 +171,14 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
                                 <!-- <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>-->
                                 <font size=5><i class="fas fa-info-circle"></i>&nbsp; 스터디 정보</font>
                             </a>
-                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}'/>">
                                 <font size=5><i class="far fa-calendar-alt"></i>&nbsp; 일정 관리</font>
                             </a>
-                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}'/>">
                                 <font size=5><i class="far fa-clipboard"></i>&nbsp; 자유 게시판</font>
                             </a>
                             

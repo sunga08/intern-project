@@ -37,9 +37,9 @@
     <body class="sb-nav-fixed">
     <%       	
 		request.setCharacterEncoding("UTF-8"); 
-       	String state = request.getParameter("state");
+       	//String state = request.getParameter("state");
     %>
-    <c:set var="st" value="<%=state %>"/>
+    <%-- <c:set var="st" value="<%=state %>"/> --%>
     
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
@@ -54,14 +54,14 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading"></div>
-                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/info/${groupInfo.groupId}'/>">
                                 <!-- <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>-->
                                 <font size=5><i class="fas fa-info-circle"></i>&nbsp; 스터디 정보</font>
                             </a>
-                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/schedule/${groupInfo.groupId}'/>">
                                 <font size=5><i class="far fa-calendar-alt"></i>&nbsp; 일정 관리</font>
                             </a>
-                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}?state=${st}'/>">
+                            <a class="nav-link" href="<c:url value='/view/studyboard/${groupInfo.groupId}'/>">
                                 <font size=5><i class="far fa-clipboard"></i>&nbsp; 자유 게시판</font>
                             </a>
                             
@@ -99,7 +99,7 @@
                         </div>
 	                    
 	                    <!-- 게시글 작성 버튼 -->
-                        <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/write/${groupInfo.groupId}/?state=${st}'">글쓰기</button></div>
+                        <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/write/${groupInfo.groupId}'">글쓰기</button></div>
                         
                         <!-- 게시글 목록 -->
                         <div id="board">                	                        		                        
@@ -153,7 +153,6 @@
         function getBoardData(page){
         	var groupId = "${groupInfo.groupId}";
         	var lecId = "${groupInfo.lecId}";
-        	var userState ="<%=state%>"; 
         	
         	$("#board").empty()
         	
@@ -194,7 +193,7 @@
 	            			html += '<tbody>';
 	                    	html += '<tr>';
 	        				html += '<td>'+num+'</td>';
-	        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'?state='+userState+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+	        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
 	        				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
 	        				html += '<td>'+obj.regUser+'</td>';
 	        				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
@@ -248,7 +247,7 @@
         
         //검색 결과 조회
         function getSearchData(keyword, page, searchCnt, option){ 
-        	var userState = "<%=state%>";
+        	
         	$("#board").empty();
         	
         	$.ajax({
@@ -282,7 +281,7 @@
             			html += '<tbody>';
                     	html += '<tr>';
         				html += '<td>'+num+'</td>';
-        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'?state='+userState+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
+        				html += '<td><a href="<c:url value="/view/studyboard/detail/'+groupId+'/'+obj.boardId+'"/>" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
         				//html += '<td><a href="javascript:void(0);" onclick="getBoardDetail('+obj.boardId+')" style="text-decoration: none; color: #000b83">'+obj.title+'</a></td>';
         				html += '<td>'+obj.regUser+'</td>';
         				html += '<td>'+timeString_KR.substring(0,11)+'</td>';
