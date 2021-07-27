@@ -15,7 +15,6 @@ import org.springframework.http.converter.xml.MarshallingHttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
-@EnableCaching
 @SpringBootApplication
 public class KStudy2Application {
 

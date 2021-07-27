@@ -581,7 +581,7 @@
     //스터디 생성하기 창 띄우기
     function createStudy(){
     	window.open('/studygroup/add/'+encodeURIComponent("<%=id%>"), '스터디 생성하기','width=800, height=500');
-    	window.opener.document.getElementById('form').submit();
+    	//window.opener.document.getElementById('form').submit();
 
     }
     
@@ -829,12 +829,12 @@
     	    async: false,
     	    contentType: "application/json; charset=utf-8;",
     	    success : function(response){
-   	    		
+   	    		alert("로그아웃 성공")
 	    		window.location="/main";
 	    	    
     	    },
     	    error : function(){
-    	      alert("에러")		
+    	      alert("로그아웃 에러")		
     	    }
     	  });
     }
