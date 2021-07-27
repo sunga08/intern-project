@@ -210,7 +210,7 @@
 		var cnt;
     	
     	$.ajax({
-            url: "/studygroup/count/my";
+            url: "/studygroup/count/my",
             type: "GET",       
             async: false,
             dataType: "json",
