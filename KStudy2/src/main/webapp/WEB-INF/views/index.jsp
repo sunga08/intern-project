@@ -278,13 +278,13 @@
     $(document).ready(function(){
     	nickname = "${nickname}";
 
-	   	if(nickname.length>0){
+	   	/* if(nickname.length>0){
 	   		$("#login").empty();
 	      	html='';
 	      	html+='<div class="d-flex"><h3>'+nickname+'´Ô È¯¿µÇÕ´Ï´Ù! &nbsp;</h3>';
 	      	html+='<button class="btn btn-primary btn-sm" onclick="logout()">·Î±×¾Æ¿ô</button></div>';
 	      	$("#login").append(html);
-	   	}
+	   	} */
     	getLecturePaging(1);
     	totalData = countAllLecture();
 		pagination(totalData, dataPerPage, pageCount, 1, "main");
