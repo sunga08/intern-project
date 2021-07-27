@@ -28,13 +28,13 @@ public class LoginController {
 	}
 
 	
-	@GetMapping("/logout")
-	public void logout(HttpSession session) {
-		
-		System.out.println("로그아웃 api "+session.getAttribute("user_id").toString());
-		//session.removeAttribute("user_id");
-		session.invalidate();
-	}
+//	@GetMapping("/logout")
+//	public void logout(HttpSession session) {
+//		
+//		System.out.println("로그아웃 api "+session.getAttribute("user_id").toString());
+//		//session.removeAttribute("user_id");
+//		session.invalidate();
+//	}
 	
 	
 

@@ -73,7 +73,7 @@
 					<div id="naver_id_login" style="text-align:center">
 					<c:choose>
 						<c:when test="${user_id!=null}">
-							<h5>${nickname}´Ô È¯¿µÇÕ´Ï´Ù! &nbsp;<a href='javascript:void(0);' onclick="logout()">·Î±×¾Æ¿ô</a></h5>
+							<h5>${nickname}´Ô È¯¿µÇÕ´Ï´Ù! &nbsp;<a href="<c:url value='/logout' />"> ·Î±×¾Æ¿ô</a></h5>
 							
 						</c:when>
 						<c:otherwise>
