@@ -43,7 +43,8 @@ public class StudyGroupService {
 		int totalCount = studyGroupMapper.countMyStudyGroup(regUser);
 		criteria.setRecordsPerPage(6);
 		criteria.setTotalData(totalCount);
-		
+		System.out.println("Service regUser "+regUser);
+		System.out.println("total "+totalCount);
 		List<StudyGroup> groupList = Collections.emptyList();
 		int start = criteria.getStartPage(); //offset
 		
