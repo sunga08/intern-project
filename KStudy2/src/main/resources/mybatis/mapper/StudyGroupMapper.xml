@@ -107,7 +107,7 @@
 		
 	</select>
 	
-	<select id="countMyStudyGroup" resultType="java.lang.Integer">
+	<select id="countMyStudyGroup" resultType="java.lang.String">
 		select count(*) from study_group
 		where reg_user=#{regUser} and use_yn='y'
 	</select>
