@@ -96,4 +96,17 @@
 		where lec_id=#{lecId} and use_yn='y'
 	</select>
 	
+	
+	<select id="myStudyGroup" parameterType="java.lang.String" resultMap="studyGroup_resultMap">
+		SELECT sg.* FROM (
+			select group_id, lec_id, lec_name, group_name, school_name, short_dsc, long_dsc, max_mem, create_date, reg_user, cur_mem
+			from study_group
+			WHERE reg_user=#{regUser} and use_yn='y'
+			order by create_date desc) sg
+		limit #{start}, #{recordsPerPage}
+		
+	</select>
+	
+	
+	
 </mapper>

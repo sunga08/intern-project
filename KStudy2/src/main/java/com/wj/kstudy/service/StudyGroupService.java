@@ -39,7 +39,20 @@ public class StudyGroupService {
 	@Value("6")
 	private int PAGE_SIZE;
 	
-	
+	public List<StudyGroup> getMyStudyGroup(String regUser, Criteria criteria){
+		int totalCount = studyGroupMapper.countMyStudyGroup(regUser);
+		criteria.setRecordsPerPage(6);
+		criteria.setTotalData(totalCount);
+		
+		List<StudyGroup> groupList = Collections.emptyList();
+		int start = criteria.getStartPage(); //offset
+		
+		if(totalCount>0) {
+			groupList = studyGroupMapper.getStudyGroupPaging(regUser, start, PAGE_SIZE);
+		}
+				
+		return groupList;
+	}
 	
 	public List<StudyGroup> showStudyGroup(String lecId) {
 		return studyGroupMapper.getStudyGroup(lecId);

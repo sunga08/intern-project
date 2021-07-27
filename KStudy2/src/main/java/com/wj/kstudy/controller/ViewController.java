@@ -370,5 +370,14 @@ public class ViewController {
 //		mav.setViewName("index");
 //		return mav;
 //	}
+	
+	@GetMapping("/mypage")
+	public ModelAndView myPage(HttpSession session) {
+		ModelAndView mav = new ModelAndView("mypage");
+		mav.setViewName("myPage");
+		
+		return mav;
+	}
+	
 
 }

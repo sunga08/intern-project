@@ -181,4 +181,11 @@ public class StudyGroupController {
 	}
 	
 	
+	@GetMapping("/mypage/{page}")
+	public List<StudyGroup> getMyStudyGroup(@PathVariable(name="page") int page, @ModelAttribute("criteria") Criteria criteria, HttpSession session) {
+		criteria.setCurrentPageNo(page);
+		String regUser = session.getAttribute("nickname").toString();
+		return studyGroupService.getMyStudyGroup(regUser, criteria);
+	}
+	
 }
