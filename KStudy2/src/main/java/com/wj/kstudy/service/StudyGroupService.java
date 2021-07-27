@@ -48,7 +48,7 @@ public class StudyGroupService {
 		int start = criteria.getStartPage(); //offset
 		
 		if(totalCount>0) {
-			groupList = studyGroupMapper.getStudyGroupPaging(regUser, start, PAGE_SIZE);
+			groupList = studyGroupMapper.myStudyGroup(regUser, start, PAGE_SIZE);
 		}
 				
 		return groupList;
