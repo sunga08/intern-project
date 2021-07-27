@@ -747,11 +747,10 @@
     
     function logout(){
     	$.ajax({
-    	    url: "/logouts",
+    	    url: "/logout",
     	    type: "GET",
     	    contentType: "application/json; charset=utf-8;",
     	    success : function(response){
-   	    		alert("로그아웃 성공")
 	    		window.location="/main";	    	    
     	    },
     	    error : function(){

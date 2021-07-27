@@ -824,12 +824,10 @@
     
     function logout(){
     	$.ajax({
-    	    url: "/logout",
+    	    url: "/logouts",
     	    type: "GET",
-    	    async: false,
     	    contentType: "application/json; charset=utf-8;",
     	    success : function(response){
-   	    		alert("로그아웃 성공")
 	    		window.location="/main";
 	    	    
     	    },

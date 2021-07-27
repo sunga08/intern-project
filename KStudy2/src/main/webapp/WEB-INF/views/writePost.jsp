@@ -177,6 +177,7 @@
         	var form = $('#form').serializeObject();
     		var groupId = "${groupInfo.groupId}";
     		var editor = CKEDITOR.instances.content;
+    		var state = "<%=state%>";
 
     		if(form.title!=""&&editor.getData!=""){
     			var formData = {
@@ -195,7 +196,7 @@
     					console.log(data);
     					if(data==1){
     						alert('등록되었습니다.');
-    						window.location.replace("/view/studyboard/"+groupId+"?state="+<%=state%>);
+    						window.location.replace("/view/studyboard/"+groupId+"?state="+state);
     					}
     					else{
     						alert('등록 실패');
