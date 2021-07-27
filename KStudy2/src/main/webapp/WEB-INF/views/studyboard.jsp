@@ -27,9 +27,9 @@
             	margin-bottom: 1rem;
             }
             
-            .pagination, .dataTable-pagination ul{
+            /* .pagination, .dataTable-pagination ul{
             	padding-left: 750px;
-            }
+            } */
             
    		</style>
 		
@@ -101,11 +101,11 @@
 	                    <!-- 게시글 작성 버튼 -->
                         <div style="float:right;" class="mt-4-1"><button class="btn btn-primary" onclick="location.href='/view/studyboard/write/${groupInfo.groupId}'">글쓰기</button></div>
                         
-                        <div class="container px-4 px-lg-5">
 	                        <!-- 게시글 목록 -->
 	                        <div id="board">                	                        		                        
 							</div>     
 							
+                        <div class="container px-4 px-lg-5">
 							<!-- 페이징 표시 -->
 							<div class=container>
 			                    <div id="pagination" class="pagination-div">							  	
