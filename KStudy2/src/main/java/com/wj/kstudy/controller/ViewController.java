@@ -179,7 +179,7 @@ public class ViewController {
 		if(studyGroupService.checkRegMember(groupId, session.getAttribute("user_id").toString())==1) {
 			//멤버일 경우
 			
-			if(studyGroupService.isGroupLeader(session.getAttribute("user_id").toString(), groupId)==1) {
+			if(studyGroupService.isGroupLeader(session.getAttribute("nickname").toString(), groupId)==1) {
 				mav.addObject("state","leader");
 			}
 			else {
