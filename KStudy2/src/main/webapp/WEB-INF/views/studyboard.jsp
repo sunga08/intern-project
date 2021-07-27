@@ -114,7 +114,7 @@
 	                        <div id="board">                	                        		                        
 							</div>     
 							
-                        <div class="container px-4 px-lg-5">
+                        <div class="container px-4 px-lg-5" style="margin-top:50px;">
 							<!-- ÆäÀÌÂ¡ Ç¥½Ã -->
 							<div class=container>
 			                    <div id="pagination" class="pagination-div">							  	
