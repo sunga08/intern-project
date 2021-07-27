@@ -87,7 +87,7 @@
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->       
         <div style="margin-top:30px;">
-        	<h1><i class="fas fa-user"></i>My Page</h1>
+        	<h1><i class="fas fa-users"></i>My Page</h1>
         </div>
 
 	   	<div>
