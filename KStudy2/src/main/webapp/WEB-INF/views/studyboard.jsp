@@ -106,8 +106,10 @@
 						</div>     
 						
 						<!-- ÆäÀÌÂ¡ Ç¥½Ã -->
-	                    <div id="pagination" class="pagination-div">							  	
-						</div>                                                               
+						<div class=container>
+		                    <div id="pagination" class="pagination-div">							  	
+							</div>   
+						</div>                                                            
                         
                     </div>
                 </main>

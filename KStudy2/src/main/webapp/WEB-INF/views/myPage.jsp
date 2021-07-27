@@ -17,6 +17,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/styles2.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
     
     <style>
@@ -93,7 +94,7 @@
 		<hr/>
 		
 	   	<div>
-	   		<div style="margin-top:100px; margin-bottom:20px;"><h3 style="display: inline-block; background-color:#EAA5A5">내가 개설한 스터디</h3></div>
+	   		<div style="margin-top:30px; margin-bottom:20px;"><h3 style="display: inline-block; background-color:#F4B547">내가 개설한 스터디</h3></div>
 	   	</div>
        
         <!-- 스터디 Content -->
@@ -101,7 +102,7 @@
         </div>        
         
         
-        <div class=container style="margin-top:10px; margin-bottom:30px;">
+        <div class=container style="margin-top:10px; margin-bottom:50px;">
 			<div id="pagination" class="pagination-div">			  	
 			</div>
 		</div>
@@ -109,7 +110,7 @@
 		<hr/>
 		
 		<div>
-	   		<div style="margin-top:100px; margin-bottom:20px;"><h3 style="display: inline-block; background-color:#F4B547">가입한 스터디</h3></div>
+	   		<div style="margin-top:30px; margin-bottom:20px;"><h3 style="display: inline-block; background-color:#F4B547">가입한 스터디</h3></div>
 	   	</div>
        
         <!-- 스터디 Content -->
@@ -117,7 +118,7 @@
         </div>        
         
         
-        <div class=container style="margin-top:10px; margin-bottom:30px;">
+        <div class=container style="margin-top:10px; margin-bottom:50px;">
 			<div id="pagination2" class="pagination-div">			  	
 			</div>
 		</div>
