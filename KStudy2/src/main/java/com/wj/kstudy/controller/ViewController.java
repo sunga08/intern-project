@@ -175,6 +175,14 @@ public class ViewController {
 		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
 		//체크하는 Service
 		ModelAndView mav = new ModelAndView("studyInfo");
+		
+		if(studyGroupService.checkRegMember(groupId, session.getAttribute("nickname").toString())==1) {
+			mav.addObject("member","y");
+		}
+		else {
+			mav.addObject("member","n");
+		}
+		
 		mav.addObject("groupInfo", studyGroup);
 		mav.setViewName("detail_studygroup");
 		
@@ -189,6 +197,13 @@ public class ViewController {
 		ModelAndView mav = new ModelAndView("scheduleView");
 		
 		StudyGroup studyGroup = studyGroupService.getOneStudyGroup(groupId);
+		if(studyGroupService.checkRegMember(groupId, session.getAttribute("nickname").toString())==1) {
+			mav.addObject("member");
+		}
+		else {
+			mav.addObject("nmember");
+		}
+		
 		mav.addObject("groupInfo", studyGroup);
 		mav.setViewName("schedule");
 		

@@ -369,15 +369,17 @@
         } */
         
         function checkMember(option){
-        	if(state=="leader" || state=="member"){
+        	//if(${member}=="leader" || ${member}=="member"){
+        	if(${member}=="y"){
         		if(option=="schedule"){
-	        		window.location.href = "/view/schedule/"+${groupInfo.groupId}+"?state="+state;
+	        		window.location.href = "/view/schedule/"+${groupInfo.groupId};
         		}
         		else if(option=="board"){
-        			window.location.href = "/view/studyboard/"+${groupInfo.groupId}+"?state="+state;
+        			window.location.href = "/view/studyboard/"+${groupInfo.groupId};
         		}
         	}
-        	else if(state=="nmember"){
+        	//else if(state=="nmember"){
+        	else if(${member}=="n")
         		alert('그룹 가입자만 볼 수 있습니다.');
         	}
         	else{
