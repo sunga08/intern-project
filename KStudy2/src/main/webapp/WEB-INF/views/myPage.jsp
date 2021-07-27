@@ -11,13 +11,13 @@
     <title>K-STUDY</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
 
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/styles2.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css">
     
     <style>
       .btn-red {
@@ -87,11 +87,13 @@
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->       
         <div style="margin-top:30px;">
-        	<h1><i class="fas fa-users"></i>My Page</h1>
+        	<h1 class="mt-4"><i class="fas fa-users"></i>My Page</h1>
         </div>
 
+		<hr/>
+		
 	   	<div>
-	   		<div style="margin-top:100px; margin-bottom:20px;"><h3>내가 개설한 스터디</h3></div>
+	   		<div style="margin-top:100px; margin-bottom:20px;"><h3 style="display: inline-block; background-color:#EAA5A5">내가 개설한 스터디</h3></div>
 	   	</div>
        
         <!-- 스터디 Content -->
@@ -104,10 +106,10 @@
 			</div>
 		</div>
 		
-		<br/>
+		<hr/>
 		
 		<div>
-	   		<div style="margin-top:100px; margin-bottom:20px;"><h3>가입한 스터디</h3></div>
+	   		<div style="margin-top:100px; margin-bottom:20px;"><h3 style="display: inline-block; background-color:#F4B547">가입한 스터디</h3></div>
 	   	</div>
        
         <!-- 스터디 Content -->
