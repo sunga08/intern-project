@@ -461,54 +461,6 @@
         	console.log(cnt);
         	return cnt;
         }
-        
-        /* function getBoardDetail(boardId){
-        	
-        	$("#board").empty()
-        	$.ajax({
-                url: "/studyboard/detail/"+boardId,
-                type: "GET",
-                contentType: "application/json; charset=utf-8;",
-                dataType: "json",
-                success: function(response){
-
-                    console.log(response);
-
-                    
-                    let html = '';
-                    
-                    html += '<table id="datatable-scroller" class="table table-bordered tbl_Form">';
-
-					html += '<tbody>';
-					html += '<tr><th class="tg-yj5y" width=250px>제목</th>';
-					html += '<td class="tg-0pky"></td>';
-					html += '<th class="tg-uqo3" width=250px>작성일</th>';
-					html += '<td class="tg-0lax"></td></tr>';
-					
-					
-					html += '<tr><th class="tg-yj5y">작성자</th>';
-					html += '<td class="tg-0pky"></td>';
-					html += '<th class="tg-uqo3">조회수</th>';
-					html += '<td class="tg-0lax"></td> </tr>';
-					html += '<tr><th class="tg-yj5y">내용</th>';
-					html += '<td class="tg-0pky" colspan="3"></td> </tr>';
-					html += '</tbody></table></div>';
-                
-                
-					html += '<div style="float:right;" class="mt-4-1"><button class="btn btn-green">수정</button></div>';
-					html += '<div style="float:right;" class="mt-4-1"><button class="btn btn-red">삭제</button></div>';
-
-					
-                    console.log("html")
-                    console.log(html)
-                    $("#board").append(html)
-
-                },
-                error: function(){
-                    alert("err");
-                }
-            });    	
-        } */
 
         
 
