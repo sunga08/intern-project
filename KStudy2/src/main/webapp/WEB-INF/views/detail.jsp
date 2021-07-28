@@ -52,7 +52,6 @@
            border: 2px solid #888;
            border-radius: 3px;
        }
-
        #my_modal .modal_close_btn {
            position: absolute;
            bottom: 10px;
@@ -136,7 +135,6 @@
 	        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
 	        text-indent: -9999px;
 	    }
-
 		.modal{ 
 		  position:absolute; width:100%; height:100%; background: rgba(0,0,0,0.8); top:0; left:0; display:none;
 		}
@@ -150,8 +148,6 @@
 		  box-sizing:border-box; padding:74px 0;
 		  line-height:23px; cursor:pointer;
 		}
-
-
 		.row-cols-xl-4 > *{
    			width: 20%;
 		}
@@ -181,7 +177,7 @@
 			
 				<div id="naver_id_login" style="text-align:center">					
 					<c:if test="${nickname!=null}">
-						<div class="d-flex"><h5 style="color:white;">${nickname} ë‹˜ &nbsp;</h5><button class="btn btn-primary btn-sm" onclick="logout()">ë¡œê·¸ì•„ì›ƒ</button></div>							
+						<div class="d-flex"><h5 style="color:white;">${nickname} ´Ô &nbsp;</h5><button class="btn btn-primary btn-sm" onclick="logout()">·Î±×¾Æ¿ô</button></div>							
 					</c:if>
 										
 				</div>
@@ -197,13 +193,13 @@
         &nbsp;
 
 	   	<div style="margin-bottom:100px">
-	   		<div style="float:left"><h3>ì´ ê°•ì˜ë¡œ ì§„í–‰ì¤‘ì¸ ìŠ¤í„°ë””</h3></div>
+	   		<div style="float:left"><h3>ÀÌ °­ÀÇ·Î ÁøÇàÁßÀÎ ½ºÅÍµğ</h3></div>
 
-	   		<div style="float:right"><a class="btn btn-primary" onclick="createStudy()">ìŠ¤í„°ë”” ìƒì„±í•˜ê¸°</a></div>
+	   		<div style="float:right"><a class="btn btn-primary" onclick="createStudy()">½ºÅÍµğ »ı¼ºÇÏ±â</a></div>
 	   	</div>
 
         
-        <!-- ìŠ¤í„°ë”” Content -->
+        <!-- ½ºÅÍµğ Content -->
         <div id="studygroup" class="row gx-4 gx-lg-5">
         </div>        
         
@@ -214,13 +210,13 @@
 		</div>
         
         <hr>
-        <!-- ë„ì„œ ì˜ì—­ -->
+        <!-- µµ¼­ ¿µ¿ª -->
         <div style="margin-bottom:100px">
-	   		<div style="float:left"><h3>ê°•ì¢Œ ì—°ê´€ ë„ì„œ</h3></div>
+	   		<div style="float:left"><h3>°­ÁÂ ¿¬°ü µµ¼­</h3></div>
 	   	</div>
 
         
-        <!-- ë„ì„œ Content-->
+        <!-- µµ¼­ Content-->
         <div id="bookData" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         </div>
         
@@ -229,7 +225,7 @@
 		 
     <!-- Footer-->
     <footer class="py-5 bg-dark">
-        <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; ì›…ì§„ ì”½í¬ë¹… ITê°œë°œì‹¤</p></div>
+        <div class="container px-4 px-lg-5"><p class="m-0 text-center text-white">Copyright &copy; ¿õÁø ¾ÅÅ©ºò IT°³¹ß½Ç</p></div>
     </footer>
 
 
@@ -239,25 +235,23 @@
     <script src="/js/scripts.js"></script>
     <script type="text/javascript">
      
-    let totalData; //ì´ ë°ì´í„° ìˆ˜
-    let dataPerPage = 6; //í•œ í˜ì´ì§€ì— ë‚˜íƒ€ë‚¼ ê¸€ ìˆ˜
-    let pageCount = 5; //í˜ì´ì§•ì— ë‚˜íƒ€ë‚¼ í˜ì´ì§€ ìˆ˜
-    let globalCurrentPage=1; //í˜„ì¬ í˜ì´ì§€
+    let totalData; //ÃÑ µ¥ÀÌÅÍ ¼ö
+    let dataPerPage = 6; //ÇÑ ÆäÀÌÁö¿¡ ³ªÅ¸³¾ ±Û ¼ö
+    let pageCount = 5; //ÆäÀÌÂ¡¿¡ ³ªÅ¸³¾ ÆäÀÌÁö ¼ö
+    let globalCurrentPage=1; //ÇöÀç ÆäÀÌÁö
      
     var lecName;
     
      $(document).ready(function(){
      	console.log("<%=id%>");
-     	showDetail(); //ê°•ì¢Œ ìƒì„¸ì •ë³´ ì¡°íšŒ   
-		getStudyData(1); //ìŠ¤í„°ë”” ê·¸ë£¹ ëª©ë¡ 1í˜ì´ì§€
+     	showDetail(); //°­ÁÂ »ó¼¼Á¤º¸ Á¶È¸   
+		getStudyData(1); //½ºÅÍµğ ±×·ì ¸ñ·Ï 1ÆäÀÌÁö
 		totalData = countStudyGroup();
 		pagination(totalData, dataPerPage, pageCount, 1, "study");
-		getBookData(lecName); //ê´€ë ¨ ë„ì„œ ì¡°íšŒ
+		getBookData(lecName); //°ü·Ã µµ¼­ Á¶È¸
      });
-
-   //ê°•ì¢Œ ìƒì„¸ì •ë³´ ì¡°íšŒ
+   //°­ÁÂ »ó¼¼Á¤º¸ Á¶È¸
      function showDetail() {
-
      	$.ajax({
             url: "/detail/"+"<%=id%>",
             type: "GET",
@@ -276,14 +270,13 @@
                 html += '<div class="col-lg-5" style="width:70%">';
                 
              	html += '<p><h1 class="font-weight-light">'+data.lecName+'</h1></p>';
-             	html += '<p>ì œê³µê¸°ê´€ | '+data.orgName+'<br>';
-             	html += 'ê°•ì‚¬ëª…  | '+data.teachers+'<br>'; 
-             	html += 'ë“±ë¡ê¸°ê°„ | '+data.enrollStart.substring(0,10)+'~'+data.enrollEnd.substring(0,10)+'</p>';
-             	html += '<li style="list-style: none;"><a class="btn btn-primary" href="'+data.lecUrl+'" target="_blank">ê°•ì˜ ë°”ë¡œê°€ê¸°</a>';
+             	html += '<p>Á¦°ø±â°ü | '+data.orgName+'<br>';
+             	html += '°­»ç¸í  | '+data.teachers+'<br>'; 
+             	html += 'µî·Ï±â°£ | '+data.enrollStart.substring(0,10)+'~'+data.enrollEnd.substring(0,10)+'</p>';
+             	html += '<li style="list-style: none;"><a class="btn btn-primary" href="'+data.lecUrl+'" target="_blank">°­ÀÇ ¹Ù·Î°¡±â</a>';
              	
-             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn">ì›…ì§„ ì˜ì–´ì‚¬ì „</button>';
-             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn2">ì›…ì§„ êµ­ì–´ì‚¬ì „</button></li>';
-
+             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn">¿õÁø ¿µ¾î»çÀü</button>';
+             	html += '&nbsp;<button type="button" class="btn btn-primary" id="modal_btn2">¿õÁø ±¹¾î»çÀü</button></li>';
                 html += '</div>';
                 html += '</div>';
                 html += '<div class="card text-white bg-secondary my-5 py-4">';
@@ -315,7 +308,7 @@
     
     }
     
-     //ê´€ë ¨ ë„ì„œ
+     //°ü·Ã µµ¼­
      function getBookData (keyword) {
      	
      	$.ajax({
@@ -329,7 +322,7 @@
             	 console.log(data.length);
             	 
             	 if(data.length==0){
-                 	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>ê´€ë ¨ ë„ì„œ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤.</h3></div>';	
+                 	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>°ü·Ã µµ¼­ Á¤º¸°¡ ¾ø½À´Ï´Ù.</h3></div>';	
                  }
             	 
             	 
@@ -349,11 +342,11 @@
 	                	html += '['+obj.publisher+']';
 	                	html += '</div>';
 	                	html += '<p></p>';
-	                	html += '<p class="text-style-1">ì €ì<br/>';
+	                	html += '<p class="text-style-1">ÀúÀÚ<br/>';
 	                	html += obj.author;
 	                	html += '</p>' 
-	                	html += '<p class="text-style-1">ê°€ê²©<br/>';
-	                	html += obj.price+'ì›';
+	                	html += '<p class="text-style-1">°¡°İ<br/>';
+	                	html += obj.price+'¿ø';
 	                	html += '</p>'               	
 	                	
 	                	html += '</div>';
@@ -361,7 +354,7 @@
 	                	/* html += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">';
 	                	html += '<div class="text-center">';
 	                	html += '<a class="btn btn-outline-dark mt-auto" href="'+obj.link+'">';
-	                	html += 'ìì„¸íˆ ë³´ê¸°</a>';
+	                	html += 'ÀÚ¼¼È÷ º¸±â</a>';
 	                	html += '</div>';
 	                	html += '</div>';  */
 	                	html += '</div>';	
@@ -376,15 +369,13 @@
              }
          });
      }
-
-     //ì‚¬ì „ ë³´ê¸° ë²„íŠ¼ ì´ë²¤íŠ¸
+     //»çÀü º¸±â ¹öÆ° ÀÌº¥Æ®
      $(function(){     	 
     	 
     	 	function onClick() {
     	        document.querySelector('.modal_wrap').style.display ='block';
     	        document.querySelector('.black_bg').style.display ='block';
     	    }   
-
     	 	
     	    function offClick() {
     	        document.querySelector('.modal_wrap').style.display ='none';
@@ -395,13 +386,11 @@
     	        document.querySelector('.modal_wrap2').style.display ='block';
     	        document.querySelector('.black_bg').style.display ='block';
     	    }   
-
     	 	
     	    function offClick2() {
     	        document.querySelector('.modal_wrap2').style.display ='none';
     	        document.querySelector('.black_bg').style.display ='none';
     	    }
-
     	 
     	    document.getElementById('modal_btn').addEventListener('click', onClick);
     	    document.getElementById('modal_btn2').addEventListener('click', onClick2);
@@ -412,7 +401,7 @@
 	 
      
     
-    //ìŠ¤í„°ë”” ê·¸ë£¹ ëª©ë¡ ì¡°íšŒ
+    //½ºÅÍµğ ±×·ì ¸ñ·Ï Á¶È¸
     function getStudyData(page) {
     	$("#studygroup").empty()
     	
@@ -422,12 +411,10 @@
             async: false,
             dataType: "json",
             success: function(data){
-
                 console.log(data);
-
                 let html = '';
                 if(data.length==0){
-                	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>ì•„ì§ ìƒì„±ëœ ìŠ¤í„°ë””ê°€ ì—†ìŠµë‹ˆë‹¤.</h3></div>';	
+                	html += '<div style="margin-top:100px;margin-bottom:100px;text-align:center;"><h5>¾ÆÁ÷ »ı¼ºµÈ ½ºÅÍµğ°¡ ¾ø½À´Ï´Ù.</h3></div>';	
                 }
                 
                 $.each(data, function(index, obj){
@@ -443,29 +430,29 @@
                     html += '<a href="<c:url value="/view/info/'+obj.groupId+'"/>" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
                     //html += '<a href="javascript:void(0);" onclick="checkMemberState('+obj.groupId+')" style="text-decoration: none; color: #000b83"><h2 class="card-title">'+obj.groupName+'</h2></a>';
                     html += '<p class="card-text">'+obj.shortDsc+'</p>';
-                    html += '<p class="card-text"> í•™êµëª… | '+obj.schoolName+'<br/> ì¸ì›  | '+obj.curMem+' / '+obj.maxMem+'<br/> ìƒì„±ì¼ | '+timeString_KR.substring(0,11)+'<br/> ê°œì„¤ì | '+obj.regUser+'</p>';
+                    html += '<p class="card-text"> ÇĞ±³¸í | '+obj.schoolName+'<br/> ÀÎ¿ø  | '+obj.curMem+' / '+obj.maxMem+'<br/> »ı¼ºÀÏ | '+timeString_KR.substring(0,11)+'<br/> °³¼³ÀÚ | '+obj.regUser+'</p>';
                     html += '</div>';
-                    //ê°€ì…ì—¬ë¶€ ì²´í¬
-                    /* if(checkJoin(obj.groupId,0)==0){ //ê°€ì…ëœ ê·¸ë£¹
-                    	html += '<div class="card-footer"><a class="btn btn-red btn-sm" style="cursor: default;">ê°€ì…ëœ ê·¸ë£¹</a></div>';
+                    //°¡ÀÔ¿©ºÎ Ã¼Å©
+                    /* if(checkJoin(obj.groupId,0)==0){ //°¡ÀÔµÈ ±×·ì
+                    	html += '<div class="card-footer"><a class="btn btn-red btn-sm" style="cursor: default;">°¡ÀÔµÈ ±×·ì</a></div>';
                     }
-                    else if(checkJoin(obj.groupId,0)==1){ //ê°€ì…ë˜ì§€ ì•Šì€ ê·¸ë£¹
-                    	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+',1)">ì°¸ì—¬í•˜ê¸°</a></div>';
+                    else if(checkJoin(obj.groupId,0)==1){ //°¡ÀÔµÇÁö ¾ÊÀº ±×·ì
+                    	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+',1)">Âü¿©ÇÏ±â</a></div>';
                     } */
-                    if(isJoin(obj.groupId)==1){ //ê°€ì…ëœ ê·¸ë£¹
+                    if(isJoin(obj.groupId)==1){ //°¡ÀÔµÈ ±×·ì
                     	if(memberState(obj.groupId)==1){
-                    		html += '<div class="card-footer"><a class="btn btn-green" style="cursor: default;">ê°œì„¤í•œ ê·¸ë£¹</a></div>';
+                    		html += '<div class="card-footer"><a class="btn btn-green" style="cursor: default;">°³¼³ÇÑ ±×·ì</a></div>';
                     	}
                     	else{
-	                    	html += '<div class="card-footer"><a class="btn btn-green" style="cursor: default;">ê°€ì…ëœ ê·¸ë£¹</a></div>';                    		
+	                    	html += '<div class="card-footer"><a class="btn btn-green" style="cursor: default;">°¡ÀÔµÈ ±×·ì</a></div>';                    		
                     	}
                     }
-                    else if(isJoin(obj.groupId)==0){ //ê°€ì…ë˜ì§€ ì•Šì€ ê·¸ë£¹
-                    	//html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+',1)">ì°¸ì—¬í•˜ê¸°</a></div>';
-                    	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="isOverMaxMember('+obj.groupId+')">ì°¸ì—¬í•˜ê¸°</a></div>';
+                    else if(isJoin(obj.groupId)==0){ //°¡ÀÔµÇÁö ¾ÊÀº ±×·ì
+                    	//html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="checkJoin('+obj.groupId+',1)">Âü¿©ÇÏ±â</a></div>';
+                    	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="isOverMaxMember('+obj.groupId+')">Âü¿©ÇÏ±â</a></div>';
                     }
-                    else if(isJoin(obj.groupId)==-1){//ë¡œê·¸ì¸í•˜ì§€ ì•Šì€ ì‚¬ìš©ì
-                    	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="loginAlert()">ì°¸ì—¬í•˜ê¸°</a></div>';
+                    else if(isJoin(obj.groupId)==-1){//·Î±×ÀÎÇÏÁö ¾ÊÀº »ç¿ëÀÚ
+                    	html += '<div class="card-footer"><a class="btn btn-primary btn-sm" onclick="loginAlert()">Âü¿©ÇÏ±â</a></div>';
                     }
                     html += '</div>';
                     html += '</div>';
@@ -474,20 +461,18 @@
                 console.log("html")
                 console.log(html)
                 $("#studygroup").append(html)
-
             },
             error: function(){
                 alert("err");
             }
         });
-
     }
     
     function loginAlert(){
-    	alert('ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.');
+    	alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.');
     }
     
-    //ìŠ¤í„°ë”” í´ë¦­ì‹œ ì‚¬ìš©ì ê¶Œí•œ ì²´í¬
+    //½ºÅÍµğ Å¬¸¯½Ã »ç¿ëÀÚ ±ÇÇÑ Ã¼Å©
     /* function checkMemberState(groupId){
     	
     	$.ajax({
@@ -501,20 +486,18 @@
 				if(data.result=="member"){
 					var state = memberState(groupId);
 					if(state==1){
-						//ê°œì„¤ì
+						//°³¼³ÀÚ
 						location.href='/view/info/'+groupId+'?state=leader';
 					}
 					else{
-						//ë©¤ë²„
+						//¸â¹ö
 						location.href='/view/info/'+groupId+'?state=member';
 					}
 				}
 				else if(data.result=="not member"){
 					location.href='/view/info/'+groupId+'?state=nmember';
 				}
-
 			}, error: function(xhr, status,error){
-
 				console.log(xhr.status+" error: "+error);
 			}
 		})
@@ -522,8 +505,6 @@
 		
     } */
     
-
-
     function countStudyGroup(){
 		var cnt;
     	
@@ -545,45 +526,37 @@
     }
     
     
-    //ì‚¬ìš© X
+    //»ç¿ë X
     function GetBookData() {
-
     	$.ajax({
             url: "/lecture/studygroup/"+"<%=id%>",
             type: "GET",
             dataType: "json",
             success: function(data){
-
                 console.log(data);
-
                 let html = '';
                 
-                html += '<div style="margin-top:50px;margin-bottom:50px;text-align:center;"><h5>ê´€ë ¨ ë„ì„œê°€ ì—†ìŠµë‹ˆë‹¤.</h3></div>';	                
-
+                html += '<div style="margin-top:50px;margin-bottom:50px;text-align:center;"><h5>°ü·Ã µµ¼­°¡ ¾ø½À´Ï´Ù.</h3></div>';	                
                 $("#bookData").append(html);
-
             },
             error: function(){
                 alert("err");
             }
         });
-
     }
     
     
-    //ìŠ¤í„°ë”” ìƒì„±í•˜ê¸° ì°½ ë„ìš°ê¸°
+    //½ºÅÍµğ »ı¼ºÇÏ±â Ã¢ ¶ç¿ì±â
     function createStudy(){
-    	window.open('/studygroup/add/'+encodeURIComponent("<%=id%>"), 'ìŠ¤í„°ë”” ìƒì„±í•˜ê¸°','width=800, height=500');
+    	window.open('/studygroup/add/'+encodeURIComponent("<%=id%>"), '½ºÅÍµğ »ı¼ºÇÏ±â','width=800, height=500');
     	//window.opener.document.getElementById('form').submit();
-
     }
     
-    //ê°€ì…ì—¬ë¶€, ì¸ì›ì´ˆê³¼ ì—¬ë¶€ íŒë‹¨
+    //°¡ÀÔ¿©ºÎ, ÀÎ¿øÃÊ°ú ¿©ºÎ ÆÇ´Ü
     /* function checkJoin(groupId, tmp){
     	var check=1;
-
     	$.ajax({
-			url: '/studygroup/check/'+groupId, //ë°˜í™˜ê°’ ìˆ˜ì •í•˜ê¸°
+			url: '/studygroup/check/'+groupId, //¹İÈ¯°ª ¼öÁ¤ÇÏ±â
 			type: 'GET',
 			async: false,
 			contentType: 'application/json',
@@ -594,15 +567,12 @@
 					check=data;
 				}
 				else if(data==-1 && tmp==1){
-					alert('ì¸ì›ì´ ê°€ë“ì°¨ ì°¸ì—¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.');
+					alert('ÀÎ¿øÀÌ °¡µæÂ÷ Âü¿©ÇÒ ¼ö ¾ø½À´Ï´Ù.');
 				}
 				else if(data==1 && tmp==1){
 					confirmJoin(groupId);
 				}
-
-
 			}, error: function(xhr, status,error){
-
 				console.log(xhr.status+" error: "+error);
 			}
 		})
@@ -611,10 +581,9 @@
     } */
     
     
-    //ê°€ì… ì—¬ë¶€ íŒë‹¨
+    //°¡ÀÔ ¿©ºÎ ÆÇ´Ü
     function isJoin(groupId){
     	var res=-1;
-
     	$.ajax({
 			url: '/studygroup/check/member/'+groupId, 
 			type: 'GET',
@@ -629,10 +598,7 @@
 				else if(data.result=="not member"){
 					res = 0;
 				}
-
-
 			}, error: function(xhr, status,error){
-
 				console.log(xhr.status+" error: "+error);
 			}
 		})
@@ -640,10 +606,9 @@
 		return res;
     }
     
-    //ì¸ì›ì´ˆê³¼ ì—¬ë¶€ íŒë‹¨
+    //ÀÎ¿øÃÊ°ú ¿©ºÎ ÆÇ´Ü
     function isOverMaxMember(groupId){
     	var res=1;
-
     	$.ajax({
 			url: '/studygroup/check/count/'+groupId, 
 			type: 'GET',
@@ -656,22 +621,18 @@
 					confirmJoin(groupId);	
 				}
 				else if(data.result=="over"){
-					alert("ì¸ì›ì´ ê°€ë“ì°¨ ì°¸ì—¬í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+					alert("ÀÎ¿øÀÌ °¡µæÂ÷ Âü¿©ÇÒ ¼ö ¾ø½À´Ï´Ù.");
 				}
-
 			}, error: function(xhr, status,error){
-
 				console.log(xhr.status+" error: "+error);
 			}
 		})
 		
 		return res;    	
     }
-
-    //ê°œì„¤ì ì—¬ë¶€
+    //°³¼³ÀÚ ¿©ºÎ
     function memberState(groupId){
     	var res=1;
-
     	$.ajax({
 			url: '/studygroup/check/state/'+groupId, 
 			type: 'GET',
@@ -686,9 +647,7 @@
 				else if(data.result=="member"){
 					res=0;
 				}
-
 			}, error: function(xhr, status,error){
-
 				console.log(xhr.status+" error: "+error);
 			}
 		})
@@ -696,31 +655,29 @@
 		return res;
     }
     
-    //ê°€ì…í•˜ë ¤ëŠ” ê·¸ë£¹ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
+    //°¡ÀÔÇÏ·Á´Â ±×·ì Á¤º¸ °¡Á®¿À±â
     function confirmJoin(groupId){
-
     	$.ajax({
             url: "/studygroup/"+groupId,
             type: "GET",
             dataType: "json",            
             success: function(groupData){
-
                 console.log('groupData:'+groupData);
                           
-               	var con = confirm('ìŠ¤í„°ë”” ì°¸ì—¬ê°€ ê°€ëŠ¥í•©ë‹ˆë‹¤. ì°¸ì—¬í•˜ì‹œê² ìŠµë‹ˆê¹Œ?');
+               	var con = confirm('½ºÅÍµğ Âü¿©°¡ °¡´ÉÇÕ´Ï´Ù. Âü¿©ÇÏ½Ã°Ú½À´Ï±î?');
                	if(con==true){
-               		joinStudy(groupData);  //ê°€ì…ì²˜ë¦¬              		
+               		joinStudy(groupData);  //°¡ÀÔÃ³¸®              		
                		location.reload();
                	}
             },
             error: function(){
-                alert("ê°€ì…ì°½ ì˜¤ë¥˜");
+                alert("°¡ÀÔÃ¢ ¿À·ù");
             }
         });
     }
     
     
-    //ê·¸ë£¹ ê°€ì…
+    //±×·ì °¡ÀÔ
     function joinStudy(groupData){
     	$.ajax({
 			url: '/studygroup/join',
@@ -731,10 +688,10 @@
 			success: function(data){
 				console.log(data);
 				if(data==1){
-					alert('ì°¸ì—¬ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.');	
+					alert('Âü¿©°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.');	
 				}
 				else{
-					alert('ì°¸ì—¬ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.');
+					alert('Âü¿©¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.');
 				}
 			}, error: function(xhr, status,error){
 				console.log(xhr.status+" error: "+error);
@@ -745,22 +702,21 @@
     function pagination(totalData, dataPerPage, pageCount, currentPage, option){
 	  	let html='';
 	  	        	       	
-	  	totalPage = Math.ceil(totalData / dataPerPage); //ì´ í˜ì´ì§€ ìˆ˜
-
+	  	totalPage = Math.ceil(totalData / dataPerPage); //ÃÑ ÆäÀÌÁö ¼ö
 	  	
-	   	  if(totalPage<pageCount){ //ì „ì²´í˜ì´ì§€ ìˆ˜<í˜ì´ì§•ì— ë‚˜íƒ€ë‚¼ í˜ì´ì§€ ìˆ˜
-	   	    pageCount=totalPage; //í˜ì´ì§•ì— ë‚˜íƒ€ë‚¼ í˜ì´ì§€ ìˆ˜ = ì „ì²´í˜ì´ì§€ ìˆ˜
+	   	  if(totalPage<pageCount){ //ÀüÃ¼ÆäÀÌÁö ¼ö<ÆäÀÌÂ¡¿¡ ³ªÅ¸³¾ ÆäÀÌÁö ¼ö
+	   	    pageCount=totalPage; //ÆäÀÌÂ¡¿¡ ³ªÅ¸³¾ ÆäÀÌÁö ¼ö = ÀüÃ¼ÆäÀÌÁö ¼ö
 	   	  }
 	   	  
-	   	  let pageGroup = Math.ceil(currentPage / pageCount); // í˜ì´ì§€ ê·¸ë£¹ (í˜„ì¬í˜ì´ì§€/í˜ì´ì§•ì— ë‚˜íƒ€ë‚¼ í˜ì´ì§€ ìˆ˜) = 1(1~5), 2(6~10)...
-	   	  let last = pageGroup * pageCount; //í™”ë©´ì— ë³´ì—¬ì§ˆ ë§ˆì§€ë§‰ í˜ì´ì§€ ë²ˆí˜¸
+	   	  let pageGroup = Math.ceil(currentPage / pageCount); // ÆäÀÌÁö ±×·ì (ÇöÀçÆäÀÌÁö/ÆäÀÌÂ¡¿¡ ³ªÅ¸³¾ ÆäÀÌÁö ¼ö) = 1(1~5), 2(6~10)...
+	   	  let last = pageGroup * pageCount; //È­¸é¿¡ º¸¿©Áú ¸¶Áö¸· ÆäÀÌÁö ¹øÈ£
 	   	  
 	   	  
 	   	  if (last > totalPage) {
 	   	    last = totalPage;
 	   	  }
 	
-	   	  let first = (pageGroup-1)*pageCount+1; //í™”ë©´ì— ë³´ì—¬ì§ˆ ì²«ë²ˆì§¸ í˜ì´ì§€ ë²ˆí˜¸
+	   	  let first = (pageGroup-1)*pageCount+1; //È­¸é¿¡ º¸¿©Áú Ã¹¹øÂ° ÆäÀÌÁö ¹øÈ£
 	   	  let next = last + 1;
 	   	  let prev = first - 1;
 	
@@ -772,7 +728,7 @@
 	   	    pageHtml += "<li class='page-item'><a class='page-link' id='prev' href='#'>&laquo;</a></li>";
 	   	  }
 	
-	   	 //í˜ì´ì§• ë²ˆí˜¸ í‘œì‹œ 
+	   	 //ÆäÀÌÂ¡ ¹øÈ£ Ç¥½Ã 
 	   	  for (var i = first; i <= last; i++) {
 	   	    if (currentPage == i) {
 	   	      pageHtml +=
@@ -798,15 +754,12 @@
 	       	    if ($id == "prev") selectedPage = prev;
 	       	    
 	       	    
-	       	    globalCurrentPage = selectedPage; //ì„ íƒëœ í˜ì´ì§€ ë²ˆí˜¸
-
-
-       	    	//í˜ì´ì§• í‘œì‹œ ì¬í˜¸ì¶œ
+	       	    globalCurrentPage = selectedPage; //¼±ÅÃµÈ ÆäÀÌÁö ¹øÈ£
+       	    	//ÆäÀÌÂ¡ Ç¥½Ã ÀçÈ£Ãâ
 	       	    if(option=="study"){
 	       	   		pagination(totalData, dataPerPage, pageCount, selectedPage, "study");
 		       	    getStudyData(selectedPage);
 	       	    }
-
 	       	    
 	       	  });
        	
@@ -822,7 +775,7 @@
 	    	    
     	    },
     	    error : function(){
-    	      alert("ë¡œê·¸ì•„ì›ƒ ì—ëŸ¬")		
+    	      alert("·Î±×¾Æ¿ô ¿¡·¯")		
     	    }
     	  });
     }
