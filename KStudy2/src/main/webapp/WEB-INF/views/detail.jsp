@@ -739,6 +739,7 @@
 	   	  }
 	
 	   	 
+	   	 
 	   	  if (last < totalPage) {
 	   	    pageHtml += "<li class='page-item'><a class='page-link' href='#' id='next'>&raquo;</a></li>";
 	   	  }
